@@ -1,0 +1,193 @@
+<?xml version="1.0" standalone="yes"?>
+<object class="NSIBObjectData">
+  <string name="targetFramework">IBCarbonFramework</string>
+  <object name="rootObject" class="NSCustomObject" id="1">
+    <string name="customClass">NSApplication</string>
+  </object>
+  <array count="23" name="allObjects">
+    <object class="IBCarbonWindow" id="166">
+      <string name="windowRect">200 200 485 570 </string>
+      <string name="title">BASS internet radio tuner</string>
+      <object name="rootControl" class="IBCarbonRootControl" id="167">
+        <string name="bounds">0 0 285 370 </string>
+        <array count="3" name="subviews">
+          <object class="IBCarbonGroupBox" id="228">
+            <string name="bounds">2 10 82 360 </string>
+            <array count="12" name="subviews">
+              <object class="IBCarbonStaticText" id="230">
+                <string name="bounds">27 20 40 92 </string>
+                <boolean name="small">TRUE</boolean>
+                <int name="controlSize">1</int>
+                <string name="title">Broadband</string>
+              </object>
+              <object class="IBCarbonStaticText" id="232">
+                <string name="bounds">55 20 68 92 </string>
+                <boolean name="small">TRUE</boolean>
+                <int name="controlSize">1</int>
+                <string name="title">Modem</string>
+              </object>
+              <object class="IBCarbonButton" id="229">
+                <string name="bounds">24 100 44 140 </string>
+                <int name="controlID">10</int>
+                <string name="title">1</string>
+              </object>
+              <object class="IBCarbonButton" id="233">
+                <string name="bounds">24 152 44 192 </string>
+                <int name="controlID">12</int>
+                <string name="title">2</string>
+              </object>
+              <object class="IBCarbonButton" id="235">
+                <string name="bounds">24 204 44 244 </string>
+                <int name="controlID">14</int>
+                <string name="title">3</string>
+              </object>
+              <object class="IBCarbonButton" id="237">
+                <string name="bounds">24 256 44 296 </string>
+                <int name="controlID">16</int>
+                <string name="title">4</string>
+              </object>
+              <object class="IBCarbonButton" id="239">
+                <string name="bounds">24 308 44 348 </string>
+                <int name="controlID">18</int>
+                <string name="title">5</string>
+              </object>
+              <object class="IBCarbonButton" id="231">
+                <string name="bounds">52 100 72 140 </string>
+                <int name="controlID">11</int>
+                <string name="title">1</string>
+              </object>
+              <object class="IBCarbonButton" id="234">
+                <string name="bounds">52 152 72 192 </string>
+                <int name="controlID">13</int>
+                <string name="title">2</string>
+              </object>
+              <object class="IBCarbonButton" id="236">
+                <string name="bounds">52 204 72 244 </string>
+                <int name="controlID">15</int>
+                <string name="title">3</string>
+              </object>
+              <object class="IBCarbonButton" id="238">
+                <string name="bounds">52 256 72 296 </string>
+                <int name="controlID">17</int>
+                <string name="title">4</string>
+              </object>
+              <object class="IBCarbonButton" id="240">
+                <string name="bounds">52 308 72 348 </string>
+                <int name="controlID">19</int>
+                <string name="title">5</string>
+              </object>
+            </array>
+            <string name="title">Presets</string>
+          </object>
+          <object class="IBCarbonGroupBox" id="249">
+            <string name="bounds">85 10 195 360 </string>
+            <array count="3" name="subviews">
+              <object class="IBCarbonStaticText" id="246">
+                <string name="bounds">106 15 136 345 </string>
+                <int name="controlID">30</int>
+                <boolean name="small">TRUE</boolean>
+                <int name="controlSize">1</int>
+                <int name="justification">1</int>
+              </object>
+              <object class="IBCarbonStaticText" id="247">
+                <string name="bounds">138 15 168 345 </string>
+                <int name="controlID">31</int>
+                <boolean name="small">TRUE</boolean>
+                <int name="controlSize">1</int>
+                <string name="title">not playing</string>
+                <int name="justification">1</int>
+              </object>
+              <object class="IBCarbonStaticText" id="248">
+                <string name="bounds">171 15 187 345 </string>
+                <int name="controlID">32</int>
+                <boolean name="small">TRUE</boolean>
+                <int name="controlSize">1</int>
+                <int name="justification">1</int>
+              </object>
+            </array>
+            <string name="title">Currently playing</string>
+          </object>
+          <object class="IBCarbonGroupBox" id="250">
+            <string name="bounds">197 10 277 360 </string>
+            <array count="3" name="subviews">
+              <object class="IBCarbonEditText" id="251">
+                <string name="bounds">226 20 242 350 </string>
+                <int name="controlID">40</int>
+                <boolean name="isUnicode">TRUE</boolean>
+              </object>
+              <object class="IBCarbonStaticText" id="252">
+                <string name="bounds">247 225 260 355 </string>
+                <boolean name="small">TRUE</boolean>
+                <int name="controlSize">1</int>
+                <string name="title">[user:pass@]server:port</string>
+              </object>
+              <object class="IBCarbonCheckBox" id="253">
+                <string name="bounds">250 26 268 163 </string>
+                <int name="controlID">41</int>
+                <string name="title">Direct connection</string>
+              </object>
+            </array>
+            <string name="title">Proxy server</string>
+          </object>
+        </array>
+      </object>
+      <boolean name="isResizable">FALSE</boolean>
+      <int name="carbonWindowClass">4</int>
+      <int name="windowPosition">1</int>
+    </object>
+    <reference idRef="167"/>
+    <reference idRef="228"/>
+    <reference idRef="229"/>
+    <reference idRef="230"/>
+    <reference idRef="231"/>
+    <reference idRef="232"/>
+    <reference idRef="233"/>
+    <reference idRef="234"/>
+    <reference idRef="235"/>
+    <reference idRef="236"/>
+    <reference idRef="237"/>
+    <reference idRef="238"/>
+    <reference idRef="239"/>
+    <reference idRef="240"/>
+    <reference idRef="246"/>
+    <reference idRef="247"/>
+    <reference idRef="248"/>
+    <reference idRef="249"/>
+    <reference idRef="250"/>
+    <reference idRef="251"/>
+    <reference idRef="252"/>
+    <reference idRef="253"/>
+  </array>
+  <array count="23" name="allParents">
+    <reference idRef="1"/>
+    <reference idRef="166"/>
+    <reference idRef="167"/>
+    <reference idRef="228"/>
+    <reference idRef="228"/>
+    <reference idRef="228"/>
+    <reference idRef="228"/>
+    <reference idRef="228"/>
+    <reference idRef="228"/>
+    <reference idRef="228"/>
+    <reference idRef="228"/>
+    <reference idRef="228"/>
+    <reference idRef="228"/>
+    <reference idRef="228"/>
+    <reference idRef="228"/>
+    <reference idRef="167"/>
+    <reference idRef="249"/>
+    <reference idRef="249"/>
+    <reference idRef="249"/>
+    <reference idRef="167"/>
+    <reference idRef="250"/>
+    <reference idRef="250"/>
+    <reference idRef="250"/>
+  </array>
+  <dictionary count="2" name="nameTable">
+    <string>File&apos;s Owner</string>
+    <reference idRef="1"/>
+    <string>Window</string>
+    <reference idRef="166"/>
+  </dictionary>
+  <unsigned_int name="nextObjectID">254</unsigned_int>
+</object>
