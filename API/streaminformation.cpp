@@ -6,31 +6,31 @@ StreamInformation::StreamInformation(QObject *parent) :
 {
 }
 
-QString StreamInformation::directUrl() {
+std::string StreamInformation::directUrl() {
     return "http://" + ip + "/stream.php?streamKey=" + streamKey;
 }
 
-QString StreamInformation::uSecs() {
+std::string StreamInformation::getUSecs() {
     return uSecs;
 }
 
-QString StreamInformation::streamKey() {
+std::string StreamInformation::getStreamKey() {
     return streamKey;
 }
 
-QString StreamInformation::ip() {
+std::string StreamInformation::getIp() {
     return ip;
 }
 
-void StreamInformation::setUSecs(QString set) {
+void StreamInformation::setUSecs(std::string set) {
     uSecs = set;
 }
 
-void StreamInformation::setStreamKey(QString set) {
+void StreamInformation::setStreamKey(std::string set) {
     streamKey = set;
 }
 
-void StreamInformation::setIp(QString set) {
+void StreamInformation::setIp(std::string set) {
     ip = set;
 }
 

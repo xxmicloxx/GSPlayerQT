@@ -8,18 +8,18 @@ class StreamInformation : public QObject
     Q_OBJECT
 public:
     explicit StreamInformation(QObject *parent = 0);
-    QString directUrl();
-    QString uSecs();
-    void setUSecs(QString set);
-    QString streamKey();
-    void setStreamKey(QString set);
-    QString ip();
-    void setIp(QString set);
+    std::string directUrl();
+    std::string getUSecs();
+    void setUSecs(std::string set);
+    std::string getStreamKey();
+    void setStreamKey(std::string set);
+    std::string getIp();
+    void setIp(std::string set);
 
 private:
-    QString uSecs;
-    QString streamKey;
-    QString ip;
+    std::string uSecs;
+    std::string streamKey;
+    std::string ip;
 
 signals:
     

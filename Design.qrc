@@ -1,0 +1,23 @@
+<RCC>
+    <qresource prefix="/theme/main">
+        <file>RES/theme/Hauptmenue/1_Button_hover.png</file>
+        <file>RES/theme/Hauptmenue/1_Button_normal.png</file>
+        <file>RES/theme/Hauptmenue/1_Button_pressed.png</file>
+        <file>RES/theme/Hauptmenue/1_Side_Button_hover.png</file>
+        <file>RES/theme/Hauptmenue/1_Side_Button_normal.png</file>
+        <file>RES/theme/Hauptmenue/1_Side_Button_pressed.png</file>
+        <file>RES/theme/Hauptmenue/2_Button_hover.png</file>
+        <file>RES/theme/Hauptmenue/2_Button_normal.png</file>
+        <file>RES/theme/Hauptmenue/2_Button_pressed.png</file>
+        <file>RES/theme/Hauptmenue/2_Side_Button_hover.png</file>
+        <file>RES/theme/Hauptmenue/2_Side_Button_normal.png</file>
+        <file>RES/theme/Hauptmenue/2_Side_Button_pressed.png</file>
+        <file>RES/theme/Hauptmenue/3_Button_hover.png</file>
+        <file>RES/theme/Hauptmenue/3_Button_normal.png</file>
+        <file>RES/theme/Hauptmenue/3_Button_pressed.png</file>
+        <file>RES/theme/Hauptmenue/GSP_Logo.png</file>
+    </qresource>
+    <qresource prefix="/theme/gen">
+        <file>RES/Icon.ico</file>
+    </qresource>
+</RCC>

@@ -9,14 +9,12 @@ class Util : public QObject
 {
     Q_OBJECT
 private:
-    QNetworkAccessManager* qnam;
-    QNetworkAccessManager* qnamwprox;
+
 public:
     explicit Util(QObject *parent = 0);
-    static QString getMd5FromString(QString md5);
-    static QString getSha1FromString(QString sha1string);
-    QString getSetCookieHeaderWithProxy(QString url);
-    QString postData(QString url, QString data);
+    static std::string getMd5FromString(std::string md5);
+    static std::string getSha1FromString(std::string sha1string);
+    std::string postData(std::string url, std::string data);
     
 signals:
     

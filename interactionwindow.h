@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "API/api.h"
+#include "audioplayerbridge.h"
 
 namespace Ui {
 class InteractionWindow;
@@ -15,9 +16,6 @@ class InteractionWindow : public QMainWindow
 public:
     explicit InteractionWindow(QWidget *parent = 0);
     ~InteractionWindow();
-    void init();
-    void checkConnect();
-    bool connected;
     
 private slots:
     void on_pushButton_clicked();
@@ -25,6 +23,7 @@ private slots:
 private:
     Ui::InteractionWindow *ui;
     API* api;
+    AudioPlayerBridge* player;
     QString sessionID;
     QString token;
 };

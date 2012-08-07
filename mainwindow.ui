@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>615</width>
+    <height>342</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>GSP - Groove Shark Player</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="Design.qrc">
+    <normaloff>:/theme/gen/RES/Icon.ico</normaloff>:/theme/gen/RES/Icon.ico</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">#btnSide1 {
+background-image: url(:/theme/main/RES/theme/Hauptmenue/1_Side_Button_normal.png);
+border: none;
+background-repeat: none;
+font: 16px;
+font-weight: bold;
+font-family: arial, verdana, sans-serif;
+color: rgb(214, 102, 3);
+}
+
+#btnSide1:hover {
+background-image: url(:/theme/main/RES/theme/Hauptmenue/1_Side_Button_hover.png);
+}
+
+#btnSide1:pressed {
+background-image: url(:/theme/main/RES/theme/Hauptmenue/1_Side_Button_pressed.png);
+}
+
+#btnSide2 {
+background-image: url(:/theme/main/RES/theme/Hauptmenue/2_Side_Button_normal.png);
+border: none;
+background-repeat: none;
+font: 16px;
+font-weight: bold;
+font-family: arial, verdana, sans-serif;
+color: rgb(214, 102, 3);
+}
+
+#btnSide2:hover {
+background-image: url(:/theme/main/RES/theme/Hauptmenue/2_Side_Button_hover.png);
+}
+
+#btnSide2:pressed {
+background-image: url(:/theme/main/RES/theme/Hauptmenue/2_Side_Button_pressed.png);
+}
+
+#btn1 {
+background-image: url(:/theme/main/RES/theme/Hauptmenue/1_Button_normal.png);
+border: none;
+background-repeat: none;
+}
+
+#btn1:hover {
+background-image: url(:/theme/main/RES/theme/Hauptmenue/1_Button_hover.png);
+}
+
+#btn1:pressed {
+background-image: url(:/theme/main/RES/theme/Hauptmenue/1_Button_pressed.png);
+}
+
+#btn2 {
+background-image: url(:/theme/main/RES/theme/Hauptmenue/2_Button_normal.png);
+border: none;
+background-repeat: none;
+}
+
+#btn2:hover {
+background-image: url(:/theme/main/RES/theme/Hauptmenue/2_Button_hover.png);
+}
+
+#btn2:pressed {
+background-image: url(:/theme/main/RES/theme/Hauptmenue/2_Button_pressed.png);
+}
+
+#btn3 {
+background-image: url(:/theme/main/RES/theme/Hauptmenue/3_Button_normal.png);
+border: none;
+background-repeat: none;
+}
+
+#btn3:hover {
+background-image: url(:/theme/main/RES/theme/Hauptmenue/3_Button_hover.png);
+}
+
+#btn3:pressed {
+background-image: url(:/theme/main/RES/theme/Hauptmenue/3_Button_pressed.png);
+}
+
+#lblBtn1Caption {
+font: 16pt &quot;Arial&quot;;
+font-weight: bold;
+color: rgb(255, 190, 71);
+}
+
+#lblBtn1Message {
+font: 14pt &quot;Arial&quot;;
+color: rgb(163, 163, 163);
+}
+
+#lblBtn2Caption {
+font: 16pt &quot;Arial&quot;;
+font-weight: bold;
+color: rgb(255, 190, 71);
+}
+
+#lblBtn2Message {
+font: 14pt &quot;Arial&quot;;
+color: rgb(163, 163, 163);
+}</string>
+  </property>
+  <property name="unifiedTitleAndToolBarOnMac">
+   <bool>false</bool>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>146</width>
+      <height>342</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="Design.qrc">:/theme/main/RES/theme/Hauptmenue/GSP_Logo.png</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>false</bool>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnSide1">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>272</y>
+      <width>146</width>
+      <height>35</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Sprache ändern</string>
+    </property>
+    <property name="flat">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnSide2">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>307</y>
+      <width>146</width>
+      <height>35</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Über uns</string>
+    </property>
+    <property name="flat">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn1">
+    <property name="geometry">
+     <rect>
+      <x>146</x>
+      <y>0</y>
+      <width>469</width>
+      <height>115</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string notr="true"/>
+    </property>
+    <property name="flat">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn2">
+    <property name="geometry">
+     <rect>
+      <x>146</x>
+      <y>115</y>
+      <width>469</width>
+      <height>114</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string notr="true"/>
+    </property>
+    <property name="flat">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn3">
+    <property name="geometry">
+     <rect>
+      <x>146</x>
+      <y>229</y>
+      <width>469</width>
+      <height>113</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string notr="true"/>
+    </property>
+    <property name="flat">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblBtn1Caption">
+    <property name="geometry">
+     <rect>
+      <x>166</x>
+      <y>22</y>
+      <width>124</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Musik abspielen</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblBtn1Message">
+    <property name="geometry">
+     <rect>
+      <x>166</x>
+      <y>50</y>
+      <width>248</width>
+      <height>33</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Höre deine Lieblingsmusik oder deine
+selbsterstellten Playlists auf einen Klick!</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblBtn2Caption">
+    <property name="geometry">
+     <rect>
+      <x>166</x>
+      <y>137</y>
+      <width>106</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Musik suchen</string>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources>
+  <include location="Design.qrc"/>
+ </resources>
+ <connections/>
+</ui>

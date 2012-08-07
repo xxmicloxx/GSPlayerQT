@@ -1,9 +1,9 @@
 #include "interactionwindow.h"
 #include "ui_interactionwindow.h"
 #include <QDebug>
-#include "audioplayerbridge.h"
 #include <QtConcurrentRun>
 #include "QVariantMap"
+#include "API/streaminformation.h"
 
 InteractionWindow::InteractionWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -11,7 +11,7 @@ InteractionWindow::InteractionWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     api = new API(this);
-    connected = false;
+    player = new AudioPlayerBridge(this);
 }
 
 InteractionWindow::~InteractionWindow()
@@ -21,18 +21,8 @@ InteractionWindow::~InteractionWindow()
 
 void InteractionWindow::on_pushButton_clicked()
 {
-    checkConnect();
-
-}
-
-void InteractionWindow::init() {
-    sessionID = api->getSessionID();
-    token = api->getCommunicationToken(sessionID);
-}
-
-void InteractionWindow::checkConnect() {
-    if (!connected) {
-        connected = true;
-        init();
-    }
+    api->checkConnect();
+    StreamInformation* streamInfo = api->getStreamKeyFromSongIDEx("34913847");
+    player->openAndPlay(streamInfo->directUrl());
+    delete streamInfo;
 }

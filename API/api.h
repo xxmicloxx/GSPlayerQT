@@ -3,8 +3,10 @@
 
 #include <QObject>
 #include "util.h"
-#include <QUuid>
+#include <boost/uuid/uuid.hpp>
+#include <boost/uuid/random_generator.hpp>
 #include <QVariantMap>
+#include "streaminformation.h"
 
 class API : public QObject
 {
@@ -12,15 +14,23 @@ class API : public QObject
 public:
     explicit API(QObject *parent = 0);
     QString getSessionID();
-    QString getCommunicationToken(QString sessionID);
+    QString getCommunicationToken();
+    StreamInformation* getStreamKeyFromSongIDEx(QString songID);
+    void checkConnect();
     
 signals:
 
 private:
+    void init();
+    bool connected;
     Util* util;
-    QUuid uuid;
+    std::string uuid;
     QVariantMap getCountryMap();
-    QVariantMap getHeaderMap(QString sessionID, QString token, QString client, QString method);
+    QVariantMap getHeaderMap(QString client, QString method);
+    QVariantMap executeGroovesharkMethod(QVariantMap mainMap, QString method);
+    QVariantMap executeGroovesharkMethod(QByteArray array, QString method);
+    QString sessionID;
+    QString token;
     
 public slots:
     

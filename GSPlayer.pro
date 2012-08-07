@@ -8,7 +8,6 @@ QT       += core gui network phonon
 
 TARGET = GSPlayer
 TEMPLATE = app
-CONFIG -= app_bundle
 
 
 SOURCES += main.cpp\
@@ -16,36 +15,30 @@ SOURCES += main.cpp\
     API/util.cpp \
     audioplayerbridge.cpp \
     API/api.cpp \
-    QJson/serializerrunnable.cpp \
-    QJson/serializer.cpp \
-    QJson/qobjecthelper.cpp \
-    QJson/parserrunnable.cpp \
-    QJson/parser.cpp \
-    QJson/json_scanner.cpp \
-    QJson/json_parser.cc \
-    API/streaminformation.cpp
+    API/streaminformation.cpp \
+    mainwindow.cpp
 
 HEADERS  += interactionwindow.h \
     API/util.h \
     audioplayerbridge.h \
     API/api.h \
-    QJson/stack.hh \
-    QJson/serializerrunnable.h \
-    QJson/serializer.h \
-    QJson/qobjecthelper.h \
-    QJson/qjson_export.h \
-    QJson/qjson_debug.h \
-    QJson/position.hh \
-    QJson/parserrunnable.h \
-    QJson/parser.h \
-    QJson/parser_p.h \
-    QJson/location.hh \
-    QJson/json_scanner.h \
-    QJson/json_parser.hh \
-    API/streaminformation.h
+    API/streaminformation.h \
+    mainwindow.h
 
-FORMS    += interactionwindow.ui
+FORMS    += interactionwindow.ui \
+    mainwindow.ui
 
 LIBS += libbass.dylib
+LIBS += libqjson.dylib
+LIBS += -L/Users/ml/Downloads/boost_1_50_0/build/lib -lboost_system -lboost_date_time -lboost_regex
+
 
 HEADERS += bass.h
+
+RESOURCES += \
+    Design.qrc
+
+RC_FILE = myWinIcon.rc
+
+INCLUDEPATH += /Users/ml/Downloads/boost_1_50_0
+INCLUDEPATH += /Users/ml/Downloads/cpp-netlib-0.9.4

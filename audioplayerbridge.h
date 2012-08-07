@@ -8,7 +8,7 @@ class AudioPlayerBridge : public QObject
     Q_OBJECT
 public:
     explicit AudioPlayerBridge(QObject *parent = 0);
-    void openAndPlay(QString path);
+    void openAndPlay(std::string path);
     
 signals:
     
