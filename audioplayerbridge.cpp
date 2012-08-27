@@ -1,5 +1,4 @@
 #include "audioplayerbridge.h"
-#include "bass.h"
 
 AudioPlayerBridge::AudioPlayerBridge(QObject *parent) :
     QObject(parent)
@@ -8,6 +7,14 @@ AudioPlayerBridge::AudioPlayerBridge(QObject *parent) :
 }
 
 void AudioPlayerBridge::openAndPlay(std::string path) {
-    HSTREAM lol = BASS_StreamCreateURL(path.c_str(), 0, BASS_STREAM_AUTOFREE | BASS_STREAM_PRESCAN, NULL, NULL);
-    BASS_ChannelPlay(lol, false);
+    stop();
+    mainHandle = BASS_StreamCreateURL(path.c_str(), 0, BASS_STREAM_AUTOFREE | BASS_STREAM_PRESCAN, NULL, NULL);
+    BASS_ChannelPlay(mainHandle, false);
+    currentStatus = PLAYING;
+}
+
+void AudioPlayerBridge::stop() {
+    if (currentStatus != STOPPED) {
+        BASS_ChannelStop(mainHandle);
+    }
 }

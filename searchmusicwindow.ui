@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SearchMusicWindow</class>
+ <widget class="QMainWindow" name="SearchMusicWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>383</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="cursor">
+   <cursorShape>ArrowCursor</cursorShape>
+  </property>
+  <property name="windowTitle">
+   <string>GSP - Musik suchen</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="Design.qrc">
+    <normaloff>:/theme/gen/RES/Icon.ico</normaloff>:/theme/gen/RES/Icon.ico</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">#btnBack {
+background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Zurueck_pressed.png);
+border: none;
+background-repeat: none;
+}
+
+#btnBack:hover {
+background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Zurueck_hover.png);
+}
+
+#btnBack:pressed {
+background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Zurueck_normal.png);
+}
+
+#lblBtnBack {
+font: 14px;
+font-weight: bold;
+font-family: arial, verdana, sans-serif;
+color: rgb(255,255,255);
+}
+
+#lblSearchMusic {
+font: 16px;
+font-weight: bold;
+font-family: arial, verdana, sans-serif;
+color: rgb(255, 255, 255);
+}
+
+#txtSearchSong {
+border-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Input.png);
+padding: 0 6px;
+}
+
+#txtSearchArtist {
+border-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Input.png);
+padding: 0 6px;
+}
+
+#lblSearchSong {
+font: 14px;
+font-weight: bold;
+font-family: arial, verdena, sans-serif;
+color: rgb(255, 255, 255);
+}
+
+#lblSearchArtist {
+font: 14px;
+font-weight: bold;
+font-family: arial, verdena, sans-serif;
+color: rgb(255, 255, 255);
+}
+
+QPushButton {
+background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Search_normal.png);
+border: none;
+background-repeat: none;
+font: 14px;
+font-weight: bold;
+font-family: arial, verdana, sans-serif;
+color: rgb(255,255,255);
+}
+
+QPushButton:hover {
+background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Search_hover.png);
+}
+
+QPushButton:pressed {
+background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Search_pressed.png);
+}</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>383</width>
+      <height>141</height>
+     </rect>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="Design.qrc">:/theme/searchmusic/RES/theme/Musik_Suche/BG_Top.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnBack">
+    <property name="geometry">
+     <rect>
+      <x>296</x>
+      <y>0</y>
+      <width>87</width>
+      <height>32</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblBtnBack">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>4</y>
+      <width>62</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>zurück</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblSearchMusic">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>20</y>
+      <width>106</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Musik suchen</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblSearchSong">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>59</y>
+      <width>86</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Titel suchen:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="txtSearchSong">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>50</y>
+      <width>172</width>
+      <height>35</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblSearchArtist">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>100</y>
+      <width>95</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Artist suchen:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="txtSearchArtist">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>91</y>
+      <width>172</width>
+      <height>35</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnSearchSong">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>50</y>
+      <width>76</width>
+      <height>35</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>suche</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>91</y>
+      <width>76</width>
+      <height>35</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>suche</string>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="lstItems">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>141</y>
+      <width>383</width>
+      <height>459</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
+    </property>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOn</enum>
+    </property>
+    <property name="horizontalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+    <property name="selectionMode">
+     <enum>QAbstractItemView::NoSelection</enum>
+    </property>
+    <property name="verticalScrollMode">
+     <enum>QAbstractItemView::ScrollPerPixel</enum>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources>
+  <include location="Design.qrc"/>
+ </resources>
+ <connections/>
+</ui>

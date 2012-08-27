@@ -9,6 +9,7 @@ class Util : public QObject
 {
     Q_OBJECT
 private:
+    QNetworkAccessManager *manager;
 
 public:
     explicit Util(QObject *parent = 0);

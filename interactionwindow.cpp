@@ -22,7 +22,7 @@ InteractionWindow::~InteractionWindow()
 void InteractionWindow::on_pushButton_clicked()
 {
     api->checkConnect();
-    StreamInformation* streamInfo = api->getStreamKeyFromSongIDEx("34913847");
+    StreamInformation* streamInfo = api->getStreamKeyFromSongIDEx(34913847);
     player->openAndPlay(streamInfo->directUrl());
     delete streamInfo;
 }

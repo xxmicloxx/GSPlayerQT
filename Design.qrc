@@ -20,4 +20,25 @@
     <qresource prefix="/theme/gen">
         <file>RES/Icon.ico</file>
     </qresource>
+    <qresource prefix="/theme/searchmusic">
+        <file>RES/theme/Musik_Suche/BG_Top.png</file>
+        <file>RES/theme/Musik_Suche/Download_Button_hover.png</file>
+        <file>RES/theme/Musik_Suche/Download_Button_normal.png</file>
+        <file>RES/theme/Musik_Suche/Download_Button_pressed.png</file>
+        <file>RES/theme/Musik_Suche/Dropdown_hover.png</file>
+        <file>RES/theme/Musik_Suche/Dropdown_normal.png</file>
+        <file>RES/theme/Musik_Suche/Dropdown_pressed.png</file>
+        <file>RES/theme/Musik_Suche/Input.png</file>
+        <file>RES/theme/Musik_Suche/Last_Item_Trennstrich.png</file>
+        <file>RES/theme/Musik_Suche/Scroll_BG.png</file>
+        <file>RES/theme/Musik_Suche/Scroll_Button.png</file>
+        <file>RES/theme/Musik_Suche/Search_hover.png</file>
+        <file>RES/theme/Musik_Suche/Search_normal.png</file>
+        <file>RES/theme/Musik_Suche/Search_pressed.png</file>
+        <file>RES/theme/Musik_Suche/slot_hover.png</file>
+        <file>RES/theme/Musik_Suche/slot_normal.png</file>
+        <file>RES/theme/Musik_Suche/Zurueck_normal.png</file>
+        <file>RES/theme/Musik_Suche/Zurueck_pressed.png</file>
+        <file>RES/theme/Musik_Suche/Zurueck_hover.png</file>
+    </qresource>
 </RCC>

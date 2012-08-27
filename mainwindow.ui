@@ -97,24 +97,35 @@ background-image: url(:/theme/main/RES/theme/Hauptmenue/3_Button_pressed.png);
 }
 
 #lblBtn1Caption {
-font: 16pt &quot;Arial&quot;;
+font: 16px &quot;Arial&quot;;
 font-weight: bold;
 color: rgb(255, 190, 71);
 }
 
 #lblBtn1Message {
-font: 14pt &quot;Arial&quot;;
+font: 14px &quot;Arial&quot;;
 color: rgb(163, 163, 163);
 }
 
 #lblBtn2Caption {
-font: 16pt &quot;Arial&quot;;
+font: 16px &quot;Arial&quot;;
 font-weight: bold;
 color: rgb(255, 190, 71);
 }
 
 #lblBtn2Message {
-font: 14pt &quot;Arial&quot;;
+font: 14px &quot;Arial&quot;;
+color: rgb(163, 163, 163);
+}
+
+#lblBtn3Caption {
+font: 16px &quot;Arial&quot;;
+font-weight: bold;
+color: rgb(255, 190, 71);
+}
+
+#lblBtn3Message {
+font: 14px &quot;Arial&quot;;
 color: rgb(163, 163, 163);
 }</string>
   </property>
@@ -262,6 +273,47 @@ selbsterstellten Playlists auf einen Klick!</string>
     </property>
     <property name="text">
      <string>Musik suchen</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblBtn2Message">
+    <property name="geometry">
+     <rect>
+      <x>166</x>
+      <y>165</y>
+      <width>241</width>
+      <height>33</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Finde die neueste Musik und füge sie
+deinen Playlists hinzu!</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblBtn3Caption">
+    <property name="geometry">
+     <rect>
+      <x>166</x>
+      <y>252</y>
+      <width>152</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Playlists optimieren</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblBtn3Message">
+    <property name="geometry">
+     <rect>
+      <x>166</x>
+      <y>280</y>
+      <width>200</width>
+      <height>33</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Lass immer die Musik abspielen
+die du gerade möchtest!</string>
     </property>
    </widget>
   </widget>

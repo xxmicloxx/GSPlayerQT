@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SearchMusicListItem</class>
+ <widget class="QWidget" name="SearchMusicListItem">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>374</width>
+    <height>101</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">#lblTitle {
+font: 16px &quot;Arial&quot;;
+font-weight: bold;
+color: rgb(248, 198, 59);
+}
+
+#lblArtist {
+font: 16px &quot;Arial&quot;;
+font-weight: bold;
+color: rgb(234, 160, 94);
+}
+
+#lblLength {
+font: 16px &quot;Arial&quot;;
+font-weight: bold;
+font-style: italic;
+color: rgb(128, 128, 128);
+}
+
+#cmbAddTo {
+border-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Dropdown_normal.png);
+padding-right: 25px;
+padding-left: 10px;
+}
+
+#cmbAddTo::drop-down {
+border-width: 0px;
+}
+
+#cmbAddTo:hover {
+border-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Dropdown_hover.png);
+}
+
+#cmbAddTo:on {
+border-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Dropdown_pressed.png);
+}
+
+#lblBackground {
+background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/slot_normal.png);
+}
+#lblBackground:hover {
+background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/slot_hover.png);
+}
+QPushButton {
+border: none;
+background-repeat: none;
+background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Download_Button_normal.png);
+}
+
+QPushButton:hover {
+background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Download_Button_hover.png);
+}
+
+QPushButton:pressed {
+background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Download_Button_pressed.png);
+}</string>
+  </property>
+  <widget class="QLabel" name="lblTitleCaption">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>20</y>
+     <width>32</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Titel:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblTitle">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>19</y>
+     <width>138</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Levels</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblArtistCaption">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>43</y>
+     <width>39</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Artist:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblArtist">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>43</y>
+     <width>138</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Avicii</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblLengthCaption">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>66</y>
+     <width>42</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Länge:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblLength">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>66</y>
+     <width>53</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>3:18</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="cmbAddTo">
+   <property name="geometry">
+    <rect>
+     <x>201</x>
+     <y>13</y>
+     <width>163</width>
+     <height>35</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblBackground">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>374</width>
+     <height>101</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnPlay">
+   <property name="geometry">
+    <rect>
+     <x>261</x>
+     <y>56</y>
+     <width>104</width>
+     <height>35</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Play</string>
+   </property>
+  </widget>
+  <zorder>lblBackground</zorder>
+  <zorder>lblTitleCaption</zorder>
+  <zorder>lblTitle</zorder>
+  <zorder>lblArtistCaption</zorder>
+  <zorder>lblArtist</zorder>
+  <zorder>lblLengthCaption</zorder>
+  <zorder>lblLength</zorder>
+  <zorder>cmbAddTo</zorder>
+  <zorder>btnPlay</zorder>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -17,8 +17,13 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+public slots:
+    void onChildClosed();
+
 private slots:
     void on_btnSide2_clicked();
+
+    void on_btn2_clicked();
 
 private:
     API *api;
