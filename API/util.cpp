@@ -7,6 +7,8 @@
 #include <QEventLoop>
 #include <QVariant>
 #include <QThread>
+#include <QMutex>
+#include <QWaitCondition>
 
 Util::Util(QObject *parent) :
     QObject(parent)
@@ -28,9 +30,7 @@ std::string Util::getSha1FromString(std::string sha1string) {
 }
 
 void Util::postData(std::string url, std::string data, int postActionId) {
-    while (currentPostActionId != -1) {
-        QThread::sleep(100);
-    }
+
     currentPostActionId = postActionId;
     QUrl urlObj;
     urlObj.setUrl(QString::fromStdString(url));
