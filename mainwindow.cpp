@@ -10,8 +10,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    bridge = new AudioPlayerBridge(this);
-    api = new API(this);
+    bridge = new AudioPlayerBridge();
+    api = new API();
     QGraphicsDropShadowEffect *effect = new QGraphicsDropShadowEffect(ui->lblBtn1Caption);
     effect->setBlurRadius(1);
     effect->setOffset(-1, 2);
@@ -39,18 +39,19 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete bridge;
+    delete api;
 }
 
 void MainWindow::on_btnSide2_clicked()
 {
-    StreamInformation *streamInfo = api->getStreamKeyFromSongIDEx(33123639);
-    bridge->openAndPlay(streamInfo->directUrl());
-    delete streamInfo;
+    api->checkConnect();
+    api->getResultsFromArtistSearch("Casper");
 }
 
 void MainWindow::on_btn2_clicked()
 {
-    SearchMusicWindow *smw = new SearchMusicWindow(this);
+    SearchMusicWindow *smw = new SearchMusicWindow();
     smw->setAPI(api);
     smw->setAPB(bridge);
     connect(smw, SIGNAL(destroyed()), this, SLOT(onChildClosed()), Qt::DirectConnection);

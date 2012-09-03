@@ -27,6 +27,11 @@ border: none;
 background-repeat: none;
 }
 
+QLabel {
+font: 14px &quot;Arial&quot;;
+color: rgb(163, 163, 163);
+}
+
 #btnBack:hover {
 background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Zurueck_hover.png);
 }
@@ -146,7 +151,7 @@ background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Search_pressed.p
      <rect>
       <x>20</x>
       <y>59</y>
-      <width>86</width>
+      <width>90</width>
       <height>16</height>
      </rect>
     </property>
@@ -169,7 +174,7 @@ background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Search_pressed.p
      <rect>
       <x>20</x>
       <y>100</y>
-      <width>95</width>
+      <width>97</width>
       <height>16</height>
      </rect>
     </property>
@@ -200,7 +205,7 @@ background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Search_pressed.p
      <string>suche</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="btnSearchArtist">
     <property name="geometry">
      <rect>
       <x>300</x>
@@ -243,5 +248,22 @@ background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Search_pressed.p
  <resources>
   <include location="Design.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>txtSearchSong</sender>
+   <signal>returnPressed()</signal>
+   <receiver>btnSearchSong</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>205</x>
+     <y>67</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>337</x>
+     <y>67</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

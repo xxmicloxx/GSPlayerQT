@@ -8,6 +8,7 @@
 #include "streaminformation.h"
 #include <JsonBox.h>
 #include "song.h"
+#include "artist.h"
 
 using namespace JsonBox;
 
@@ -15,11 +16,16 @@ class API : public QObject
 {
     Q_OBJECT
 public:
+    enum ResultType {
+        Songs, Artists
+    };
     explicit API(QObject *parent = 0);
     std::string getSessionID();
     std::string getCommunicationToken();
+    void getCountry();
     StreamInformation* getStreamKeyFromSongIDEx(int songID);
     std::vector<Song*> getResultsFromSongSearch(std::string query);
+    std::vector<Artist*> getResultsFromArtistSearch(std::string query);
     void checkConnect();
     
 signals:
@@ -29,7 +35,7 @@ private:
     bool connected;
     Util* util;
     std::string uuid;
-    Value getCountryMap();
+    Value countryMap;
     Value getHeaderMap(std::string client, std::string method);
     Value executeGroovesharkMethod(Value mainMap, std::string method);
     Value executeGroovesharkMethod(std::string array, std::string method);

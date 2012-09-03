@@ -26,11 +26,10 @@ font-weight: bold;
 color: rgb(234, 160, 94);
 }
 
-#lblLength {
+#lblAlbum {
 font: 16px &quot;Arial&quot;;
 font-weight: bold;
-font-style: italic;
-color: rgb(128, 128, 128);
+color: rgb(250, 180, 110);
 }
 
 #cmbAddTo {
@@ -123,32 +122,6 @@ background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Download_Button_
     <string>Avicii</string>
    </property>
   </widget>
-  <widget class="QLabel" name="lblLengthCaption">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>66</y>
-     <width>42</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Länge:</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="lblLength">
-   <property name="geometry">
-    <rect>
-     <x>60</x>
-     <y>66</y>
-     <width>53</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>3:18</string>
-   </property>
-  </widget>
   <widget class="QComboBox" name="cmbAddTo">
    <property name="geometry">
     <rect>
@@ -185,15 +158,41 @@ background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Download_Button_
     <string>Play</string>
    </property>
   </widget>
+  <widget class="QLabel" name="lblAlbumCaption">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>67</y>
+     <width>33</width>
+     <height>13</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Album:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblAlbum">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>67</y>
+     <width>141</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Levels</string>
+   </property>
+  </widget>
   <zorder>lblBackground</zorder>
   <zorder>lblTitleCaption</zorder>
   <zorder>lblTitle</zorder>
   <zorder>lblArtistCaption</zorder>
   <zorder>lblArtist</zorder>
-  <zorder>lblLengthCaption</zorder>
-  <zorder>lblLength</zorder>
   <zorder>cmbAddTo</zorder>
   <zorder>btnPlay</zorder>
+  <zorder>lblAlbumCaption</zorder>
+  <zorder>lblAlbum</zorder>
  </widget>
  <resources/>
  <connections/>

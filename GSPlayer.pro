@@ -19,7 +19,17 @@ SOURCES += main.cpp\
     mainwindow.cpp \
     searchmusicwindow.cpp \
     searchmusiclistitem.cpp \
-    API/song.cpp
+    API/song.cpp \
+    JsonBox/Value.cpp \
+    JsonBox/SolidusEscaper.cpp \
+    JsonBox/Object.cpp \
+    JsonBox/Indenter.cpp \
+    JsonBox/IndentCanceller.cpp \
+    JsonBox/Escaper.cpp \
+    JsonBox/Convert.cpp \
+    JsonBox/Array.cpp \
+    API/artist.cpp \
+    artistlistitem.cpp
 
 HEADERS  += interactionwindow.h \
     API/util.h \
@@ -29,19 +39,28 @@ HEADERS  += interactionwindow.h \
     mainwindow.h \
     searchmusicwindow.h \
     searchmusiclistitem.h \
-    API/song.h
+    API/song.h \
+    JsonBox.h \
+    JsonBox/Value.h \
+    JsonBox/SolidusEscaper.h \
+    JsonBox/OutputFilter.h \
+    JsonBox/Object.h \
+    JsonBox/Indenter.h \
+    JsonBox/IndentCanceller.h \
+    JsonBox/Grammar.h \
+    JsonBox/Escaper.h \
+    JsonBox/Convert.h \
+    JsonBox/Array.h \
+    API/artist.h \
+    artistlistitem.h
 
 FORMS    += interactionwindow.ui \
     mainwindow.ui \
     searchmusicwindow.ui \
-    searchmusiclistitem.ui
+    searchmusiclistitem.ui \
+    artistlistitem.ui
 
-LIBS += libbass.dylib
-LIBS += libqjson.0.dylib
-LIBS += -L. -lcrypto -lssl -ljsonbox
-LIBS += -L/Users/ml/Downloads/boost_1_50_0/build/lib -lboost_system -lboost_date_time -lboost_regex -lboost_thread -lboost_serialization
-LIBS += -L/Users/ml/Downloads/cpp-netlib-0.9.4/build/libs/network/src -lcppnetlib-client-connections -lcppnetlib-server-parsers -lcppnetlib-uri
-
+LIBS += C:\Users\RL\Desktop\GSPlayer\bass.lib
 
 HEADERS += bass.h
 
@@ -50,6 +69,4 @@ RESOURCES += \
 
 RC_FILE = myWinIcon.rc
 
-INCLUDEPATH += /Users/ml/Downloads/boost_1_50_0
-INCLUDEPATH += /Users/ml/Downloads/cpp-netlib-0.9.4
-INCLUDEPATH += /Users/ml/Downloads/jsonbox-0.4.3-src/include
+INCLUDEPATH += C:\Users\RL\Desktop\boost_1_51_0

@@ -22,7 +22,6 @@ std::string API::getSessionID() {
     mainMap["header"]["client"] = Value("htmlshark");
     mainMap["header"]["clientRevision"] = Value("20120312");
     mainMap["header"]["uuid"] = Value(boost::lexical_cast<std::string>(uuid));
-    mainMap["header"]["country"] = getCountryMap();
     mainMap["parameters"] = Value(JsonBox::Object());
     mainMap["method"] = Value("initiateSession");
     std::stringstream ss;
@@ -39,6 +38,7 @@ std::string API::getSessionID() {
 void API::init() {
     getSessionID();
     getCommunicationToken();
+    getCountry();
 }
 
 void API::checkConnect() {
@@ -56,7 +56,6 @@ std::string API::getCommunicationToken() {
     mainMap["header"]["clientRevision"] = Value("20120312");
     mainMap["header"]["uuid"] = Value(boost::lexical_cast<std::string>(uuid));
     mainMap["header"]["session"] = Value(sessionID);
-    mainMap["header"]["country"] = getCountryMap();
     std::string data = util->getMd5FromString(sessionID);
     std::transform(data.begin(), data.end(), data.begin(), ::tolower);
     mainMap["parameters"]["secretKey"] = Value(data);
@@ -72,21 +71,43 @@ std::string API::getCommunicationToken() {
     return token;
 }
 
-Value API::getCountryMap() {
-    Value countryMap;
-    countryMap["IPR"] = Value("9075");
-    countryMap["CC2"] = Value("0");
-    countryMap["ID"] = Value("55");
-    countryMap["CC1"] = Value("18014398509481984");
-    countryMap["CC3"] = Value("0");
-    countryMap["CC4"] = Value("0");
-    return countryMap;
+void API::getCountry() {
+    Value mainMap;
+    mainMap["header"]["uuid"] = Value(boost::lexical_cast<std::string>(uuid));
+    mainMap["header"]["session"] = Value(sessionID);
+    mainMap["header"]["client"] = Value("jsqueue");
+    mainMap["header"]["clientRevision"] = Value("20120312.02");
+    mainMap["header"]["privacy"] = Value(0);
+    std::string salt = ":closeButNoCigar:";
+    srand(QTime::currentTime().msec());
+    std::string randNum = "";
+    for (int i = 0; i < 6; i++) {
+        int random = rand();
+        while (random > 15) {
+            random = random - 16;
+        }
+        std::ostringstream oss;
+        oss << std::hex << random;
+        randNum.append(oss.str());
+    }
+    std::string tokenReady = randNum + util->getSha1FromString("getCountry:" + token + salt + randNum);
+    qDebug() << "Calculated Token: " << QString::fromStdString(tokenReady);
+    mainMap["header"]["token"] = Value(tokenReady);
+    mainMap["parameters"] = Value(JsonBox::Object());
+    mainMap["method"] = Value("getCountry");
+    std::stringstream ss;
+    ss << mainMap;
+    std::string postData = ss.str();
+    std::string result = util->postData("http://grooveshark.com/more.php?getCountry", postData);
+    Value result_root;
+    result_root.loadFromString(result);
+    countryMap = result_root["result"];
 }
 
 Value API::getHeaderMap(std::string client, std::string method) {
     Value headerMap;
     headerMap["uuid"] = Value(boost::lexical_cast<std::string>(uuid));
-    headerMap["country"] = getCountryMap();
+    headerMap["country"] = countryMap;
     headerMap["session"] = Value(sessionID);
     headerMap["client"] = Value(client);
     headerMap["clientRevision"] = Value("20120312");
@@ -134,9 +155,9 @@ StreamInformation* API::getStreamKeyFromSongIDEx(int songID) {
             randNum + util->getSha1FromString("getStreamKeyFromSongIDEx:" + token + ":closeButNoCigar:" + randNum) +
             "\",\"country\":{\"CC3\":4294967296,\"DMA\":0,\"ID\":161,\"CC2\":0,\"IPR\":0,\"CC1\":0,\"CC4\":0},\"session\":\"" +
             sessionID +
-            "\"},\"parameters\":{\"mobile\":false,\"country\":{\"CC3\":4294967296,\"DMA\":0,\"ID\":161,\"CC2\":0,\"CC1\":0,\"IPR\":0,\"CC4\":0},\"songID\":" +
+            "\"},\"parameters\":{\"mobile\":false,\"country\":{\"CC3\":4294967296,\"DMA\":0,\"ID\":161,\"CC2\":0,\"CC1\":0,\"IPR\":0,\"CC4\":0},\"songID\":\"" +
             QString::number(songID).toStdString() +
-            ",\"type\":64,\"prefetch\":false},\"method\":\"getStreamKeyFromSongIDEx\"}";
+            "\",\"type\":64,\"prefetch\":false},\"method\":\"getStreamKeyFromSongIDEx\"}";
     Value result = executeGroovesharkMethod(postString, "getStreamKeyFromSongIDEx");
     StreamInformation* info = new StreamInformation(this);
     info->setUSecs(result["uSecs"].getString());
@@ -178,7 +199,7 @@ std::vector<Song*> API::getResultsFromSongSearch(std::string query) {
     Value result = executeGroovesharkMethod(mainMap, "getResultsFromSearch");
     std::vector<Song*> vector;
     int size = result["result"]["Songs"].getArray().size();
-    for (int i = 0; i < result["result"]["Songs"].getArray().size(); i++) {
+    for (int i = 0; i < size; i++) {
         Song* song = new Song(this);
         song->setSongName(result["result"]["Songs"][i]["SongName"].getString());
         song->setAlbumName(result["result"]["Songs"][i]["AlbumName"].getString());
@@ -187,6 +208,28 @@ std::vector<Song*> API::getResultsFromSongSearch(std::string query) {
         song->setAlbumId(boost::lexical_cast<int>(result["result"]["Songs"][i]["AlbumID"].getString()));
         song->setArtistId(boost::lexical_cast<int>(result["result"]["Songs"][i]["ArtistID"].getString()));
         vector.push_back(song);
+    }
+    return vector;
+}
+
+std::vector<Artist*> API::getResultsFromArtistSearch(std::string query) {
+    Value mainMap;
+    mainMap["header"] = getHeaderMap("htmlshark", "getResultsFromSearch");
+    mainMap["method"] = Value("getResultsFromSearch");
+    mainMap["parameters"]["guts"] = Value(0);
+    mainMap["parameters"]["ppOverride"] = Value("");
+    mainMap["parameters"]["query"] = Value(query);
+    Array typeArray;
+    typeArray.push_back("Artists");
+    mainMap["parameters"]["type"] = Value(typeArray);
+    Value result = executeGroovesharkMethod(mainMap, "getResultsFromSearch");
+    std::vector<Artist*> vector;
+    int size = result["result"]["Artists"].getArray().size();
+    for (int i = 0; i < size; i++) {
+        Artist* artist = new Artist(this);
+        artist->setArtistID(boost::lexical_cast<int>(result["result"]["Artists"][i]["ArtistID"].getString()));
+        artist->setArtistName(result["result"]["Artists"][i]["ArtistName"].getString());
+        vector.push_back(artist);
     }
     return vector;
 }

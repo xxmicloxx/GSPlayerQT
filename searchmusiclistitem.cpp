@@ -10,11 +10,11 @@ SearchMusicListItem::SearchMusicListItem(QWidget *parent, Song* song, API *api, 
     this->song = song;
     ui->lblTitle->setText(QString::fromStdString(song->getSongName()));
     ui->lblArtist->setText(QString::fromStdString(song->getArtistName()));
-    ui->lblLength->setText("0:00");
+    ui->lblAlbum->setText(QString::fromStdString(song->getAlbumName()));
     ui->lblArtist->setAttribute(Qt::WA_TransparentForMouseEvents);
     ui->lblArtistCaption->setAttribute(Qt::WA_TransparentForMouseEvents);
-    ui->lblLength->setAttribute(Qt::WA_TransparentForMouseEvents);
-    ui->lblLengthCaption->setAttribute(Qt::WA_TransparentForMouseEvents);
+    ui->lblAlbum->setAttribute(Qt::WA_TransparentForMouseEvents);
+    ui->lblAlbumCaption->setAttribute(Qt::WA_TransparentForMouseEvents);
     ui->lblTitle->setAttribute(Qt::WA_TransparentForMouseEvents);
     ui->lblTitleCaption->setAttribute(Qt::WA_TransparentForMouseEvents);
     ui->cmbAddTo->addItem("Hinzufuegen zu...");

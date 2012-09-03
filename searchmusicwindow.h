@@ -24,7 +24,10 @@ private slots:
 
     void on_btnSearchSong_clicked();
 
+    void on_btnSearchArtist_clicked();
+
 private:
+    void searchSong(std::string text);
     Ui::SearchMusicWindow *ui;
     API *api;
     AudioPlayerBridge *apb;

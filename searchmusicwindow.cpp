@@ -4,6 +4,9 @@
 #include "searchmusiclistitem.h"
 #include "searchmusiclistitem.h"
 #include "API/song.h"
+#include "API/artist.h"
+#include "QtConcurrentRun"
+#include "QFuture"
 
 SearchMusicWindow::SearchMusicWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -64,8 +67,20 @@ void SearchMusicWindow::on_btnBack_clicked()
 
 void SearchMusicWindow::on_btnSearchSong_clicked()
 {
+    searchSong(ui->txtSearchSong->text().toStdString());
+}
+
+void SearchMusicWindow::on_btnSearchArtist_clicked()
+{
     api->checkConnect();
-    std::vector<Song*> resultVector = api->getResultsFromSongSearch(ui->txtSearchSong->text().toStdString());
+    std::vector<Artist*> resultVector = api->getResultsFromArtistSearch(ui->txtSearchArtist->text().toStdString());
+    ui->lstItems->clear();
+}
+
+void SearchMusicWindow::searchSong(std::string text) {
+
+    ((QFuture<void>) QtConcurrent::run(api, &API::checkConnect)).waitForFinished();
+    std::vector<Song*> resultVector = api->getResultsFromSongSearch(text);
     ui->lstItems->clear();
     for (int i = 0; i < resultVector.size(); i++) {
         SearchMusicListItem *myItem = new SearchMusicListItem(ui->lstItems, (Song*) resultVector.at(i), api, apb);
