@@ -20,7 +20,7 @@ public:
         Songs, Artists
     };
     explicit API(QObject *parent = 0);
-    std::string getSessionID();
+    void getSessionID();
     std::string getCommunicationToken();
     void getCountry();
     StreamInformation* getStreamKeyFromSongIDEx(int songID);
@@ -37,13 +37,13 @@ private:
     std::string uuid;
     Value countryMap;
     Value getHeaderMap(std::string client, std::string method);
-    Value executeGroovesharkMethod(Value mainMap, std::string method);
-    Value executeGroovesharkMethod(std::string array, std::string method);
+    Value executeGroovesharkMethod(Value mainMap, std::string method, int postResultId);
+    Value executeGroovesharkMethod(std::string array, std::string method, int postResultId);
     std::string sessionID;
     std::string token;
     
 public slots:
-    
+    void gotSessionID(int postActionId, std::string resultText);
 };
 
 #endif // API_H

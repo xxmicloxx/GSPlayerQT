@@ -45,8 +45,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_btnSide2_clicked()
 {
-    api->checkConnect();
-    api->getResultsFromArtistSearch("Casper");
+    api->getSessionID();
 }
 
 void MainWindow::on_btn2_clicked()

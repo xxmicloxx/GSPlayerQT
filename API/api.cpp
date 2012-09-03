@@ -14,9 +14,10 @@ API::API(QObject *parent) :
     ss << uuidobj;
     uuid = ss.str();
     connected = false;
+    connect(util, SIGNAL(dataPosted(int,std::string)), this, SLOT(gotSessionID(int,std::string)));
 }
 
-std::string API::getSessionID() {
+void API::getSessionID() {
     Value mainMap;
     mainMap["header"]["privacy"] = Value(0);
     mainMap["header"]["client"] = Value("htmlshark");
@@ -27,12 +28,16 @@ std::string API::getSessionID() {
     std::stringstream ss;
     ss << mainMap;
     std::string postData = ss.str();
-    std::string result = util->postData("https://grooveshark.com/more.php?initiateSession", postData);
+    util->postData("https://grooveshark.com/more.php?initiateSession", postData, 0);
+}
+
+void API::gotSessionID(int postActionId, std::string resultText) {
+    if (postActionId != 0)
+        return;
     Value resultRoot;
-    resultRoot.loadFromString(result);
+    resultRoot.loadFromString(resultText);
     sessionID = resultRoot["result"].getString();
     qDebug() << "Session: " << QString::fromStdString(sessionID);
-    return sessionID;
 }
 
 void API::init() {
@@ -63,12 +68,12 @@ std::string API::getCommunicationToken() {
     std::stringstream ss;
     ss << mainMap;
     std::string postData = ss.str();
-    std::string result = util->postData("https://grooveshark.com/more.php?getCommunicationToken", postData);
-    Value result_root;
-    result_root.loadFromString(result);
-    token = result_root["result"].getString();
-    qDebug() << "CommunicationToken: " << QString::fromStdString(token);
-    return token;
+//    std::string result = util->postData("https://grooveshark.com/more.php?getCommunicationToken", postData, 1);
+//    Value result_root;
+//    result_root.loadFromString(result);
+//    token = result_root["result"].getString();
+//    qDebug() << "CommunicationToken: " << QString::fromStdString(token);
+//    return token;
 }
 
 void API::getCountry() {
@@ -98,10 +103,10 @@ void API::getCountry() {
     std::stringstream ss;
     ss << mainMap;
     std::string postData = ss.str();
-    std::string result = util->postData("http://grooveshark.com/more.php?getCountry", postData);
-    Value result_root;
-    result_root.loadFromString(result);
-    countryMap = result_root["result"];
+//    std::string result = util->postData("http://grooveshark.com/more.php?getCountry", postData, 2);
+//    Value result_root;
+//    result_root.loadFromString(result);
+//    countryMap = result_root["result"];
 }
 
 Value API::getHeaderMap(std::string client, std::string method) {
@@ -158,32 +163,32 @@ StreamInformation* API::getStreamKeyFromSongIDEx(int songID) {
             "\"},\"parameters\":{\"mobile\":false,\"country\":{\"CC3\":4294967296,\"DMA\":0,\"ID\":161,\"CC2\":0,\"CC1\":0,\"IPR\":0,\"CC4\":0},\"songID\":\"" +
             QString::number(songID).toStdString() +
             "\",\"type\":64,\"prefetch\":false},\"method\":\"getStreamKeyFromSongIDEx\"}";
-    Value result = executeGroovesharkMethod(postString, "getStreamKeyFromSongIDEx");
-    StreamInformation* info = new StreamInformation(this);
-    info->setUSecs(result["uSecs"].getString());
-    info->setStreamKey(result["streamKey"].getString());
-    info->setIp(result["ip"].getString());
-    return info;
+//    Value result = executeGroovesharkMethod(postString, "getStreamKeyFromSongIDEx", 3);
+//    StreamInformation* info = new StreamInformation(this);
+//    info->setUSecs(result["uSecs"].getString());
+//    info->setStreamKey(result["streamKey"].getString());
+//    info->setIp(result["ip"].getString());
+//    return info;
 }
 
-Value API::executeGroovesharkMethod(Value mainMap, std::string method) {
+Value API::executeGroovesharkMethod(Value mainMap, std::string method, int postResultId) {
     std::stringstream ss;
     ss << mainMap;
     std::string array = ss.str();
-    return executeGroovesharkMethod(array, method);
+    return executeGroovesharkMethod(array, method, postResultId);
 }
 
-Value API::executeGroovesharkMethod(std::string array, std::string method) {
+Value API::executeGroovesharkMethod(std::string array, std::string method, int postResultId) {
     qDebug() << "Request: " << QString::fromStdString(array);
-    std::string result = util->postData("http://grooveshark.com/more.php?" + method, array);
-    qDebug() << "Result: " << QString::fromStdString(result);
-    Value resultMap;
-    resultMap.loadFromString(result);
-    if (!resultMap["fault"].isNull() && resultMap["fault"]["code"].getInt() == 256) {
-        getCommunicationToken();
-        return executeGroovesharkMethod(array, method);
-    }
-    return resultMap["result"];
+//    std::string result = util->postData("http://grooveshark.com/more.php?" + method, array, postResultId);
+//    qDebug() << "Result: " << QString::fromStdString(result);
+//    Value resultMap;
+//    resultMap.loadFromString(result);
+//    if (!resultMap["fault"].isNull() && resultMap["fault"]["code"].getInt() == 256) {
+//        getCommunicationToken();
+//        return executeGroovesharkMethod(array, method, postResultId);
+//    }
+//    return resultMap["result"];
 }
 
 std::vector<Song*> API::getResultsFromSongSearch(std::string query) {
@@ -196,7 +201,7 @@ std::vector<Song*> API::getResultsFromSongSearch(std::string query) {
     Array typeArray;
     typeArray.push_back("Songs");
     mainMap["parameters"]["type"] = Value(typeArray);
-    Value result = executeGroovesharkMethod(mainMap, "getResultsFromSearch");
+    Value result = executeGroovesharkMethod(mainMap, "getResultsFromSearch", 4);
     std::vector<Song*> vector;
     int size = result["result"]["Songs"].getArray().size();
     for (int i = 0; i < size; i++) {
@@ -222,7 +227,7 @@ std::vector<Artist*> API::getResultsFromArtistSearch(std::string query) {
     Array typeArray;
     typeArray.push_back("Artists");
     mainMap["parameters"]["type"] = Value(typeArray);
-    Value result = executeGroovesharkMethod(mainMap, "getResultsFromSearch");
+    Value result = executeGroovesharkMethod(mainMap, "getResultsFromSearch", 5);
     std::vector<Artist*> vector;
     int size = result["result"]["Artists"].getArray().size();
     for (int i = 0; i < size; i++) {
