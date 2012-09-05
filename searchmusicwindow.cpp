@@ -7,6 +7,7 @@
 #include "API/artist.h"
 #include "QtConcurrentRun"
 #include "QFuture"
+#include "QLayout"
 
 SearchMusicWindow::SearchMusicWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -40,6 +41,9 @@ SearchMusicWindow::SearchMusicWindow(QWidget *parent) :
     this->setAttribute(Qt::WA_DeleteOnClose);
     this->setFixedSize(this->size());
 
+    overlay = new SearchMusicOverlay();
+    connect(overlay->blendOutAnimation, SIGNAL(finished()), this, SLOT(fullyBlendedOut()));
+
 //    SearchMusicListItem *myItem1 = new SearchMusicListItem(ui->lstItems, "Call Me Maybe", "Carly Rae Jepsen", "2:53", 0);
 //    QListWidgetItem *item1 = new QListWidgetItem();
 //    item1->setSizeHint(QSize(374, 101));
@@ -50,6 +54,8 @@ SearchMusicWindow::SearchMusicWindow(QWidget *parent) :
 SearchMusicWindow::~SearchMusicWindow()
 {
     delete ui;
+    delete overlay;
+    disconnect(api, SIGNAL(songSearchCompleted(std::vector<Song*>)), this, SLOT(gotSongSearchResult(std::vector<Song*>)));
 }
 
 void SearchMusicWindow::setAPB(AudioPlayerBridge *apb) {
@@ -58,6 +64,7 @@ void SearchMusicWindow::setAPB(AudioPlayerBridge *apb) {
 
 void SearchMusicWindow::setAPI(API *api) {
     this->api = api;
+    connect(api, SIGNAL(songSearchCompleted(std::vector<Song*>)), this, SLOT(gotSongSearchResult(std::vector<Song*>)));
 }
 
 void SearchMusicWindow::on_btnBack_clicked()
@@ -78,15 +85,23 @@ void SearchMusicWindow::on_btnSearchArtist_clicked()
 }
 
 void SearchMusicWindow::searchSong(std::string text) {
+    ui->centralwidget->layout()->addWidget(overlay);
+    overlay->blendInAnimation->start();
+    api->getResultsFromSongSearch(text);
+}
 
-    ((QFuture<void>) QtConcurrent::run(api, &API::checkConnect)).waitForFinished();
-    std::vector<Song*> resultVector = api->getResultsFromSongSearch(text);
+void SearchMusicWindow::gotSongSearchResult(std::vector<Song*> result) {
     ui->lstItems->clear();
-    for (int i = 0; i < resultVector.size(); i++) {
-        SearchMusicListItem *myItem = new SearchMusicListItem(ui->lstItems, (Song*) resultVector.at(i), api, apb);
+    for (int i = 0; i < result.size(); i++) {
+        SearchMusicListItem *myItem = new SearchMusicListItem(this, result.at(i), api, apb);
         QListWidgetItem *item = new QListWidgetItem();
         item->setSizeHint(QSize(374, 101));
         ui->lstItems->addItem(item);
         ui->lstItems->setItemWidget(item, myItem);
     }
+    overlay->blendOutAnimation->start();
+}
+
+void SearchMusicWindow::fullyBlendedOut() {
+    ui->centralwidget->layout()->removeWidget(overlay);
 }

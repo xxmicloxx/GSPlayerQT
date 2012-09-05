@@ -15,6 +15,7 @@ Util::Util(QObject *parent) :
 {
     manager = new QNetworkAccessManager();
     currentPostActionId = -1;
+    connect(manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(dataReceived(QNetworkReply*)));
 }
 
 Util::~Util() {
@@ -30,7 +31,6 @@ std::string Util::getSha1FromString(std::string sha1string) {
 }
 
 void Util::postData(std::string url, std::string data, int postActionId) {
-
     currentPostActionId = postActionId;
     QUrl urlObj;
     urlObj.setUrl(QString::fromStdString(url));
@@ -39,13 +39,13 @@ void Util::postData(std::string url, std::string data, int postActionId) {
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
     request.setRawHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.47 Safari/536.11");
     manager->post(request, QString::fromStdString(data).toAscii());
-    connect(manager, SIGNAL(finished(QNetworkReply*)), SLOT(dataReceived(QNetworkReply*)));
 }
 
 void Util::dataReceived(QNetworkReply *reply) {
     reply->deleteLater();
     QByteArray array = reply->readAll();
     reply->close();
-    emit dataPosted(currentPostActionId, QString(array).toStdString());
+    int clonedId = currentPostActionId;
     currentPostActionId = -1;
+    emit dataPosted(clonedId, QString(array).toStdString());
 }

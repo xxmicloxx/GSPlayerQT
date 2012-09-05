@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "API/api.h"
 #include "audioplayerbridge.h"
+#include "searchmusicoverlay.h"
 
 namespace Ui {
 class SearchMusicWindow;
@@ -19,6 +20,10 @@ public:
     void setAPB(AudioPlayerBridge *apb);
     ~SearchMusicWindow();
 
+public slots:
+    void gotSongSearchResult(std::vector<Song*> result);
+    void fullyBlendedOut();
+
 private slots:
     void on_btnBack_clicked();
 
@@ -29,6 +34,7 @@ private slots:
 private:
     void searchSong(std::string text);
     Ui::SearchMusicWindow *ui;
+    SearchMusicOverlay *overlay;
     API *api;
     AudioPlayerBridge *apb;
 };

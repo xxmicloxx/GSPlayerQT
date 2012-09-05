@@ -22,6 +22,10 @@ std::string StreamInformation::getIp() {
     return ip;
 }
 
+int StreamInformation::getSongId() {
+    return songId;
+}
+
 void StreamInformation::setUSecs(std::string set) {
     uSecs = set;
 }
@@ -34,4 +38,6 @@ void StreamInformation::setIp(std::string set) {
     ip = set;
 }
 
-
+void StreamInformation::setSongId(int set) {
+    songId = set;
+}

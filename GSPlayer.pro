@@ -11,7 +11,6 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        interactionwindow.cpp \
     API/util.cpp \
     audioplayerbridge.cpp \
     API/api.cpp \
@@ -29,9 +28,10 @@ SOURCES += main.cpp\
     JsonBox/Convert.cpp \
     JsonBox/Array.cpp \
     API/artist.cpp \
-    artistlistitem.cpp
+    artistlistitem.cpp \
+    searchmusicoverlay.cpp
 
-HEADERS  += interactionwindow.h \
+HEADERS  += \
     API/util.h \
     audioplayerbridge.h \
     API/api.h \
@@ -52,13 +52,15 @@ HEADERS  += interactionwindow.h \
     JsonBox/Convert.h \
     JsonBox/Array.h \
     API/artist.h \
-    artistlistitem.h
+    artistlistitem.h \
+    searchmusicoverlay.h
 
-FORMS    += interactionwindow.ui \
+FORMS    += \
     mainwindow.ui \
     searchmusicwindow.ui \
     searchmusiclistitem.ui \
-    artistlistitem.ui
+    artistlistitem.ui \
+    searchmusicoverlay.ui
 
 LIBS += C:\Users\RL\Desktop\GSPlayer\bass.lib
 

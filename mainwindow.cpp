@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     bridge = new AudioPlayerBridge();
     api = new API();
+    api->checkConnect();
     QGraphicsDropShadowEffect *effect = new QGraphicsDropShadowEffect(ui->lblBtn1Caption);
     effect->setBlurRadius(1);
     effect->setOffset(-1, 2);
@@ -45,7 +46,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_btnSide2_clicked()
 {
-    api->getSessionID();
+
 }
 
 void MainWindow::on_btn2_clicked()

@@ -163,8 +163,8 @@ background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Download_Button_
     <rect>
      <x>10</x>
      <y>67</y>
-     <width>33</width>
-     <height>13</height>
+     <width>41</width>
+     <height>16</height>
     </rect>
    </property>
    <property name="text">

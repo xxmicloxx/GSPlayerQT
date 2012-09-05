@@ -15,11 +15,14 @@ public:
     void setStreamKey(std::string set);
     std::string getIp();
     void setIp(std::string set);
+    int getSongId();
+    void setSongId(int set);
 
 private:
     std::string uSecs;
     std::string streamKey;
     std::string ip;
+    int songId;
 
 signals:
     

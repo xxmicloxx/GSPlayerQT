@@ -5,6 +5,7 @@
 #include "API/song.h"
 #include "API/api.h"
 #include "audioplayerbridge.h"
+#include "API/streaminformation.h"
 
 namespace Ui {
 class SearchMusicListItem;
@@ -18,6 +19,9 @@ public:
     explicit SearchMusicListItem(QWidget *parent = 0, Song* song = new Song(), API* api = new API(), AudioPlayerBridge* apb = new AudioPlayerBridge());
     ~SearchMusicListItem();
     
+public slots:
+    void gotStreamKey(StreamInformation* info);
+
 private slots:
     void on_btnPlay_clicked();
 

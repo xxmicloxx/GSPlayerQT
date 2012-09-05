@@ -21,14 +21,22 @@ SearchMusicListItem::SearchMusicListItem(QWidget *parent, Song* song, API *api, 
     ui->cmbAddTo->setCurrentIndex(0);
     this->apb = apb;
     this->api = api;
+    connect(api, SIGNAL(streamKeyReady(StreamInformation*)), this, SLOT(gotStreamKey(StreamInformation*)));
 }
 
 SearchMusicListItem::~SearchMusicListItem()
 {
     delete ui;
+    disconnect(api, SIGNAL(streamKeyReady(StreamInformation*)), this, SLOT(gotStreamKey(StreamInformation*)));
 }
 
 void SearchMusicListItem::on_btnPlay_clicked()
 {
-    apb->openAndPlay(api->getStreamKeyFromSongIDEx(song->getSongId())->directUrl());
+    api->getStreamKeyFromSongIDEx(song->getSongId());
+}
+
+void SearchMusicListItem::gotStreamKey(StreamInformation *info) {
+    if (info->getSongId() != song->getSongId())
+        return;
+    apb->openAndPlay(info->directUrl());
 }

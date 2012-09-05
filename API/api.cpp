@@ -15,6 +15,12 @@ API::API(QObject *parent) :
     uuid = ss.str();
     connected = false;
     connect(util, SIGNAL(dataPosted(int,std::string)), this, SLOT(gotSessionID(int,std::string)));
+    connect(util, SIGNAL(dataPosted(int,std::string)), this, SLOT(gotToken(int,std::string)));
+    connect(util, SIGNAL(dataPosted(int,std::string)), this, SLOT(gotCountry(int,std::string)));
+    connect(util, SIGNAL(dataPosted(int,std::string)), this, SLOT(gotGSMethodAnswer(int,std::string)));
+    connect(this, SIGNAL(methodExecuted(Value,int)), this, SLOT(gotResultsFromSongSearch(Value,int)));
+    connect(this, SIGNAL(methodExecuted(Value,int)), this, SLOT(gotStreamKeyFromSongIDEx(Value,int)));
+    connect(this, SIGNAL(methodExecuted(Value,int)), this, SLOT(gotResultsFromArtistSearch(Value,int)));
 }
 
 void API::getSessionID() {
@@ -28,7 +34,7 @@ void API::getSessionID() {
     std::stringstream ss;
     ss << mainMap;
     std::string postData = ss.str();
-    util->postData("https://grooveshark.com/more.php?initiateSession", postData, 0);
+    util->postData("http://grooveshark.com/more.php?initiateSession", postData, 0);
 }
 
 void API::gotSessionID(int postActionId, std::string resultText) {
@@ -38,12 +44,20 @@ void API::gotSessionID(int postActionId, std::string resultText) {
     resultRoot.loadFromString(resultText);
     sessionID = resultRoot["result"].getString();
     qDebug() << "Session: " << QString::fromStdString(sessionID);
+    emit sessionInitialized();
 }
 
 void API::init() {
+    connect(this, SIGNAL(sessionInitialized()), SLOT(getCommunicationToken()));
+    connect(this, SIGNAL(tokenInitialized()), SLOT(getCountry()));
+    connect(this, SIGNAL(countryInitialized()), SLOT(inited()));
     getSessionID();
-    getCommunicationToken();
-    getCountry();
+}
+
+void API::inited() {
+    disconnect(SIGNAL(sessionInitialized()), this, SLOT(getCommunicationToken()));
+    disconnect(SIGNAL(tokenInitialized()), this, SLOT(getCountry()));
+    disconnect(SIGNAL(countryInitialized()), this, SLOT(inited()));
 }
 
 void API::checkConnect() {
@@ -54,7 +68,7 @@ void API::checkConnect() {
 }
 
 
-std::string API::getCommunicationToken() {
+void API::getCommunicationToken() {
     Value mainMap;
     mainMap["header"]["privacy"] = Value(0);
     mainMap["header"]["client"] = Value("htmlshark");
@@ -68,12 +82,17 @@ std::string API::getCommunicationToken() {
     std::stringstream ss;
     ss << mainMap;
     std::string postData = ss.str();
-//    std::string result = util->postData("https://grooveshark.com/more.php?getCommunicationToken", postData, 1);
-//    Value result_root;
-//    result_root.loadFromString(result);
-//    token = result_root["result"].getString();
-//    qDebug() << "CommunicationToken: " << QString::fromStdString(token);
-//    return token;
+    util->postData("https://grooveshark.com/more.php?getCommunicationToken", postData, 1);
+}
+
+void API::gotToken(int postActionId, std::string resultText) {
+    if (postActionId != 1)
+        return;
+    Value result_root;
+    result_root.loadFromString(resultText);
+    token = result_root["result"].getString();
+    qDebug() << "CommunicationToken: " << QString::fromStdString(token);
+    emit tokenInitialized();
 }
 
 void API::getCountry() {
@@ -103,10 +122,19 @@ void API::getCountry() {
     std::stringstream ss;
     ss << mainMap;
     std::string postData = ss.str();
-//    std::string result = util->postData("http://grooveshark.com/more.php?getCountry", postData, 2);
-//    Value result_root;
-//    result_root.loadFromString(result);
-//    countryMap = result_root["result"];
+    util->postData("http://grooveshark.com/more.php", postData, 2);
+}
+
+void API::gotCountry(int postActionId, std::string resultText) {
+    if (postActionId != 2)
+        return;
+    Value result_root;
+    result_root.loadFromString(resultText);
+    countryMap = result_root["result"];
+    std::stringstream ss;
+    ss << countryMap;
+    qDebug() << "CountryMap: " << QString::fromStdString(ss.str());
+    emit countryInitialized();
 }
 
 Value API::getHeaderMap(std::string client, std::string method) {
@@ -140,8 +168,8 @@ Value API::getHeaderMap(std::string client, std::string method) {
     return headerMap;
 }
 
-StreamInformation* API::getStreamKeyFromSongIDEx(int songID) {
-    checkConnect();
+void API::getStreamKeyFromSongIDEx(int songID) {
+    lastSongId = songID;
     srand(QTime::currentTime().msec());
     std::string randNum = "";
     for (int i = 0; i < 6; i++) {
@@ -163,35 +191,51 @@ StreamInformation* API::getStreamKeyFromSongIDEx(int songID) {
             "\"},\"parameters\":{\"mobile\":false,\"country\":{\"CC3\":4294967296,\"DMA\":0,\"ID\":161,\"CC2\":0,\"CC1\":0,\"IPR\":0,\"CC4\":0},\"songID\":\"" +
             QString::number(songID).toStdString() +
             "\",\"type\":64,\"prefetch\":false},\"method\":\"getStreamKeyFromSongIDEx\"}";
-//    Value result = executeGroovesharkMethod(postString, "getStreamKeyFromSongIDEx", 3);
-//    StreamInformation* info = new StreamInformation(this);
-//    info->setUSecs(result["uSecs"].getString());
-//    info->setStreamKey(result["streamKey"].getString());
-//    info->setIp(result["ip"].getString());
-//    return info;
+    executeGroovesharkMethod(postString, "getStreamKeyFromSongIDEx", 3);
 }
 
-Value API::executeGroovesharkMethod(Value mainMap, std::string method, int postResultId) {
+void API::gotStreamKeyFromSongIDEx(Value result, int postActionId) {
+    if (postActionId != 3)
+        return;
+    if (result == NULL) {
+        getStreamKeyFromSongIDEx(lastSongId);
+        return;
+    }
+    StreamInformation* info = new StreamInformation(this);
+    info->setUSecs(result["uSecs"].getString());
+    info->setStreamKey(result["streamKey"].getString());
+    info->setIp(result["ip"].getString());
+    info->setSongId(lastSongId);
+    emit streamKeyReady(info);
+}
+
+void API::executeGroovesharkMethod(Value mainMap, std::string method, int postResultId) {
     std::stringstream ss;
     ss << mainMap;
     std::string array = ss.str();
-    return executeGroovesharkMethod(array, method, postResultId);
+    executeGroovesharkMethod(array, method, postResultId);
 }
 
-Value API::executeGroovesharkMethod(std::string array, std::string method, int postResultId) {
+void API::executeGroovesharkMethod(std::string array, std::string method, int postResultId) {
     qDebug() << "Request: " << QString::fromStdString(array);
-//    std::string result = util->postData("http://grooveshark.com/more.php?" + method, array, postResultId);
-//    qDebug() << "Result: " << QString::fromStdString(result);
-//    Value resultMap;
-//    resultMap.loadFromString(result);
-//    if (!resultMap["fault"].isNull() && resultMap["fault"]["code"].getInt() == 256) {
-//        getCommunicationToken();
-//        return executeGroovesharkMethod(array, method, postResultId);
-//    }
-//    return resultMap["result"];
+    util->postData("http://grooveshark.com/more.php?" + method, array, postResultId);
 }
 
-std::vector<Song*> API::getResultsFromSongSearch(std::string query) {
+void API::gotGSMethodAnswer(int postActionId, std::string resultText) {
+    if (postActionId < 3)
+        return;
+    qDebug() << "Result: " << QString::fromStdString(resultText);
+    Value resultMap;
+    resultMap.loadFromString(resultText);
+    if (!resultMap["fault"].isNull() && resultMap["fault"]["code"].getInt() == 256) {
+        getCommunicationToken();
+        emit methodExecuted(NULL, postActionId);
+    }
+    emit methodExecuted(resultMap["result"], postActionId);
+}
+
+void API::getResultsFromSongSearch(std::string query) {
+    lastSongSearch = query;
     Value mainMap;
     mainMap["header"] = getHeaderMap("htmlshark", "getResultsFromSearch");
     mainMap["method"] = Value("getResultsFromSearch");
@@ -201,7 +245,16 @@ std::vector<Song*> API::getResultsFromSongSearch(std::string query) {
     Array typeArray;
     typeArray.push_back("Songs");
     mainMap["parameters"]["type"] = Value(typeArray);
-    Value result = executeGroovesharkMethod(mainMap, "getResultsFromSearch", 4);
+    executeGroovesharkMethod(mainMap, "getResultsFromSearch", 4);
+}
+
+void API::gotResultsFromSongSearch(Value result, int postActionId) {
+    if (postActionId != 4)
+        return;
+    if (result == NULL) {
+        getResultsFromSongSearch(lastSongSearch);
+        return;
+    }
     std::vector<Song*> vector;
     int size = result["result"]["Songs"].getArray().size();
     for (int i = 0; i < size; i++) {
@@ -214,7 +267,7 @@ std::vector<Song*> API::getResultsFromSongSearch(std::string query) {
         song->setArtistId(boost::lexical_cast<int>(result["result"]["Songs"][i]["ArtistID"].getString()));
         vector.push_back(song);
     }
-    return vector;
+    emit songSearchCompleted(vector);
 }
 
 std::vector<Artist*> API::getResultsFromArtistSearch(std::string query) {
@@ -227,7 +280,16 @@ std::vector<Artist*> API::getResultsFromArtistSearch(std::string query) {
     Array typeArray;
     typeArray.push_back("Artists");
     mainMap["parameters"]["type"] = Value(typeArray);
-    Value result = executeGroovesharkMethod(mainMap, "getResultsFromSearch", 5);
+    executeGroovesharkMethod(mainMap, "getResultsFromSearch", 5);
+}
+
+void API::gotResultsFromArtistSearch(Value result, int postActionId) {
+    if (postActionId != 5)
+        return;
+    if (result == NULL) {
+        getResultsFromArtistSearch(lastArtistSearch);
+        return;
+    }
     std::vector<Artist*> vector;
     int size = result["result"]["Artists"].getArray().size();
     for (int i = 0; i < size; i++) {
@@ -236,5 +298,5 @@ std::vector<Artist*> API::getResultsFromArtistSearch(std::string query) {
         artist->setArtistName(result["result"]["Artists"][i]["ArtistName"].getString());
         vector.push_back(artist);
     }
-    return vector;
+    emit artistSearchCompleted(vector);
 }
