@@ -31,8 +31,14 @@ private slots:
 
     void on_btnSearchArtist_clicked();
 
+    void on_pushButton_clicked();
+
+    void on_txtSearchSong_returnPressed();
+
 private:
+    bool working;
     void searchSong(std::string text);
+    void getPopularSongs();
     Ui::SearchMusicWindow *ui;
     SearchMusicOverlay *overlay;
     API *api;

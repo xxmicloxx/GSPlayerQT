@@ -29,7 +29,8 @@ SOURCES += main.cpp\
     JsonBox/Array.cpp \
     API/artist.cpp \
     artistlistitem.cpp \
-    searchmusicoverlay.cpp
+    searchmusicoverlay.cpp \
+    downloadsongwindow.cpp
 
 HEADERS  += \
     API/util.h \
@@ -53,14 +54,16 @@ HEADERS  += \
     JsonBox/Array.h \
     API/artist.h \
     artistlistitem.h \
-    searchmusicoverlay.h
+    searchmusicoverlay.h \
+    downloadsongwindow.h
 
 FORMS    += \
     mainwindow.ui \
     searchmusicwindow.ui \
     searchmusiclistitem.ui \
     artistlistitem.ui \
-    searchmusicoverlay.ui
+    searchmusicoverlay.ui \
+    downloadsongwindow.ui
 
 LIBS += C:\Users\RL\Desktop\GSPlayer\bass.lib
 

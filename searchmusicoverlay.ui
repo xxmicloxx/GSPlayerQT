@@ -16,6 +16,10 @@
   <property name="styleSheet">
    <string notr="true">#lblBkg {
 background-color: rgb(255, 255, 255);
+}
+
+#lblCaption, #lblLeft {
+color: rgb(0, 0, 0);
 }</string>
   </property>
   <widget class="QLabel" name="lblBkg">
@@ -34,10 +38,10 @@ background-color: rgb(255, 255, 255);
   <widget class="QLabel" name="lblCaption">
    <property name="geometry">
     <rect>
-     <x>130</x>
+     <x>120</x>
      <y>240</y>
-     <width>107</width>
-     <height>13</height>
+     <width>131</width>
+     <height>16</height>
     </rect>
    </property>
    <property name="text">
@@ -64,6 +68,19 @@ background-color: rgb(255, 255, 255);
    </property>
    <property name="invertedAppearance">
     <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblLeft">
+   <property name="geometry">
+    <rect>
+     <x>140</x>
+     <y>300</y>
+     <width>101</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
    </property>
   </widget>
  </widget>

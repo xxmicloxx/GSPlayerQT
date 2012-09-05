@@ -21,6 +21,7 @@ API::API(QObject *parent) :
     connect(this, SIGNAL(methodExecuted(Value,int)), this, SLOT(gotResultsFromSongSearch(Value,int)));
     connect(this, SIGNAL(methodExecuted(Value,int)), this, SLOT(gotStreamKeyFromSongIDEx(Value,int)));
     connect(this, SIGNAL(methodExecuted(Value,int)), this, SLOT(gotResultsFromArtistSearch(Value,int)));
+    connect(this, SIGNAL(methodExecuted(Value,int)), this, SLOT(gotPopularSongs(Value,int)));
 }
 
 void API::getSessionID() {
@@ -270,7 +271,7 @@ void API::gotResultsFromSongSearch(Value result, int postActionId) {
     emit songSearchCompleted(vector);
 }
 
-std::vector<Artist*> API::getResultsFromArtistSearch(std::string query) {
+void API::getResultsFromArtistSearch(std::string query) {
     Value mainMap;
     mainMap["header"] = getHeaderMap("htmlshark", "getResultsFromSearch");
     mainMap["method"] = Value("getResultsFromSearch");
@@ -299,4 +300,34 @@ void API::gotResultsFromArtistSearch(Value result, int postActionId) {
         vector.push_back(artist);
     }
     emit artistSearchCompleted(vector);
+}
+
+void API::popularGetSongs() {
+    Value mainMap;
+    mainMap["header"] = getHeaderMap("htmlshark", "popularGetSongs");
+    mainMap["method"] = Value("popularGetSongs");
+    mainMap["parameters"]["type"] = Value("daily");
+    executeGroovesharkMethod(mainMap, "popularGetSongs", 6);
+}
+
+void API::gotPopularSongs(Value result, int postActionId) {
+    if (postActionId != 6)
+        return;
+    if (result == NULL) {
+        popularGetSongs();
+        return;
+    }
+    std::vector<Song*> vector;
+    for (int i = 0; i < result["Songs"].getArray().size(); i++) {
+        Song* song = new Song(this);
+        Value currData = result["Songs"][i];
+        song->setSongName(currData["Name"].getString());
+        song->setSongId(boost::lexical_cast<int>(currData["SongID"].getString()));
+        song->setArtistName(currData["ArtistName"].getString());
+        song->setArtistId(boost::lexical_cast<int>(currData["ArtistID"].getString()));
+        song->setAlbumName(currData["AlbumName"].getString());
+        song->setAlbumId(boost::lexical_cast<int>(currData["AlbumID"].getString()));
+        vector.push_back(song);
+    }
+    emit popularSongSearchCompleted(vector);
 }

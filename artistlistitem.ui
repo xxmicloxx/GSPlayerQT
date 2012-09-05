@@ -40,12 +40,25 @@ background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/slot_hover.png);
     <rect>
      <x>10</x>
      <y>40</y>
+     <width>41</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Artist:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblArtist">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>40</y>
      <width>46</width>
      <height>13</height>
     </rect>
    </property>
    <property name="text">
-    <string>TextLabel</string>
+    <string>Artist</string>
    </property>
   </widget>
  </widget>

@@ -1,6 +1,7 @@
 #include "searchmusicoverlay.h"
 #include "ui_searchmusicoverlay.h"
 #include <QPropertyAnimation>
+#include <boost/lexical_cast.hpp>
 
 SearchMusicOverlay::SearchMusicOverlay(QWidget *parent) :
     QWidget(parent),
@@ -18,6 +19,20 @@ SearchMusicOverlay::SearchMusicOverlay(QWidget *parent) :
     blendOutAnimation->setStartValue(0.5);
     blendInAnimation->setEndValue(0.5);
     blendOutAnimation->setEndValue(0.0);
+}
+
+void SearchMusicOverlay::setItemMax(int count) {
+    ui->progressBar->setMaximum(count);
+    updateText(ui->progressBar->maximum() - ui->progressBar->value());
+}
+
+void SearchMusicOverlay::updateText(int remaining) {
+    ui->lblLeft->setText(QString::fromStdString(boost::lexical_cast<std::string>(remaining) + " verbleibend"));
+}
+
+void SearchMusicOverlay::setItemsDone(int count) {
+    ui->progressBar->setValue(count);
+    updateText(ui->progressBar->maximum() - ui->progressBar->value());
 }
 
 SearchMusicOverlay::~SearchMusicOverlay()

@@ -18,8 +18,11 @@ public:
     ~SearchMusicOverlay();
     QPropertyAnimation* blendInAnimation;
     QPropertyAnimation* blendOutAnimation;
+    void setItemMax(int count);
+    void setItemsDone(int count);
     
 private:
+    void updateText(int remaining);
     Ui::SearchMusicOverlay *ui;
     QGraphicsOpacityEffect *effect;
 };

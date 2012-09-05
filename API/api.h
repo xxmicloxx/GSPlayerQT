@@ -22,8 +22,9 @@ public:
     explicit API(QObject *parent = 0);
     void getStreamKeyFromSongIDEx(int songID);
     void getResultsFromSongSearch(std::string query);
-    std::vector<Artist*> getResultsFromArtistSearch(std::string query);
+    void getResultsFromArtistSearch(std::string query);
     void checkConnect();
+    void popularGetSongs();
     
 signals:
     void sessionInitialized();
@@ -32,6 +33,7 @@ signals:
     void methodExecuted(Value value, int postResultId);
     void songSearchCompleted(std::vector<Song*>);
     void artistSearchCompleted(std::vector<Artist*>);
+    void popularSongSearchCompleted(std::vector<Song*>);
     void streamKeyReady(StreamInformation* info);
 
 private:
@@ -63,6 +65,7 @@ private slots:
     void gotResultsFromSongSearch(Value result, int postActionId);
     void gotResultsFromArtistSearch(Value result, int postActionId);
     void gotStreamKeyFromSongIDEx(Value result, int postActionId);
+    void gotPopularSongs(Value result, int postActionId);
 };
 
 #endif // API_H

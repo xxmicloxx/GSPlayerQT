@@ -41,9 +41,6 @@ SearchMusicWindow::SearchMusicWindow(QWidget *parent) :
     this->setAttribute(Qt::WA_DeleteOnClose);
     this->setFixedSize(this->size());
 
-    overlay = new SearchMusicOverlay();
-    connect(overlay->blendOutAnimation, SIGNAL(finished()), this, SLOT(fullyBlendedOut()));
-
 //    SearchMusicListItem *myItem1 = new SearchMusicListItem(ui->lstItems, "Call Me Maybe", "Carly Rae Jepsen", "2:53", 0);
 //    QListWidgetItem *item1 = new QListWidgetItem();
 //    item1->setSizeHint(QSize(374, 101));
@@ -54,7 +51,6 @@ SearchMusicWindow::SearchMusicWindow(QWidget *parent) :
 SearchMusicWindow::~SearchMusicWindow()
 {
     delete ui;
-    delete overlay;
     disconnect(api, SIGNAL(songSearchCompleted(std::vector<Song*>)), this, SLOT(gotSongSearchResult(std::vector<Song*>)));
 }
 
@@ -65,6 +61,7 @@ void SearchMusicWindow::setAPB(AudioPlayerBridge *apb) {
 void SearchMusicWindow::setAPI(API *api) {
     this->api = api;
     connect(api, SIGNAL(songSearchCompleted(std::vector<Song*>)), this, SLOT(gotSongSearchResult(std::vector<Song*>)));
+    connect(api, SIGNAL(popularSongSearchCompleted(std::vector<Song*>)), this, SLOT(gotSongSearchResult(std::vector<Song*>)));
 }
 
 void SearchMusicWindow::on_btnBack_clicked()
@@ -80,28 +77,59 @@ void SearchMusicWindow::on_btnSearchSong_clicked()
 void SearchMusicWindow::on_btnSearchArtist_clicked()
 {
     api->checkConnect();
-    std::vector<Artist*> resultVector = api->getResultsFromArtistSearch(ui->txtSearchArtist->text().toStdString());
-    ui->lstItems->clear();
+    //std::vector<Artist*> resultVector = api->getResultsFromArtistSearch(ui->txtSearchArtist->text().toStdString());
+    //ui->lstItems->clear();
+}
+
+void SearchMusicWindow::getPopularSongs() {
+    working = true;
+    overlay = new SearchMusicOverlay();
+    connect(overlay->blendOutAnimation, SIGNAL(finished()), this, SLOT(fullyBlendedOut()));
+    this->layout()->addWidget(overlay);
+    overlay->blendInAnimation->start();
+    api->popularGetSongs();
 }
 
 void SearchMusicWindow::searchSong(std::string text) {
-    ui->centralwidget->layout()->addWidget(overlay);
+    working = true;
+    overlay = new SearchMusicOverlay();
+    connect(overlay->blendOutAnimation, SIGNAL(finished()), this, SLOT(fullyBlendedOut()));
+    this->layout()->addWidget(overlay);
     overlay->blendInAnimation->start();
     api->getResultsFromSongSearch(text);
 }
 
 void SearchMusicWindow::gotSongSearchResult(std::vector<Song*> result) {
     ui->lstItems->clear();
+    overlay->setItemMax(result.size());
     for (int i = 0; i < result.size(); i++) {
-        SearchMusicListItem *myItem = new SearchMusicListItem(this, result.at(i), api, apb);
-        QListWidgetItem *item = new QListWidgetItem();
+        QListWidgetItem *item = new QListWidgetItem(ui->lstItems);
+        SearchMusicListItem *myItem = new SearchMusicListItem(ui->lstItems, result.at(i), api, apb);
         item->setSizeHint(QSize(374, 101));
         ui->lstItems->addItem(item);
         ui->lstItems->setItemWidget(item, myItem);
+        if (i % 35 == 0) {
+            overlay->setItemsDone(i + 1);
+            QApplication::processEvents();
+        }
     }
     overlay->blendOutAnimation->start();
 }
 
 void SearchMusicWindow::fullyBlendedOut() {
-    ui->centralwidget->layout()->removeWidget(overlay);
+    this->layout()->removeWidget(overlay);
+    delete overlay;
+    working = false;
+}
+
+void SearchMusicWindow::on_pushButton_clicked()
+{
+    getPopularSongs();
+}
+
+void SearchMusicWindow::on_txtSearchSong_returnPressed()
+{
+    if (!working) {
+        ui->btnSearchSong->click();
+    }
 }

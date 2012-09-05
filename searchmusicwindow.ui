@@ -243,27 +243,23 @@ background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Search_pressed.p
      <enum>QAbstractItemView::ScrollPerPixel</enum>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>10</y>
+      <width>76</width>
+      <height>35</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Populär</string>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources>
   <include location="Design.qrc"/>
  </resources>
- <connections>
-  <connection>
-   <sender>txtSearchSong</sender>
-   <signal>returnPressed()</signal>
-   <receiver>btnSearchSong</receiver>
-   <slot>click()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>205</x>
-     <y>67</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>337</x>
-     <y>67</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>
