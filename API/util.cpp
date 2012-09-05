@@ -38,7 +38,7 @@ void Util::postData(std::string url, std::string data, int postActionId) {
     request.setUrl(urlObj);
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
     request.setRawHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.47 Safari/536.11");
-    manager->post(request, QString::fromStdString(data).toAscii());
+    manager->post(request, QString::fromStdString(data).toUtf8());
 }
 
 void Util::dataReceived(QNetworkReply *reply) {

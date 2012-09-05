@@ -101,6 +101,13 @@ void SearchMusicWindow::searchSong(std::string text) {
 
 void SearchMusicWindow::gotSongSearchResult(std::vector<Song*> result) {
     ui->lstItems->clear();
+    for (int i = 0; i < itemVector.size(); i++) {
+        delete itemVector.at(i);
+        if (i % 50 == 0) {
+            QApplication::processEvents();
+        }
+    }
+    itemVector.clear();
     overlay->setItemMax(result.size());
     for (int i = 0; i < result.size(); i++) {
         QListWidgetItem *item = new QListWidgetItem(ui->lstItems);
@@ -108,11 +115,13 @@ void SearchMusicWindow::gotSongSearchResult(std::vector<Song*> result) {
         item->setSizeHint(QSize(374, 101));
         ui->lstItems->addItem(item);
         ui->lstItems->setItemWidget(item, myItem);
+        itemVector.push_back(myItem);
         if (i % 35 == 0) {
             overlay->setItemsDone(i + 1);
             QApplication::processEvents();
         }
     }
+    overlay->setItemsDone(result.size());
     overlay->blendOutAnimation->start();
 }
 

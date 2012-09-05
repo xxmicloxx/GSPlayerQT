@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui network phonon
+QT       += core gui network sql
 
 TARGET = GSPlayer
 TEMPLATE = app
@@ -30,7 +30,8 @@ SOURCES += main.cpp\
     API/artist.cpp \
     artistlistitem.cpp \
     searchmusicoverlay.cpp \
-    downloadsongwindow.cpp
+    downloadsongwindow.cpp \
+    playlisthandler.cpp
 
 HEADERS  += \
     API/util.h \
@@ -55,7 +56,8 @@ HEADERS  += \
     API/artist.h \
     artistlistitem.h \
     searchmusicoverlay.h \
-    downloadsongwindow.h
+    downloadsongwindow.h \
+    playlisthandler.h
 
 FORMS    += \
     mainwindow.ui \
@@ -66,6 +68,8 @@ FORMS    += \
     downloadsongwindow.ui
 
 LIBS += C:\Users\RL\Desktop\GSPlayer\bass.lib
+
+DEFINES += UNICODE
 
 HEADERS += bass.h
 

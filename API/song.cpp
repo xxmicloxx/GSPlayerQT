@@ -29,6 +29,10 @@ void Song::setArtistName(std::string artistName) {
     this->artistName = artistName;
 }
 
+void Song::setCoverArtFilename(std::string coverArtFilename) {
+    this->coverArtFilename = coverArtFilename;
+}
+
 int Song::getSongId() {
     return songId;
 }
@@ -51,4 +55,8 @@ std::string Song::getAlbumName() {
 
 std::string Song::getArtistName() {
     return artistName;
+}
+
+std::string Song::getCoverArtFilename() {
+    return coverArtFilename;
 }

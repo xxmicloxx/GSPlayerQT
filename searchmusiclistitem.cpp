@@ -1,4 +1,4 @@
-#include "searchmusiclistitem.h"
+﻿#include "searchmusiclistitem.h"
 #include "ui_searchmusiclistitem.h"
 #include <boost/lexical_cast.hpp>
 
@@ -17,7 +17,8 @@ SearchMusicListItem::SearchMusicListItem(QWidget *parent, Song* song, API *api, 
     ui->lblAlbumCaption->setAttribute(Qt::WA_TransparentForMouseEvents);
     ui->lblTitle->setAttribute(Qt::WA_TransparentForMouseEvents);
     ui->lblTitleCaption->setAttribute(Qt::WA_TransparentForMouseEvents);
-    ui->cmbAddTo->addItem("Hinzufuegen zu...");
+    ui->cmbAddTo->addItem("Hinzufügen zu...");
+    ui->cmbAddTo->addItem("Neue Playlist erstellen");
     ui->cmbAddTo->setCurrentIndex(0);
     this->apb = apb;
     this->api = api;

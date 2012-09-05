@@ -263,6 +263,7 @@ void API::gotResultsFromSongSearch(Value result, int postActionId) {
         song->setSongName(result["result"]["Songs"][i]["SongName"].getString());
         song->setAlbumName(result["result"]["Songs"][i]["AlbumName"].getString());
         song->setArtistName(result["result"]["Songs"][i]["ArtistName"].getString());
+        song->setCoverArtFilename(result["result"]["Songs"][i]["CoverArtFilename"].getString());
         song->setSongId(boost::lexical_cast<int>(result["result"]["Songs"][i]["SongID"].getString()));
         song->setAlbumId(boost::lexical_cast<int>(result["result"]["Songs"][i]["AlbumID"].getString()));
         song->setArtistId(boost::lexical_cast<int>(result["result"]["Songs"][i]["ArtistID"].getString()));
@@ -327,6 +328,7 @@ void API::gotPopularSongs(Value result, int postActionId) {
         song->setArtistId(boost::lexical_cast<int>(currData["ArtistID"].getString()));
         song->setAlbumName(currData["AlbumName"].getString());
         song->setAlbumId(boost::lexical_cast<int>(currData["AlbumID"].getString()));
+        song->setCoverArtFilename(currData["CoverArtFilename"].getString());
         vector.push_back(song);
     }
     emit popularSongSearchCompleted(vector);

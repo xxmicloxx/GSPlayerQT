@@ -14,12 +14,14 @@ public:
     void setSongName(std::string songName);
     void setAlbumName(std::string albumName);
     void setArtistName(std::string artistName);
+    void setCoverArtFilename(std::string coverArtFilename);
     int getSongId();
     int getAlbumId();
     int getArtistId();
     std::string getSongName();
     std::string getAlbumName();
     std::string getArtistName();
+    std::string getCoverArtFilename();
     
 private:
     int songId;
@@ -28,6 +30,7 @@ private:
     std::string songName;
     std::string artistName;
     std::string albumName;
+    std::string coverArtFilename;
 
 signals:
     

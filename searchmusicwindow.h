@@ -5,6 +5,7 @@
 #include "API/api.h"
 #include "audioplayerbridge.h"
 #include "searchmusicoverlay.h"
+#include "searchmusiclistitem.h"
 
 namespace Ui {
 class SearchMusicWindow;
@@ -36,6 +37,7 @@ private slots:
     void on_txtSearchSong_returnPressed();
 
 private:
+    std::vector<SearchMusicListItem*> itemVector;
     bool working;
     void searchSong(std::string text);
     void getPopularSongs();
