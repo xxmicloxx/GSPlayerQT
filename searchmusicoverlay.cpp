@@ -22,6 +22,8 @@ SearchMusicOverlay::SearchMusicOverlay(QWidget *parent) :
 }
 
 void SearchMusicOverlay::setItemMax(int count) {
+    if (ui->progressBar == NULL)
+        return;
     ui->progressBar->setMaximum(count);
     updateText(ui->progressBar->maximum() - ui->progressBar->value());
 }
@@ -31,6 +33,8 @@ void SearchMusicOverlay::updateText(int remaining) {
 }
 
 void SearchMusicOverlay::setItemsDone(int count) {
+    if (ui->progressBar == NULL)
+        return;
     ui->progressBar->setValue(count);
     updateText(ui->progressBar->maximum() - ui->progressBar->value());
 }

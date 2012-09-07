@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    plh = new PlaylistHandler();
     bridge = new AudioPlayerBridge();
     api = new API();
     api->checkConnect();
@@ -54,7 +55,8 @@ void MainWindow::on_btn2_clicked()
     SearchMusicWindow *smw = new SearchMusicWindow();
     smw->setAPI(api);
     smw->setAPB(bridge);
-    connect(smw, SIGNAL(destroyed()), this, SLOT(onChildClosed()), Qt::DirectConnection);
+    smw->setPLH(plh);
+    connect(smw, SIGNAL(destroyed()), this, SLOT(onChildClosed()));
     smw->show();
     this->setVisible(false);
 }

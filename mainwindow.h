@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <API/api.h>
 #include <audioplayerbridge.h>
+#include "playlisthandler.h"
 
 namespace Ui {
 class MainWindow;
@@ -27,6 +28,7 @@ private slots:
 
 private:
     API *api;
+    PlaylistHandler *plh;
     AudioPlayerBridge *bridge;
     Ui::MainWindow *ui;
 };

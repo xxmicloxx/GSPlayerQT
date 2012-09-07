@@ -7,6 +7,7 @@
 #include <boost/uuid/uuid_io.hpp>
 #include <QTextStream>
 #include <QTextCodec>
+#include <QFile>
 
 QTextStream stream(fopen("log", "w"));
 
@@ -19,8 +20,12 @@ void myMessageOutput(QtMsgType type, const char *msg)
 
 int main(int argc, char *argv[])
 {
-    qInstallMsgHandler(myMessageOutput);
+    //qInstallMsgHandler(myMessageOutput);
     QApplication a(argc, argv);
+    QFile playlists("Playlists.xml");
+    if (playlists.exists()) {
+        playlists.remove();
+    }
     QTextCodec::setCodecForCStrings( QTextCodec::codecForName( "UTF-8" ) );
     QTextCodec::setCodecForLocale( QTextCodec::codecForName("UTF-8") );
     QTextCodec::setCodecForTr( QTextCodec::codecForName("UTF-8") );

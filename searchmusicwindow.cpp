@@ -8,6 +8,7 @@
 #include "QtConcurrentRun"
 #include "QFuture"
 #include "QLayout"
+#include <QTimer>
 
 SearchMusicWindow::SearchMusicWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -41,11 +42,23 @@ SearchMusicWindow::SearchMusicWindow(QWidget *parent) :
     this->setAttribute(Qt::WA_DeleteOnClose);
     this->setFixedSize(this->size());
 
+    handler = new MessageHandler(this);
+    connect(handler, SIGNAL(addedMessage(Message*)), this, SLOT(addedMessage(Message*)));
+    connect(handler, SIGNAL(removedMessage(Message*)), this, SLOT(deletedMessage(Message*)));
+
 //    SearchMusicListItem *myItem1 = new SearchMusicListItem(ui->lstItems, "Call Me Maybe", "Carly Rae Jepsen", "2:53", 0);
 //    QListWidgetItem *item1 = new QListWidgetItem();
 //    item1->setSizeHint(QSize(374, 101));
 //    ui->lstItems->addItem(item1);
 //    ui->lstItems->setItemWidget(item1, myItem1);
+}
+
+void SearchMusicWindow::deletedMessage(Message *message) {
+    this->layout()->removeWidget(message);
+}
+
+void SearchMusicWindow::addedMessage(Message *message) {
+    this->layout()->addWidget(message);
 }
 
 SearchMusicWindow::~SearchMusicWindow()
@@ -76,9 +89,18 @@ void SearchMusicWindow::on_btnSearchSong_clicked()
 
 void SearchMusicWindow::on_btnSearchArtist_clicked()
 {
-    api->checkConnect();
+    for (int i = 0; i < 5; i++) {
+        QTimer* timer = new QTimer(this);
+        connect(timer, SIGNAL(timeout()), this, SLOT(addTestItem()));
+        timer->setSingleShot(true);
+        timer->start(i * 500);
+    }
     //std::vector<Artist*> resultVector = api->getResultsFromArtistSearch(ui->txtSearchArtist->text().toStdString());
     //ui->lstItems->clear();
+}
+
+void SearchMusicWindow::addTestItem() {
+    handler->addMessage("test");
 }
 
 void SearchMusicWindow::getPopularSongs() {
@@ -111,7 +133,7 @@ void SearchMusicWindow::gotSongSearchResult(std::vector<Song*> result) {
     overlay->setItemMax(result.size());
     for (int i = 0; i < result.size(); i++) {
         QListWidgetItem *item = new QListWidgetItem(ui->lstItems);
-        SearchMusicListItem *myItem = new SearchMusicListItem(ui->lstItems, result.at(i), api, apb);
+        SearchMusicListItem *myItem = new SearchMusicListItem(ui->lstItems, result.at(i), api, apb, plh, handler);
         item->setSizeHint(QSize(374, 101));
         ui->lstItems->addItem(item);
         ui->lstItems->setItemWidget(item, myItem);
@@ -131,14 +153,18 @@ void SearchMusicWindow::fullyBlendedOut() {
     working = false;
 }
 
-void SearchMusicWindow::on_pushButton_clicked()
-{
-    getPopularSongs();
-}
-
 void SearchMusicWindow::on_txtSearchSong_returnPressed()
 {
     if (!working) {
         ui->btnSearchSong->click();
     }
+}
+
+void SearchMusicWindow::setPLH(PlaylistHandler *plh) {
+    this->plh = plh;
+}
+
+void SearchMusicWindow::on_btnPopular_clicked()
+{
+    getPopularSongs();
 }

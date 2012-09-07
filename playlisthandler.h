@@ -1,18 +1,30 @@
 #ifndef PLAYLISTHANDLER_H
 #define PLAYLISTHANDLER_H
-#include <QtSql/QSqlDatabase>
+#include <QtXml/qdom.h>
+#include <API/song.h>
+#include <vector>
+#include <QObject>
 
-class PlaylistHandler
+class PlaylistHandler : public QObject
 {
+    Q_OBJECT
 public:
-    PlaylistHandler();
-    void openDB();
-    void closeDB();
-    void deleteDB();
+    explicit PlaylistHandler(QObject *parent = 0);
     bool createPlaylist(std::string name);
+    std::vector<std::string> getPlaylists();
+    bool addEntry(Song* song, std::string playlistName);
+    void save();
+    void load();
+
+signals:
+    void playlistsChanged(std::vector<std::string> playlists);
 
 private:
-    QSqlDatabase db;
+    QDomDocument doc;
+    QDomElement root;
+    void checkInit();
+    void init();
+    bool used;
 };
 
 #endif // PLAYLISTHANDLER_H

@@ -3,6 +3,7 @@
 #include <QDebug>
 #include <boost/lexical_cast.hpp>
 #include <boost/uuid/uuid_io.hpp>
+#include <QEventLoop>
 #define QT_USE_FAST_OPERATOR_PLUS
 
 API::API(QObject *parent) :
@@ -229,7 +230,10 @@ void API::gotGSMethodAnswer(int postActionId, std::string resultText) {
     Value resultMap;
     resultMap.loadFromString(resultText);
     if (!resultMap["fault"].isNull() && resultMap["fault"]["code"].getInt() == 256) {
+        QEventLoop loop;
+        connect(this, SIGNAL(tokenInitialized()), &loop, SLOT(quit()));
         getCommunicationToken();
+        loop.exec();
         emit methodExecuted(NULL, postActionId);
     }
     emit methodExecuted(resultMap["result"], postActionId);

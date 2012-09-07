@@ -78,7 +78,7 @@ font-family: arial, verdena, sans-serif;
 color: rgb(255, 255, 255);
 }
 
-QPushButton {
+#btnPopular, #btnSearchSong, #btnSearchArtist {
 background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Search_normal.png);
 border: none;
 background-repeat: none;
@@ -88,11 +88,11 @@ font-family: arial, verdana, sans-serif;
 color: rgb(255,255,255);
 }
 
-QPushButton:hover {
+#btnPopular:hover, #btnSearchSong:hover, #btnSearchArtist:hover {
 background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Search_hover.png);
 }
 
-QPushButton:pressed {
+#btnPopular:pressed, #btnSearchSong:pressed, #btnSearchArtist:pressed {
 background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Search_pressed.png);
 }</string>
   </property>
@@ -243,7 +243,7 @@ background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Search_pressed.p
      <enum>QAbstractItemView::ScrollPerPixel</enum>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="btnPopular">
     <property name="geometry">
      <rect>
       <x>170</x>
