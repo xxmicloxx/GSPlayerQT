@@ -17,8 +17,8 @@ Message::Message(QWidget *parent) :
     blendIn->setDuration(500);
     blendOut->setDuration(500);
     blendIn->setStartValue(0.0);
-    blendOut->setStartValue(0.5);
-    blendIn->setEndValue(0.5);
+    blendOut->setStartValue(0.75);
+    blendIn->setEndValue(0.75);
     blendOut->setEndValue(0.0);
     this->setAttribute(Qt::WA_TransparentForMouseEvents);
     connect(blendIn, SIGNAL(finished()), this, SLOT(blendedIn()));

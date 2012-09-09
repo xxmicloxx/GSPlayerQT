@@ -16,8 +16,8 @@ SearchMusicOverlay::SearchMusicOverlay(QWidget *parent) :
     blendInAnimation->setDuration(250);
     blendOutAnimation->setDuration(250);
     blendInAnimation->setStartValue(0.0);
-    blendOutAnimation->setStartValue(0.5);
-    blendInAnimation->setEndValue(0.5);
+    blendOutAnimation->setStartValue(0.75);
+    blendInAnimation->setEndValue(0.75);
     blendOutAnimation->setEndValue(0.0);
 }
 

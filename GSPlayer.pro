@@ -33,7 +33,8 @@ SOURCES += main.cpp\
     downloadsongwindow.cpp \
     playlisthandler.cpp \
     messagehandler.cpp \
-    message.cpp
+    message.cpp \
+    mousewheeldisabler.cpp
 
 HEADERS  += \
     API/util.h \
@@ -61,7 +62,8 @@ HEADERS  += \
     downloadsongwindow.h \
     playlisthandler.h \
     messagehandler.h \
-    message.h
+    message.h \
+    mousewheeldisabler.h
 
 FORMS    += \
     mainwindow.ui \

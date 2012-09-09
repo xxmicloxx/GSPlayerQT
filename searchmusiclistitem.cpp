@@ -3,6 +3,7 @@
 #include <boost/lexical_cast.hpp>
 #include <QInputDialog>
 #include <QMessageBox>
+#include "mousewheeldisabler.h"
 #include <QLayout>
 
 SearchMusicListItem::SearchMusicListItem(QWidget *parent, Song* song, API *api, AudioPlayerBridge *apb, PlaylistHandler *plh, MessageHandler* messageHandler) :
@@ -21,6 +22,7 @@ SearchMusicListItem::SearchMusicListItem(QWidget *parent, Song* song, API *api, 
     ui->lblTitle->setAttribute(Qt::WA_TransparentForMouseEvents);
     ui->lblTitleCaption->setAttribute(Qt::WA_TransparentForMouseEvents);
     ui->cmbAddTo->setCurrentIndex(0);
+    ui->cmbAddTo->installEventFilter(new MouseWheelDisabler(ui->cmbAddTo));
     this->apb = apb;
     this->api = api;
     this->plh = plh;
