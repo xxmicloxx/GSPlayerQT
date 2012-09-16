@@ -22,12 +22,12 @@ void MessageHandler::messageDisappeared() {
     emit removedMessage(messages[0]);
     delete messages[0];
     messages.pop_front();
-    for (int i = 0; i < messages.size(); i++) {
+    for (unsigned int i = 0; i < messages.size(); i++) {
         Message* currMessage = (Message*) messages[i];
         currMessage->moveUp->setEndValue(QRect(0, i * currMessage->height(), currMessage->width(), currMessage->height()));
         currMessage->moveUp->setEasingCurve(QEasingCurve::InOutCubic);
     }
-    for (int i = 0; i < messages.size(); i++) {
+    for (unsigned int i = 0; i < messages.size(); i++) {
         Message* currMessage = (Message*) messages[i];
         if (currMessage->moveUp->state() != QPropertyAnimation::Running) {
             currMessage->moveUp->start();

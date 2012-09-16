@@ -42,4 +42,41 @@
         <file>RES/theme/Musik_Suche/Zurueck_pressed.png</file>
         <file>RES/theme/Musik_Suche/Zurueck_hover.png</file>
     </qresource>
+    <qresource prefix="/theme/optimizeplaylist">
+        <file>RES/theme/Playlist/Add_Button_hover.png</file>
+        <file>RES/theme/Playlist/Add_Button_normal.png</file>
+        <file>RES/theme/Playlist/Add_Button_pressed.png</file>
+        <file>RES/theme/Playlist/BG_Top.png</file>
+        <file>RES/theme/Playlist/Dropdown_hover.png</file>
+        <file>RES/theme/Playlist/Dropdown_normal.png</file>
+        <file>RES/theme/Playlist/Dropdown_pressed.png</file>
+        <file>RES/theme/Playlist/Inport_Button_hover.png</file>
+        <file>RES/theme/Playlist/Inport_Button_normal.png</file>
+        <file>RES/theme/Playlist/Inport_Button_pressed.png</file>
+        <file>RES/theme/Playlist/Medium_Button_Close_hover.png</file>
+        <file>RES/theme/Playlist/Medium_Button_Close_normal.png</file>
+        <file>RES/theme/Playlist/Medium_Button_Close_pressed.png</file>
+        <file>RES/theme/Playlist/Medium_Button_Info_hover.png</file>
+        <file>RES/theme/Playlist/Medium_Button_Info_normal.png</file>
+        <file>RES/theme/Playlist/Medium_Button_Info_pressed.png</file>
+        <file>RES/theme/Playlist/Playlist_Minus_Button_hover.png</file>
+        <file>RES/theme/Playlist/Playlist_Minus_Button_normal.png</file>
+        <file>RES/theme/Playlist/Playlist_Minus_Button_pressed.png</file>
+        <file>RES/theme/Playlist/Playlist_Play_Button_hover.png</file>
+        <file>RES/theme/Playlist/Playlist_Play_Button_normal.png</file>
+        <file>RES/theme/Playlist/Playlist_Play_Button_pressed.png</file>
+        <file>RES/theme/Playlist/Playlist_Plus_Button_hover.png</file>
+        <file>RES/theme/Playlist/Playlist_Plus_Button_normal.png</file>
+        <file>RES/theme/Playlist/Playlist_Plus_Button_pressed.png</file>
+        <file>RES/theme/Playlist/Scroll_BG.png</file>
+        <file>RES/theme/Playlist/Scroll_Button.png</file>
+        <file>RES/theme/Playlist/Slot_hover.png</file>
+        <file>RES/theme/Playlist/Slot_normal.png</file>
+        <file>RES/theme/Playlist/Zurck_hover.png</file>
+        <file>RES/theme/Playlist/Zurck_normal.png</file>
+        <file>RES/theme/Playlist/Zurck_pressed.png</file>
+        <file>RES/theme/Playlist/Playlist_Rename+Export_Button_hover.png</file>
+        <file>RES/theme/Playlist/Playlist_Rename+Export_Button_normal.png</file>
+        <file>RES/theme/Playlist/Playlist_Rename+Export_Button_pressed.png</file>
+    </qresource>
 </RCC>

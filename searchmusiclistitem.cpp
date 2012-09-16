@@ -36,7 +36,7 @@ void SearchMusicListItem::onPlaylistChange(std::vector<std::string> vector) {
     working = true;
     ui->cmbAddTo->clear();
     ui->cmbAddTo->addItem("Hinzufügen zu...");
-    for (int i = 0; i < vector.size(); i++) {
+    for (unsigned int i = 0; i < vector.size(); i++) {
         ui->cmbAddTo->addItem(QString::fromStdString(vector.at(i)));
     }
     ui->cmbAddTo->addItem("Neue Playlist erstellen");

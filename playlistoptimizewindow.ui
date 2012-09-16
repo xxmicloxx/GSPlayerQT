@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>PlaylistOptimizeWindow</class>
+ <widget class="QMainWindow" name="PlaylistOptimizeWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>553</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">#btnPlay {
+border-style: none;
+background-image: url(:/theme/optimizeplaylist/RES/theme/Playlist/Playlist_Play_Button_normal.png);
+}
+
+#btnPlay:hover {
+background-image: url(:/theme/optimizeplaylist/RES/theme/Playlist/Playlist_Play_Button_hover.png);
+}
+
+#btnPlay:pressed {
+background-image: url(:/theme/optimizeplaylist/RES/theme/Playlist/Playlist_Play_Button_pressed.png);
+}
+
+#btnRename, #btnExport {
+border-style: none;
+background-image: url(:/theme/optimizeplaylist/RES/theme/Playlist/Playlist_Rename+Export_Button_normal.png);
+}
+
+#btnRename:hover, #btnExport:hover {
+background-image: url(:/theme/optimizeplaylist/RES/theme/Playlist/Playlist_Rename+Export_Button_hover.png);
+}
+#btnRename:pressed, #btnExport:pressed {
+background-image: url(:/theme/optimizeplaylist/RES/theme/Playlist/Playlist_Rename+Export_Button_pressed.png);
+}
+
+#btnDeletePlaylist {
+border-style: none;
+background-image: url(:/theme/optimizeplaylist/RES/theme/Playlist/Playlist_Minus_Button_normal.png);
+}
+
+#btnDeletePlaylist:hover {
+background-image: url(:/theme/optimizeplaylist/RES/theme/Playlist/Playlist_Minus_Button_hover.png);
+}
+
+#btnDeletePlaylist:pressed {
+background-image: url(:/theme/optimizeplaylist/RES/theme/Playlist/Playlist_Minus_Button_pressed.png);
+}
+
+#btnAddTitle {
+border-style: none;
+background-image: url(:/theme/optimizeplaylist/RES/theme/Playlist/Playlist_Plus_Button_normal.png);
+}
+
+#btnAddTitle:hover {
+background-image: url(:/theme/optimizeplaylist/RES/theme/Playlist/Playlist_Plus_Button_hover.png);
+}
+
+#btnAddTitle:pressed {
+background-image: url(:/theme/optimizeplaylist/RES/theme/Playlist/Playlist_Plus_Button_pressed.png);
+}
+
+#btnImport {
+border-style: none;
+background-image: url(:/theme/optimizeplaylist/RES/theme/Playlist/Inport_Button_normal.png);
+}
+
+#btnImport:hover {
+background-image: url(:/theme/optimizeplaylist/RES/theme/Playlist/Inport_Button_hover.png);
+}
+
+#btnImport:pressed {
+	background-image: url(:/theme/optimizeplaylist/RES/theme/Playlist/Inport_Button_pressed.png);
+}
+
+#lblCreatePlaylist, #lblImport {
+font: 10pt &quot;Arial&quot;;
+color: rgb(0, 0, 0);
+}
+
+#btnCreatePlaylist {
+background-image: url(:/theme/optimizeplaylist/RES/theme/Playlist/Add_Button_normal.png);
+border-style: none;
+}
+
+#btnCreatePlaylist:hover {
+background-image: url(:/theme/optimizeplaylist/RES/theme/Playlist/Add_Button_hover.png);
+}
+
+#btnCreatePlaylist:pressed {
+background-image: url(:/theme/optimizeplaylist/RES/theme/Playlist/Add_Button_pressed.png);
+}
+
+#btnBack {
+background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Zurueck_pressed.png);
+border: none;
+background-repeat: none;
+}
+
+QComboBox {
+border-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Dropdown_normal.png);
+padding-right: 25px;
+padding-left: 10px;
+}
+
+QComboBox:hover {
+border-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Dropdown_hover.png);
+}
+
+QComboBox:on {
+border-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Dropdown_pressed.png);
+}
+
+QComboBox::drop-down {
+border-width: 0px;
+}
+
+QLabel {
+font: 14px &quot;Arial&quot;;
+color: rgb(163, 163, 163);
+}
+
+#btnBack:hover {
+background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Zurueck_hover.png);
+}
+
+#btnBack:pressed {
+background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Zurueck_normal.png);
+}
+
+#lblOrganizePlaylists {
+font: 16px;
+font-weight: bold;
+font-family: arial, verdana, sans-serif;
+color: rgb(255, 255, 255);
+}
+
+#lblChoosePlaylist, #lblBtnBack {
+font: 14px;
+font-weight: bold;
+font-family: arial, verdena, sans-serif;
+color: rgb(255, 255, 255);
+}
+
+#lblAddTitle, #lblDeletePlaylist, #btnRename, #btnExport {
+font: 13px;
+font-weight: bold;
+font-family: arial, verdena, sans-serif;
+color: rgb(255, 255, 255);
+}</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="lblTop">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>553</width>
+      <height>141</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="Design.qrc">:/theme/optimizeplaylist/RES/theme/Playlist/BG_Top.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblOrganizePlaylists">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>20</y>
+      <width>151</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Playlists optimieren</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblChoosePlaylist">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>60</y>
+      <width>141</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Wähle eine Playlist:</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnBack">
+    <property name="geometry">
+     <rect>
+      <x>466</x>
+      <y>0</y>
+      <width>87</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblBtnBack">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>4</y>
+      <width>62</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>zurück</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="cmbPlaylist">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>50</y>
+      <width>163</width>
+      <height>35</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnCreatePlaylist">
+    <property name="geometry">
+     <rect>
+      <x>325</x>
+      <y>50</y>
+      <width>127</width>
+      <height>35</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblCreatePlaylist">
+    <property name="geometry">
+     <rect>
+      <x>350</x>
+      <y>59</y>
+      <width>92</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Playlist anlegen</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnImport">
+    <property name="geometry">
+     <rect>
+      <x>453</x>
+      <y>50</y>
+      <width>100</width>
+      <height>35</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblImport">
+    <property name="geometry">
+     <rect>
+      <x>478</x>
+      <y>59</y>
+      <width>64</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Importieren</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnAddTitle">
+    <property name="geometry">
+     <rect>
+      <x>8</x>
+      <y>100</y>
+      <width>142</width>
+      <height>35</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblAddTitle">
+    <property name="geometry">
+     <rect>
+      <x>38</x>
+      <y>109</y>
+      <width>103</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Titel hinzufügen</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnDeletePlaylist">
+    <property name="geometry">
+     <rect>
+      <x>156</x>
+      <y>100</y>
+      <width>142</width>
+      <height>35</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblDeletePlaylist">
+    <property name="geometry">
+     <rect>
+      <x>188</x>
+      <y>109</y>
+      <width>99</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Playlist löschen</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnRename">
+    <property name="geometry">
+     <rect>
+      <x>304</x>
+      <y>100</y>
+      <width>100</width>
+      <height>35</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Umbenennen</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnPlay">
+    <property name="geometry">
+     <rect>
+      <x>410</x>
+      <y>100</y>
+      <width>30</width>
+      <height>35</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnExport">
+    <property name="geometry">
+     <rect>
+      <x>447</x>
+      <y>100</y>
+      <width>100</width>
+      <height>35</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Exportieren</string>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources>
+  <include location="Design.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>btnBack</sender>
+   <signal>clicked()</signal>
+   <receiver>PlaylistOptimizeWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>509</x>
+     <y>15</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>276</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

@@ -4,6 +4,7 @@
 #include <QGraphicsDropShadowEffect>
 #include <API/streaminformation.h>
 #include <searchmusicwindow.h>
+#include "playlistoptimizewindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -64,4 +65,14 @@ void MainWindow::on_btn2_clicked()
 void MainWindow::onChildClosed()
 {
     this->setVisible(true);
+}
+
+void MainWindow::on_btn3_clicked()
+{
+    PlaylistOptimizeWindow *pow = new PlaylistOptimizeWindow();
+    pow->setAPI(api);
+    pow->setPLH(plh);
+    connect(pow, SIGNAL(destroyed()), this, SLOT(onChildClosed()));
+    pow->show();
+    this->setVisible(false);
 }

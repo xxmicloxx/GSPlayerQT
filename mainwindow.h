@@ -26,6 +26,8 @@ private slots:
 
     void on_btn2_clicked();
 
+    void on_btn3_clicked();
+
 private:
     API *api;
     PlaylistHandler *plh;

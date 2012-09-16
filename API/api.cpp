@@ -323,7 +323,7 @@ void API::gotPopularSongs(Value result, int postActionId) {
         return;
     }
     std::vector<Song*> vector;
-    for (int i = 0; i < result["Songs"].getArray().size(); i++) {
+    for (unsigned int i = 0; i < result["Songs"].getArray().size(); i++) {
         Song* song = new Song(this);
         Value currData = result["Songs"][i];
         song->setSongName(currData["Name"].getString());

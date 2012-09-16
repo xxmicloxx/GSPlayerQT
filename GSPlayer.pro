@@ -34,7 +34,8 @@ SOURCES += main.cpp\
     playlisthandler.cpp \
     messagehandler.cpp \
     message.cpp \
-    mousewheeldisabler.cpp
+    mousewheeldisabler.cpp \
+    playlistoptimizewindow.cpp
 
 HEADERS  += \
     API/util.h \
@@ -63,7 +64,8 @@ HEADERS  += \
     playlisthandler.h \
     messagehandler.h \
     message.h \
-    mousewheeldisabler.h
+    mousewheeldisabler.h \
+    playlistoptimizewindow.h
 
 FORMS    += \
     mainwindow.ui \
@@ -72,7 +74,8 @@ FORMS    += \
     artistlistitem.ui \
     searchmusicoverlay.ui \
     downloadsongwindow.ui \
-    message.ui
+    message.ui \
+    playlistoptimizewindow.ui
 
 LIBS += C:\Users\RL\Desktop\GSPlayer\bass.lib
 
