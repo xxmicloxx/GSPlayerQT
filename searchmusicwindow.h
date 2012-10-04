@@ -24,6 +24,7 @@ public:
     void setAPI(API *api);
     void setAPB(AudioPlayerBridge *apb);
     void setPLH(PlaylistHandler *plh);
+    void setMainWindow(QMainWindow* mw);
     ~SearchMusicWindow();
 
 public slots:
@@ -46,6 +47,8 @@ private slots:
     void on_btnPopular_clicked();
 
 private:
+    void addSeperator();
+    QMainWindow* realMainWindow;
     std::vector<SearchMusicListItem*> itemVector;
     MessageHandler *handler;
     bool working;

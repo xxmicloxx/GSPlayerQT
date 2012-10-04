@@ -58,5 +58,7 @@ std::string Song::getArtistName() {
 }
 
 std::string Song::getCoverArtFilename() {
+    if (coverArtFilename == "")
+        return "album.png";
     return coverArtFilename;
 }

@@ -10,6 +10,12 @@
     <height>600</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>0</width>
+    <height>141</height>
+   </size>
+  </property>
   <property name="cursor">
    <cursorShape>ArrowCursor</cursorShape>
   </property>
@@ -25,11 +31,6 @@
 background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Zurueck_pressed.png);
 border: none;
 background-repeat: none;
-}
-
-QLabel {
-font: 14px &quot;Arial&quot;;
-color: rgb(163, 163, 163);
 }
 
 #btnBack:hover {
@@ -52,6 +53,11 @@ font: 16px;
 font-weight: bold;
 font-family: arial, verdana, sans-serif;
 color: rgb(255, 255, 255);
+}
+
+QLabel {
+font: 14px &quot;Arial&quot;;
+color: rgb(163, 163, 163);
 }
 
 #txtSearchSong {

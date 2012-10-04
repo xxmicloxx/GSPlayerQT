@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SongInfoDialog</class>
+ <widget class="QDialog" name="SongInfoDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>346</width>
+    <height>244</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">#lblCaption {
+font: 16px;
+font-weight: bold;
+font-family: arial, verdana, sans-serif;
+color: rgb(255, 255, 255);
+}
+
+#lblBkg {
+	background-image: url(:/theme/info/RES/theme/Information/BG.png);
+}
+
+#btnOk {
+border: none;
+background-image: url(:/theme/info/RES/theme/Information/OK_Button_normal.png);
+font: 14px;
+font-weight: bold;
+font-family: arial, verdana, sans-serif;
+color: rgb(255,255,255);
+}
+
+#btnOk:hover {
+background-image: url(:/theme/info/RES/theme/Information/OK_Button_hover.png);
+}
+
+#btnOk:pressed {
+background-image: url(:/theme/info/RES/theme/Information/OK_Button_pressed.png);
+}
+
+QLabel {
+font: 14px &quot;Arial&quot;;
+font-weight: bold;
+color: rgb(163, 163, 163);
+}
+
+#lblSong, #lblArtist, #lblAlbum {
+color: rgb(255, 137, 53);
+}</string>
+  </property>
+  <widget class="QLabel" name="lblBkg">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>346</width>
+     <height>244</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblSongCaption">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>70</y>
+     <width>61</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Titel:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblCaption">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>14</y>
+     <width>106</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Informationen</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblArtistCaption">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>130</y>
+     <width>61</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Artist:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblAlbumCaption">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>190</y>
+     <width>61</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Album:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblSong">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>72</y>
+     <width>111</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Titel</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblArtist">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>132</y>
+     <width>111</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Artist</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblAlbum">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>192</y>
+     <width>111</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Album</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblCover">
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>70</y>
+     <width>90</width>
+     <height>90</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnOk">
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>180</y>
+     <width>91</width>
+     <height>35</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Ok</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

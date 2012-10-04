@@ -376,8 +376,52 @@ color: rgb(255, 255, 255);
      <string>Exportieren</string>
     </property>
    </widget>
+   <widget class="DragDropList" name="lstItems">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>141</y>
+      <width>553</width>
+      <height>459</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
+    </property>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOn</enum>
+    </property>
+    <property name="horizontalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+    <property name="dragEnabled">
+     <bool>true</bool>
+    </property>
+    <property name="dragDropMode">
+     <enum>QAbstractItemView::InternalMove</enum>
+    </property>
+    <property name="defaultDropAction">
+     <enum>Qt::MoveAction</enum>
+    </property>
+    <property name="selectionMode">
+     <enum>QAbstractItemView::SingleSelection</enum>
+    </property>
+    <property name="verticalScrollMode">
+     <enum>QAbstractItemView::ScrollPerPixel</enum>
+    </property>
+    <property name="horizontalScrollMode">
+     <enum>QAbstractItemView::ScrollPerPixel</enum>
+    </property>
+   </widget>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>DragDropList</class>
+   <extends>QListWidget</extends>
+   <header>dragdroplist.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="Design.qrc"/>
  </resources>

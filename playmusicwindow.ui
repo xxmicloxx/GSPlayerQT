@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>PlayMusicWindow</class>
+ <widget class="QMainWindow" name="PlayMusicWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>708</width>
+    <height>413</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">#cmbPlaylists {
+border-image: url(:/theme/play/RES/theme/Musik_abspielen/Dropdown_normal.png);
+padding-right: 25px;
+padding-left: 10px;
+}
+
+#cmbPlaylists:hover {
+border-image: url(:/theme/play/RES/theme/Musik_abspielen/Dropdown_hover.png);
+}
+
+#cmbPlaylists:on {
+border-image: url(:/theme/play/RES/theme/Musik_abspielen/Dropdown_pressed.png);
+}
+
+#cmbPlaylists::drop-down {
+border-width: 0px;
+}
+
+#lblPlayedPlaylist {
+font: 12px;
+font-weight: bold;
+color: rgb(255, 255, 255);
+}
+
+#centralwidget {
+background-image: url(:/theme/play/RES/theme/Musik_abspielen/BG.png);
+}
+
+#lblPlayMusic {
+font: 16px;
+font-weight: bold;
+font-family: arial, verdana, sans-serif;
+color: rgb(255, 255, 255);
+}
+
+QLabel {
+font: 14px &quot;Arial&quot;;
+color: rgb(163, 163, 163);
+}</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="lblPlayMusic">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>20</y>
+      <width>123</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Musik abspielen</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblPlayedPlaylist">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>55</y>
+      <width>121</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Abgespielte Playlist:</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="cmbPlaylists">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>45</y>
+      <width>163</width>
+      <height>35</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>40</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>PushButton</string>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

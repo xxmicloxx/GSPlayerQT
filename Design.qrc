@@ -79,4 +79,59 @@
         <file>RES/theme/Playlist/Playlist_Rename+Export_Button_normal.png</file>
         <file>RES/theme/Playlist/Playlist_Rename+Export_Button_pressed.png</file>
     </qresource>
+    <qresource prefix="/theme/info">
+        <file>RES/theme/Information/BG.png</file>
+        <file>RES/theme/Information/OK_Button_hover.png</file>
+        <file>RES/theme/Information/OK_Button_normal.png</file>
+        <file>RES/theme/Information/OK_Button_pressed.png</file>
+    </qresource>
+    <qresource prefix="/theme/play">
+        <file>RES/theme/Musik_abspielen/BG.png</file>
+        <file>RES/theme/Musik_abspielen/Cover_gross_Rahmen+Schatten.png</file>
+        <file>RES/theme/Musik_abspielen/Cover_klein_Rahmen+Schatten.png</file>
+        <file>RES/theme/Musik_abspielen/download_Button_hover.png</file>
+        <file>RES/theme/Musik_abspielen/download_Button_normal.png</file>
+        <file>RES/theme/Musik_abspielen/download_Button_pressed.png</file>
+        <file>RES/theme/Musik_abspielen/Dropdown_hover.png</file>
+        <file>RES/theme/Musik_abspielen/Dropdown_normal.png</file>
+        <file>RES/theme/Musik_abspielen/Dropdown_pressed.png</file>
+        <file>RES/theme/Musik_abspielen/Listen_Feld.png</file>
+        <file>RES/theme/Musik_abspielen/Listen_Pfeil_Links.png</file>
+        <file>RES/theme/Musik_abspielen/Listen_Pfeil_Rechts.png</file>
+        <file>RES/theme/Musik_abspielen/Play_Button_hover.png</file>
+        <file>RES/theme/Musik_abspielen/Play_Button_normal.png</file>
+        <file>RES/theme/Musik_abspielen/Play_Button_pressed.png</file>
+        <file>RES/theme/Musik_abspielen/Randomsong_Button_hover.png</file>
+        <file>RES/theme/Musik_abspielen/Randomsong_Button_normal.png</file>
+        <file>RES/theme/Musik_abspielen/Randomsong_Button_Pressed.png</file>
+        <file>RES/theme/Musik_abspielen/Repeatsong_Button_hover.png</file>
+        <file>RES/theme/Musik_abspielen/Repeatsong_Button_normal.png</file>
+        <file>RES/theme/Musik_abspielen/Repeatsong_Button_pressed.png</file>
+        <file>RES/theme/Musik_abspielen/Schleife_Button_hover.png</file>
+        <file>RES/theme/Musik_abspielen/Schleife_Button_normal.png</file>
+        <file>RES/theme/Musik_abspielen/Schleife_Button_pressed.png</file>
+        <file>RES/theme/Musik_abspielen/Skip_Button_Left_hover.png</file>
+        <file>RES/theme/Musik_abspielen/Skip_Button_Left_normal.png</file>
+        <file>RES/theme/Musik_abspielen/Skip_Button_Left_pressed.png</file>
+        <file>RES/theme/Musik_abspielen/Skip_Button_Right_hover.png</file>
+        <file>RES/theme/Musik_abspielen/Skip_Button_Right_normal.png</file>
+        <file>RES/theme/Musik_abspielen/Skip_Button_Right_pressed.png</file>
+        <file>RES/theme/Musik_abspielen/SongvonNeu_Button_hover.png</file>
+        <file>RES/theme/Musik_abspielen/SongvonNeu_Button_normal.png</file>
+        <file>RES/theme/Musik_abspielen/SongvonNeu_Button_pressed.png</file>
+        <file>RES/theme/Musik_abspielen/Stop_Button_hover.png</file>
+        <file>RES/theme/Musik_abspielen/Stop_Button_normal.png</file>
+        <file>RES/theme/Musik_abspielen/Stop_Button_pressed.png</file>
+        <file>RES/theme/Musik_abspielen/Volume_BG.png</file>
+        <file>RES/theme/Musik_abspielen/Volume_Fllung.png</file>
+        <file>RES/theme/Musik_abspielen/Volume_Icon.png</file>
+        <file>RES/theme/Musik_abspielen/Volume_voll.png</file>
+        <file>RES/theme/Musik_abspielen/Zeitleiste_Fllung.png</file>
+        <file>RES/theme/Musik_abspielen/Zeitleiste_Kreis.png</file>
+        <file>RES/theme/Musik_abspielen/Zeitleiste_Leer.png</file>
+        <file>RES/theme/Musik_abspielen/Zeitleiste_voll.png</file>
+        <file>RES/theme/Musik_abspielen/Zufllig_Button_hover.png</file>
+        <file>RES/theme/Musik_abspielen/Zufllig_Button_normal.png</file>
+        <file>RES/theme/Musik_abspielen/Zufllig_Button_pressed.png</file>
+    </qresource>
 </RCC>

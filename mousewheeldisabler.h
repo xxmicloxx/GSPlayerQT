@@ -11,7 +11,8 @@ public:
     explicit MouseWheelDisabler(QObject *parent = 0);
     
 signals:
-    
+    void playlistAddEvent();
+
 public slots:
 
 protected:

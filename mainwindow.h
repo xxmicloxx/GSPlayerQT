@@ -5,6 +5,8 @@
 #include <API/api.h>
 #include <audioplayerbridge.h>
 #include "playlisthandler.h"
+#include "coverhelper.h"
+#include "player.h"
 
 namespace Ui {
 class MainWindow;
@@ -28,9 +30,13 @@ private slots:
 
     void on_btn3_clicked();
 
+    void on_btn1_clicked();
+
 private:
+    CoverHelper* coverHelper;
     API *api;
     PlaylistHandler *plh;
+    Player *player;
     AudioPlayerBridge *bridge;
     Ui::MainWindow *ui;
 };

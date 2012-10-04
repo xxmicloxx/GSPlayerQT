@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>PlaylistOptimizeListItem</class>
+ <widget class="QWidget" name="PlaylistOptimizeListItem">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>544</width>
+    <height>80</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">#btnInfo {
+border: none;
+background-image: url(:/theme/optimizeplaylist/RES/theme/Playlist/Medium_Button_Info_normal.png);
+}
+
+#btnInfo:hover {
+background-image: url(:/theme/optimizeplaylist/RES/theme/Playlist/Medium_Button_Info_hover.png);
+}
+
+#btnInfo:pressed {
+background-image: url(:/theme/optimizeplaylist/RES/theme/Playlist/Medium_Button_Info_pressed.png);
+}
+
+#btnRemove {
+border: none;
+background-image: url(:/theme/optimizeplaylist/RES/theme/Playlist/Medium_Button_Close_normal.png);
+}
+
+#btnRemove:hover {
+background-image: url(:/theme/optimizeplaylist/RES/theme/Playlist/Medium_Button_Close_hover.png);
+}
+
+#btnRemove:pressed {
+background-image: url(:/theme/optimizeplaylist/RES/theme/Playlist/Medium_Button_Close_pressed.png);
+}
+
+#lblTitle {
+font: 16px &quot;Arial&quot;;
+font-weight: bold;
+color: rgb(248, 198, 59);
+}
+
+#lblArtist {
+font: 16px &quot;Arial&quot;;
+font-weight: bold;
+color: rgb(234, 160, 94);
+}
+
+#lblBkg {
+background-image: url(:/theme/optimizeplaylist/RES/theme/Playlist/Slot_normal.png);
+}
+#lblBkg:hover {
+background-image: url(:/theme/optimizeplaylist/RES/theme/Playlist/Slot_hover.png);
+}
+
+QLabel {
+font: 14px &quot;Arial&quot;;
+color: rgb(163, 163, 163);
+}</string>
+  </property>
+  <widget class="QLabel" name="lblBkg">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>544</width>
+     <height>80</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblTitleCaption">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>18</y>
+     <width>41</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Titel:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblArtistCaption">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>45</y>
+     <width>41</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Artist:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblTitle">
+   <property name="geometry">
+    <rect>
+     <x>55</x>
+     <y>19</y>
+     <width>421</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Titel</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblArtist">
+   <property name="geometry">
+    <rect>
+     <x>55</x>
+     <y>48</y>
+     <width>421</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Artist</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnRemove">
+   <property name="geometry">
+    <rect>
+     <x>500</x>
+     <y>13</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnInfo">
+   <property name="geometry">
+    <rect>
+     <x>500</x>
+     <y>42</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

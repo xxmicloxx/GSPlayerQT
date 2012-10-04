@@ -1,4 +1,5 @@
 #include "searchmusicwindow.h"
+#include "searchmusiclastitemseperator.h"
 #include "ui_searchmusicwindow.h"
 #include <QGraphicsDropShadowEffect>
 #include "searchmusiclistitem.h"
@@ -9,6 +10,8 @@
 #include "QFuture"
 #include "QLayout"
 #include <QTimer>
+#include "coverhelper.h"
+#include <QResizeEvent>
 
 SearchMusicWindow::SearchMusicWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -45,12 +48,6 @@ SearchMusicWindow::SearchMusicWindow(QWidget *parent) :
     handler = new MessageHandler(this);
     connect(handler, SIGNAL(addedMessage(Message*)), this, SLOT(addedMessage(Message*)));
     connect(handler, SIGNAL(removedMessage(Message*)), this, SLOT(deletedMessage(Message*)));
-
-//    SearchMusicListItem *myItem1 = new SearchMusicListItem(ui->lstItems, "Call Me Maybe", "Carly Rae Jepsen", "2:53", 0);
-//    QListWidgetItem *item1 = new QListWidgetItem();
-//    item1->setSizeHint(QSize(374, 101));
-//    ui->lstItems->addItem(item1);
-//    ui->lstItems->setItemWidget(item1, myItem1);
 }
 
 void SearchMusicWindow::deletedMessage(Message *message) {
@@ -63,8 +60,15 @@ void SearchMusicWindow::addedMessage(Message *message) {
 
 SearchMusicWindow::~SearchMusicWindow()
 {
+    realMainWindow->setVisible(true);
+    realMainWindow->activateWindow();
+    realMainWindow->raise();
     delete ui;
     disconnect(api, SIGNAL(songSearchCompleted(std::vector<Song*>)), this, SLOT(gotSongSearchResult(std::vector<Song*>)));
+}
+
+void SearchMusicWindow::setMainWindow(QMainWindow *mw) {
+    this->realMainWindow = mw;
 }
 
 void SearchMusicWindow::setAPB(AudioPlayerBridge *apb) {
@@ -89,12 +93,12 @@ void SearchMusicWindow::on_btnSearchSong_clicked()
 
 void SearchMusicWindow::on_btnSearchArtist_clicked()
 {
-    for (int i = 0; i < 5; i++) {
-        QTimer* timer = new QTimer(this);
-        connect(timer, SIGNAL(timeout()), this, SLOT(addTestItem()));
-        timer->setSingleShot(true);
-        timer->start(i * 500);
-    }
+//    for (int i = 0; i < 5; i++) {
+//        QTimer* timer = new QTimer(this);
+//        connect(timer, SIGNAL(timeout()), this, SLOT(addTestItem()));
+//        timer->setSingleShot(true);
+//        timer->start(i * 500);
+//    }
     //std::vector<Artist*> resultVector = api->getResultsFromArtistSearch(ui->txtSearchArtist->text().toStdString());
     //ui->lstItems->clear();
 }
@@ -143,8 +147,17 @@ void SearchMusicWindow::gotSongSearchResult(std::vector<Song*> result) {
             QApplication::processEvents();
         }
     }
+    addSeperator();
     overlay->setItemsDone(result.size());
     overlay->blendOutAnimation->start();
+}
+
+void SearchMusicWindow::addSeperator() {
+    QListWidgetItem *item = new QListWidgetItem(ui->lstItems);
+    SearchMusicLastItemSeperator *myItem = new SearchMusicLastItemSeperator(ui->lstItems);
+    item->setSizeHint(myItem->size());
+    ui->lstItems->addItem(item);
+    ui->lstItems->setItemWidget(item, myItem);
 }
 
 void SearchMusicWindow::fullyBlendedOut() {

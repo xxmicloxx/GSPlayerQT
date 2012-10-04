@@ -5,15 +5,18 @@
 #include <API/streaminformation.h>
 #include <searchmusicwindow.h>
 #include "playlistoptimizewindow.h"
+#include "playmusicwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    plh = new PlaylistHandler();
-    bridge = new AudioPlayerBridge();
-    api = new API();
+    plh = new PlaylistHandler(this);
+    bridge = new AudioPlayerBridge(this);
+    coverHelper = new CoverHelper(this);
+    api = new API(this);
+    player = new Player(this, api, plh, bridge);
     api->checkConnect();
     QGraphicsDropShadowEffect *effect = new QGraphicsDropShadowEffect(ui->lblBtn1Caption);
     effect->setBlurRadius(1);
@@ -42,8 +45,6 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
-    delete bridge;
-    delete api;
 }
 
 void MainWindow::on_btnSide2_clicked()
@@ -57,6 +58,7 @@ void MainWindow::on_btn2_clicked()
     smw->setAPI(api);
     smw->setAPB(bridge);
     smw->setPLH(plh);
+    smw->setMainWindow(this);
     connect(smw, SIGNAL(destroyed()), this, SLOT(onChildClosed()));
     smw->show();
     this->setVisible(false);
@@ -64,15 +66,23 @@ void MainWindow::on_btn2_clicked()
 
 void MainWindow::onChildClosed()
 {
-    this->setVisible(true);
 }
 
 void MainWindow::on_btn3_clicked()
 {
-    PlaylistOptimizeWindow *pow = new PlaylistOptimizeWindow();
+    PlaylistOptimizeWindow *pow = new PlaylistOptimizeWindow(0, coverHelper);
     pow->setAPI(api);
     pow->setPLH(plh);
+    pow->setMainWindow(this);
     connect(pow, SIGNAL(destroyed()), this, SLOT(onChildClosed()));
     pow->show();
+    this->setVisible(false);
+}
+
+void MainWindow::on_btn1_clicked()
+{
+    PlayMusicWindow *pmw = new PlayMusicWindow(0, plh, api, coverHelper, this, player);
+    connect(pmw, SIGNAL(destroyed()), this, SLOT(onChildClosed()));
+    pmw->show();
     this->setVisible(false);
 }

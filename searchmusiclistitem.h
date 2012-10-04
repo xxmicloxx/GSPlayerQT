@@ -22,6 +22,7 @@ public:
     ~SearchMusicListItem();
     
 public slots:
+    void createNewPlaylist();
     void gotStreamKey(StreamInformation* info);
     void onPlaylistChange(std::vector<std::string> vector);
 

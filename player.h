@@ -1,0 +1,46 @@
+#ifndef PLAYER_H
+#define PLAYER_H
+
+#include <QObject>
+#include "API/api.h"
+#include "playlisthandler.h"
+#include "audioplayerbridge.h"
+#include "API/song.h"
+#include "API/streaminformation.h"
+
+
+class Player : public QObject
+{
+    Q_OBJECT
+public:
+    explicit Player(QObject *parent = 0, API* api = 0, PlaylistHandler* plh = 0, AudioPlayerBridge* apb = 0);
+    void setPlaylist(std::string playlist);
+    std::string getPlaylist();
+    Song* getCurrentSong();
+    Song* getSongBefore();
+    Song* getSongAfter();
+    
+signals:
+    void currentSongChanged();
+    void playlistsChanged(std::vector<std::string> playlists);
+
+public slots:
+    void refreshPlaylists(std::vector<std::string> playlists);
+    void refreshSongs(std::string playlistName, std::vector<Song*> songs);
+    void stop();
+    void play();
+    void next();
+    void prev();
+    void gotStreamKey(StreamInformation* info);
+
+private:
+    unsigned int getCurrentId();
+    API* api;
+    PlaylistHandler* plh;
+    AudioPlayerBridge* apb;
+    std::string currentPlaylist;
+    Song* currentSong;
+    std::vector<Song*> currentPlaylistSongs;
+};
+
+#endif // PLAYER_H

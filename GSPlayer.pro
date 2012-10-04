@@ -35,7 +35,15 @@ SOURCES += main.cpp\
     messagehandler.cpp \
     message.cpp \
     mousewheeldisabler.cpp \
-    playlistoptimizewindow.cpp
+    playlistoptimizewindow.cpp \
+    playlistoptimizelistitem.cpp \
+    searchmusiclastitemseperator.cpp \
+    playlistoptimizelastitemseperator.cpp \
+    playmusicwindow.cpp \
+    songinfodialog.cpp \
+    coverhelper.cpp \
+    player.cpp \
+    dragdroplist.cpp
 
 HEADERS  += \
     API/util.h \
@@ -65,7 +73,15 @@ HEADERS  += \
     messagehandler.h \
     message.h \
     mousewheeldisabler.h \
-    playlistoptimizewindow.h
+    playlistoptimizewindow.h \
+    playlistoptimizelistitem.h \
+    searchmusiclastitemseperator.h \
+    playlistoptimizelastitemseperator.h \
+    playmusicwindow.h \
+    songinfodialog.h \
+    coverhelper.h \
+    player.h \
+    dragdroplist.h
 
 FORMS    += \
     mainwindow.ui \
@@ -75,7 +91,12 @@ FORMS    += \
     searchmusicoverlay.ui \
     downloadsongwindow.ui \
     message.ui \
-    playlistoptimizewindow.ui
+    playlistoptimizewindow.ui \
+    playlistoptimizelistitem.ui \
+    searchmusiclastitemseperator.ui \
+    playlistoptimizelastitemseperator.ui \
+    playmusicwindow.ui \
+    songinfodialog.ui
 
 LIBS += C:\Users\RL\Desktop\GSPlayer\bass.lib
 

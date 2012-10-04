@@ -5,6 +5,7 @@
 #include <QMessageBox>
 #include "mousewheeldisabler.h"
 #include <QLayout>
+#include <QtConcurrentRun>
 
 SearchMusicListItem::SearchMusicListItem(QWidget *parent, Song* song, API *api, AudioPlayerBridge *apb, PlaylistHandler *plh, MessageHandler* messageHandler) :
     QWidget(parent),
@@ -22,7 +23,9 @@ SearchMusicListItem::SearchMusicListItem(QWidget *parent, Song* song, API *api, 
     ui->lblTitle->setAttribute(Qt::WA_TransparentForMouseEvents);
     ui->lblTitleCaption->setAttribute(Qt::WA_TransparentForMouseEvents);
     ui->cmbAddTo->setCurrentIndex(0);
-    ui->cmbAddTo->installEventFilter(new MouseWheelDisabler(ui->cmbAddTo));
+    MouseWheelDisabler* mwd = new MouseWheelDisabler(ui->cmbAddTo);
+    ui->cmbAddTo->installEventFilter(mwd);
+    connect(mwd, SIGNAL(playlistAddEvent()), this, SLOT(createNewPlaylist()));
     this->apb = apb;
     this->api = api;
     this->plh = plh;
@@ -59,7 +62,7 @@ void SearchMusicListItem::on_btnPlay_clicked()
 void SearchMusicListItem::gotStreamKey(StreamInformation *info) {
     if (info->getSongId() != song->getSongId())
         return;
-    apb->openAndPlay(info->directUrl());
+    QtConcurrent::run(apb, &AudioPlayerBridge::openAndPlay, info->directUrl());
 }
 
 void SearchMusicListItem::on_cmbAddTo_currentIndexChanged(int index)
@@ -67,18 +70,7 @@ void SearchMusicListItem::on_cmbAddTo_currentIndexChanged(int index)
     if (index == 0 || working)
         return;
     if (index == ui->cmbAddTo->count() - 1) {
-        bool ok;
-        std::string name = QInputDialog::getText(this->parentWidget(), "GSP - Playlist hinzufügen", "Geben sie den Namen für die Playlist ein!", QLineEdit::Normal, QString(), &ok).toStdString();
-        if (ok) {
-            if (!plh->createPlaylist(name)) {
-                QMessageBox::warning(this->parentWidget(), "GSP - Playlist erstellen", QString::fromStdString("Die Playlist '" + name + "' existiert bereits!"));
-                ui->cmbAddTo->setCurrentIndex(0);
-                return;
-            }
-            plh->addEntry(song, name);
-            messageHandler->addMessage("Playlist '" + name + "' erfolgreich erstellt und '" + song->getSongName() + "' erfolgreich hinzugefügt!");
-        }
-        ui->cmbAddTo->setCurrentIndex(0);
+        createNewPlaylist();
         return;
     }
     if (!plh->addEntry(song, ui->cmbAddTo->itemText(index).toStdString())) {
@@ -89,4 +81,24 @@ void SearchMusicListItem::on_cmbAddTo_currentIndexChanged(int index)
     messageHandler->addMessage("'" + song->getSongName() + "' wurde erfolgreich zu '" + ui->cmbAddTo->itemText(index).toStdString() + "' hinzugefügt!");
     ui->cmbAddTo->setCurrentIndex(0);
     return;
+}
+
+void SearchMusicListItem::createNewPlaylist() {
+    bool ok;
+    std::string name = QInputDialog::getText(this->parentWidget(), "GSP - Playlist hinzufügen", "Geben sie den Namen für die Playlist ein!", QLineEdit::Normal, QString(), &ok).toStdString();
+    if (ok) {
+        if (name == "") {
+            QMessageBox::warning(this->parentWidget(), "GSP - Playlist erstellen", "Sie müssen einen Namen eingeben");
+            ui->cmbAddTo->setCurrentIndex(0);
+            return;
+        }
+        if (!plh->createPlaylist(name)) {
+            QMessageBox::warning(this->parentWidget(), "GSP - Playlist erstellen", QString::fromStdString("Die Playlist '" + name + "' existiert bereits!"));
+            ui->cmbAddTo->setCurrentIndex(0);
+            return;
+        }
+        plh->addEntry(song, name);
+        messageHandler->addMessage("Playlist '" + name + "' erfolgreich erstellt und '" + song->getSongName() + "' erfolgreich hinzugefügt!");
+    }
+    ui->cmbAddTo->setCurrentIndex(0);
 }
