@@ -60,9 +60,9 @@ void SearchMusicListItem::on_btnPlay_clicked()
 }
 
 void SearchMusicListItem::gotStreamKey(StreamInformation *info) {
-    if (info->getSongId() != song->getSongId())
-        return;
-    QtConcurrent::run(apb, &AudioPlayerBridge::openAndPlay, info->directUrl());
+//    if (info->getSongId() != song->getSongId())
+//        return;
+//    QtConcurrent::run(apb, &AudioPlayerBridge::openAndPlay, info->directUrl());
 }
 
 void SearchMusicListItem::on_cmbAddTo_currentIndexChanged(int index)

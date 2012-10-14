@@ -20,7 +20,7 @@ void myMessageOutput(QtMsgType type, const char *msg)
 
 int main(int argc, char *argv[])
 {
-    //qInstallMsgHandler(myMessageOutput);
+    qInstallMsgHandler(myMessageOutput);
     QApplication a(argc, argv);
 //    QFile playlists("Playlists.xml");
 //    if (playlists.exists()) {

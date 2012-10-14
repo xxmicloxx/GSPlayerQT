@@ -2,6 +2,7 @@
 #define PLAYER_H
 
 #include <QObject>
+#include <QTimer>
 #include "API/api.h"
 #include "playlisthandler.h"
 #include "audioplayerbridge.h"
@@ -19,10 +20,14 @@ public:
     Song* getCurrentSong();
     Song* getSongBefore();
     Song* getSongAfter();
+    int getSongPosition();
+    int getLength();
+    void setPosition(int pos);
     
 signals:
     void currentSongChanged();
     void playlistsChanged(std::vector<std::string> playlists);
+    void songPositionChanged();
 
 public slots:
     void refreshPlaylists(std::vector<std::string> playlists);
@@ -33,6 +38,9 @@ public slots:
     void prev();
     void gotStreamKey(StreamInformation* info);
 
+private slots:
+    void onPosChangeTimer_tick();
+
 private:
     unsigned int getCurrentId();
     API* api;
@@ -40,6 +48,8 @@ private:
     AudioPlayerBridge* apb;
     std::string currentPlaylist;
     Song* currentSong;
+    QTimer* posChangeTimer;
+    int currentLength;
     std::vector<Song*> currentPlaylistSongs;
 };
 

@@ -53,13 +53,16 @@ void CoverHelper::continueQueue() {
         return;
     }
     queueIsRunning = true;
-    currentCover = queueMap->at(0);
-    queueMap->remove(0);
-    QFile file(QString::fromStdString("covers/" + currentCover));
+    QFile file(QString::fromStdString("covers/" + queueMap->at(0)));
     if (file.exists()) {
         queueIsRunning = false;
-        return continueQueue();
+        gotPathForCover(queueMap->at(0));
+        continueQueue();
+        return;
     }
+    fileIsDownloading = true;
+    currentCover = queueMap->at(0);
+    queueMap->pop_front();
     realDownload();
     queueIsRunning = false;
 }

@@ -11,10 +11,29 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>GSP - Musik abspielen</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">#cmbPlaylists {
+   <string notr="true">QSlider:groove:horizontal {
+border-image: url(:/theme/play/RES/theme/Musik_abspielen/Zeitleiste_Leer.png);
+}
+
+QSlider::handle:horizontal {
+image: url(:/theme/play/RES/theme/Musik_abspielen/Zeitleiste_Kreis.png);
+border-width: 0px;
+}
+
+QSlider::sub-page:horizontal {
+background-image: url(:/theme/play/RES/theme/Musik_abspielen/Zeitleiste_voll.png);
+}
+
+#lblCurrentSong {
+font-weight: bold;
+color: rgb(71, 71, 71);
+font-size: 12px;
+}
+
+#cmbPlaylists {
 border-image: url(:/theme/play/RES/theme/Musik_abspielen/Dropdown_normal.png);
 padding-right: 25px;
 padding-left: 10px;
@@ -91,21 +110,141 @@ color: rgb(163, 163, 163);
      </rect>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QLabel" name="lblCurrentSong">
     <property name="geometry">
      <rect>
-      <x>420</x>
-      <y>40</y>
-      <width>75</width>
-      <height>23</height>
+      <x>20</x>
+      <y>300</y>
+      <width>201</width>
+      <height>15</height>
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>Kein Song abgespielt</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblCoverBeforeBackground">
+    <property name="geometry">
+     <rect>
+      <x>25</x>
+      <y>115</y>
+      <width>154</width>
+      <height>166</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="Design.qrc">:/theme/play/RES/theme/Musik_abspielen/Cover_klein_Rahmen+Schatten.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblCurrentCoverBackground">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>110</y>
+      <width>194</width>
+      <height>211</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="Design.qrc">:/theme/play/RES/theme/Musik_abspielen/Cover_gross_Rahmen+Schatten.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblCoverAfterBackground">
+    <property name="geometry">
+     <rect>
+      <x>530</x>
+      <y>115</y>
+      <width>154</width>
+      <height>166</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="Design.qrc">:/theme/play/RES/theme/Musik_abspielen/Cover_klein_Rahmen+Schatten.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblCurrentCover">
+    <property name="geometry">
+     <rect>
+      <x>262</x>
+      <y>112</y>
+      <width>190</width>
+      <height>190</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblBeforeCover">
+    <property name="geometry">
+     <rect>
+      <x>27</x>
+      <y>117</y>
+      <width>150</width>
+      <height>150</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblAfterCover">
+    <property name="geometry">
+     <rect>
+      <x>532</x>
+      <y>117</y>
+      <width>150</width>
+      <height>150</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QSlider" name="sldPosition">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>330</y>
+      <width>670</width>
+      <height>15</height>
+     </rect>
+    </property>
+    <property name="maximum">
+     <number>0</number>
+    </property>
+    <property name="pageStep">
+     <number>10000</number>
+    </property>
+    <property name="value">
+     <number>0</number>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
     </property>
    </widget>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="Design.qrc"/>
+ </resources>
  <connections/>
 </ui>

@@ -1,4 +1,5 @@
 #include "streaminformation.h"
+#include <boost/lexical_cast.hpp>
 #define QT_USE_FAST_OPERATOR_PLUS
 
 StreamInformation::StreamInformation(QObject *parent) :
@@ -10,8 +11,8 @@ std::string StreamInformation::directUrl() {
     return "http://" + ip + "/stream.php?streamKey=" + streamKey;
 }
 
-std::string StreamInformation::getUSecs() {
-    return uSecs;
+int StreamInformation::getUSecs() {
+    return boost::lexical_cast<int>(uSecs);
 }
 
 std::string StreamInformation::getStreamKey() {

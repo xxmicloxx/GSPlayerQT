@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>GSP - Playlist optimieren</string>
   </property>
   <property name="styleSheet">
    <string notr="true">#btnPlay {

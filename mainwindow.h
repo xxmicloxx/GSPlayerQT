@@ -31,6 +31,7 @@ private slots:
     void on_btn3_clicked();
 
     void on_btn1_clicked();
+    void onBtnPlay_pressed();
 
 private:
     CoverHelper* coverHelper;
@@ -39,6 +40,7 @@ private:
     Player *player;
     AudioPlayerBridge *bridge;
     Ui::MainWindow *ui;
+    //QxtGlobalShortcut* playButtonShortcut;
 };
 
 #endif // MAINWINDOW_H

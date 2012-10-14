@@ -19,18 +19,18 @@ MainWindow::MainWindow(QWidget *parent) :
     player = new Player(this, api, plh, bridge);
     api->checkConnect();
     QGraphicsDropShadowEffect *effect = new QGraphicsDropShadowEffect(ui->lblBtn1Caption);
-    effect->setBlurRadius(1);
-    effect->setOffset(-1, 2);
+    effect->setBlurRadius(2);
+    effect->setOffset(0, 1);
     effect->setColor(QColor("#BEBEBE"));
     ui->lblBtn1Caption->setGraphicsEffect(effect);
     effect = new QGraphicsDropShadowEffect(ui->lblBtn2Caption);
-    effect->setBlurRadius(1);
-    effect->setOffset(-1, 2);
+    effect->setBlurRadius(2);
+    effect->setOffset(0, 1);
     effect->setColor(QColor("#BEBEBE"));
     ui->lblBtn2Caption->setGraphicsEffect(effect);
     effect = new QGraphicsDropShadowEffect(ui->lblBtn3Caption);
-    effect->setBlurRadius(1);
-    effect->setOffset(-1, 2);
+    effect->setBlurRadius(2);
+    effect->setOffset(0, 1);
     effect->setColor(QColor("#BEBEBE"));
     ui->lblBtn3Caption->setGraphicsEffect(effect);
     ui->lblBtn1Caption->setAttribute(Qt::WA_TransparentForMouseEvents);
@@ -40,6 +40,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->lblBtn3Caption->setAttribute(Qt::WA_TransparentForMouseEvents);
     ui->lblBtn3Message->setAttribute(Qt::WA_TransparentForMouseEvents);
     this->setFixedSize(this->size());
+    /*playButtonShortcut = new QxtGlobalShortcut(QKeySequence(Qt::Key_0),this);
+    connect(playButtonShortcut, SIGNAL(activated()), this, SLOT(onBtnPlay_pressed()));*/
+}
+
+void MainWindow::onBtnPlay_pressed() {
+    player->play();
 }
 
 MainWindow::~MainWindow()

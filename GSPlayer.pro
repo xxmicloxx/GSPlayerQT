@@ -4,6 +4,8 @@
 #
 #-------------------------------------------------
 
+CONFIG += qxt
+
 QT       += core gui network xml
 
 TARGET = GSPlayer
@@ -98,7 +100,7 @@ FORMS    += \
     playmusicwindow.ui \
     songinfodialog.ui
 
-LIBS += C:\Users\RL\Desktop\GSPlayer\bass.lib
+LIBS += C:/Users/Mic/Desktop/QtDev/Pros/GSPlayerQT/GSPlayer/bass.lib
 
 DEFINES += UNICODE
 
@@ -109,4 +111,4 @@ RESOURCES += \
 
 RC_FILE = myWinIcon.rc
 
-INCLUDEPATH += C:\Users\RL\Desktop\boost_1_51_0
+INCLUDEPATH += C:/Users/Mic/Desktop/QtDev/Libs/boost_1_51_0

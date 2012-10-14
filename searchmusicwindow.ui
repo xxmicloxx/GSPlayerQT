@@ -22,10 +22,6 @@
   <property name="windowTitle">
    <string>GSP - Musik suchen</string>
   </property>
-  <property name="windowIcon">
-   <iconset resource="Design.qrc">
-    <normaloff>:/theme/gen/RES/Icon.ico</normaloff>:/theme/gen/RES/Icon.ico</iconset>
-  </property>
   <property name="styleSheet">
    <string notr="true">#btnBack {
 background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Zurueck_pressed.png);

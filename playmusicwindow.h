@@ -23,11 +23,17 @@ public:
 public slots:
     void playlistsChanged(std::vector<std::string> playlists);
     void songsChanged();
+    void gotCover(std::string path);
+    void onPositionChanged();
     
 private slots:
     void on_cmbPlaylists_currentIndexChanged(int index);
 
-    void on_pushButton_clicked();
+    void on_sldPosition_sliderPressed();
+
+    void on_sldPosition_sliderReleased();
+
+    void on_sldPosition_sliderMoved(int position);
 
 private:
     Ui::PlayMusicWindow *ui;
@@ -38,6 +44,7 @@ private:
     CoverHelper* coverHelper;
     bool playlistsRefreshing;
     QMainWindow* realMainWindow;
+    bool posSliderMoving;
 };
 
 #endif // PLAYMUSICWINDOW_H

@@ -10,11 +10,24 @@ AudioPlayerBridge::AudioPlayerBridge(QObject *parent) :
     currentStatus = STOPPED;
 }
 
+AudioPlayerBridge::~AudioPlayerBridge() {
+    BASS_Free();
+}
+
 void CALLBACK MySyncProc(HSYNC handle, DWORD channel, DWORD data, void *user)
 {
     ((AudioPlayerBridge*) user)->setState(AudioPlayerBridge::STOPPED);
     qDebug() << "song finished!";
     ((AudioPlayerBridge*) user)->emit_songFinished();
+}
+
+int AudioPlayerBridge::getPosition() {
+    return BASS_ChannelBytes2Seconds(mainHandle, BASS_ChannelGetPosition(mainHandle, BASS_POS_BYTE)) * 1000;
+}
+
+void AudioPlayerBridge::setPosition(int pos) {
+    double timeInSecs = pos / 1000.0;
+    BASS_ChannelSetPosition(mainHandle, BASS_ChannelSeconds2Bytes(mainHandle, timeInSecs), BASS_POS_BYTE);
 }
 
 void AudioPlayerBridge::openAndPlay(std::string path) {

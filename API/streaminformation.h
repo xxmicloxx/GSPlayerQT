@@ -9,7 +9,7 @@ class StreamInformation : public QObject
 public:
     explicit StreamInformation(QObject *parent = 0);
     std::string directUrl();
-    std::string getUSecs();
+    int getUSecs();
     void setUSecs(std::string set);
     std::string getStreamKey();
     void setStreamKey(std::string set);

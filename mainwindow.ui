@@ -13,10 +13,6 @@
   <property name="windowTitle">
    <string>GSP - Groove Shark Player</string>
   </property>
-  <property name="windowIcon">
-   <iconset resource="Design.qrc">
-    <normaloff>:/theme/gen/RES/Icon.ico</normaloff>:/theme/gen/RES/Icon.ico</iconset>
-  </property>
   <property name="styleSheet">
    <string notr="true">#btnSide1 {
 background-image: url(:/theme/main/RES/theme/Hauptmenue/1_Side_Button_normal.png);
@@ -128,9 +124,6 @@ color: rgb(255, 190, 71);
 font: 14px &quot;Arial&quot;;
 color: rgb(163, 163, 163);
 }</string>
-  </property>
-  <property name="unifiedTitleAndToolBarOnMac">
-   <bool>false</bool>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="label">

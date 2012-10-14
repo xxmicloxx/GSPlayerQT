@@ -6,6 +6,7 @@ PlayMusicWindow::PlayMusicWindow(QWidget *parent, PlaylistHandler *plh, API *api
     QMainWindow(parent),
     ui(new Ui::PlayMusicWindow)
 {
+    posSliderMoving = false;
     this->realMainWindow = mainWindow;
     this->plh = plh;
     this->api = api;
@@ -34,8 +35,25 @@ PlayMusicWindow::PlayMusicWindow(QWidget *parent, PlaylistHandler *plh, API *api
     }
     connect(player, SIGNAL(playlistsChanged(std::vector<std::string>)), this, SLOT(playlistsChanged(std::vector<std::string>)));
     connect(player, SIGNAL(currentSongChanged()), this, SLOT(songsChanged()));
+    connect(player, SIGNAL(songPositionChanged()), this, SLOT(onPositionChanged()));
+    connect(coverHelper, SIGNAL(coverGotten(std::string)), this, SLOT(gotCover(std::string)));
     playlistsChanged(plh->getPlaylists());
     songsChanged();
+}
+
+void PlayMusicWindow::gotCover(std::string path) {
+    Song* currentSong = player->getCurrentSong();
+    if (currentSong != NULL && currentSong->getCoverArtFilename() == path) {
+        ui->lblCurrentCover->setPixmap(QPixmap(QString::fromStdString("covers/" + path)));
+    }
+    Song* songBefore = player->getSongBefore();
+    if (songBefore != NULL && songBefore->getCoverArtFilename() == path) {
+        ui->lblBeforeCover->setPixmap(QPixmap(QString::fromStdString("covers/" + path)));
+    }
+    Song* songAfter = player->getSongAfter();
+    if (songAfter != NULL && songAfter->getCoverArtFilename() == path) {
+        ui->lblAfterCover->setPixmap(QPixmap(QString::fromStdString("covers/" + path)));
+    }
 }
 
 void PlayMusicWindow::playlistsChanged(std::vector<std::string> playlists) {
@@ -53,8 +71,43 @@ void PlayMusicWindow::playlistsChanged(std::vector<std::string> playlists) {
     playlistsRefreshing = false;
 }
 
-void PlayMusicWindow::songsChanged() {
+void PlayMusicWindow::onPositionChanged() {
+    if (posSliderMoving)
+        return;
+    ui->sldPosition->setMaximum(player->getLength());
+    ui->sldPosition->setValue(player->getSongPosition());
+}
 
+void PlayMusicWindow::songsChanged() {
+    Song* currentSong = player->getCurrentSong();
+    if (currentSong != NULL) {
+        ui->lblCurrentCoverBackground->setVisible(true);
+        ui->lblCurrentCover->setVisible(true);
+        coverHelper->getPathForCover(currentSong->getCoverArtFilename());
+        ui->lblCurrentSong->setText(QString::fromStdString(currentSong->getArtistName() + " - " + currentSong->getSongName()));
+    } else {
+        ui->lblCurrentCoverBackground->setVisible(false);
+        ui->lblCurrentCover->setVisible(false);
+        ui->lblCurrentSong->setText("Kein Song abgespielt");
+    }
+    Song* songBefore = player->getSongBefore();
+    if (songBefore != NULL) {
+        ui->lblCoverBeforeBackground->setVisible(true);
+        ui->lblBeforeCover->setVisible(true);
+        coverHelper->getPathForCover(songBefore->getCoverArtFilename());
+    } else {
+        ui->lblCoverBeforeBackground->setVisible(false);
+        ui->lblBeforeCover->setVisible(false);
+    }
+    Song* songAfter = player->getSongAfter();
+    if (songAfter != NULL) {
+        ui->lblCoverAfterBackground->setVisible(true);
+        ui->lblAfterCover->setVisible(true);
+        coverHelper->getPathForCover(songAfter->getCoverArtFilename());
+    } else {
+        ui->lblCoverAfterBackground->setVisible(false);
+        ui->lblAfterCover->setVisible(false);
+    }
 }
 
 PlayMusicWindow::~PlayMusicWindow()
@@ -73,7 +126,17 @@ void PlayMusicWindow::on_cmbPlaylists_currentIndexChanged(int index)
     player->setPlaylist(playlistName);
 }
 
-void PlayMusicWindow::on_pushButton_clicked()
+void PlayMusicWindow::on_sldPosition_sliderPressed()
 {
-    player->play();
+    posSliderMoving = true;
+}
+
+void PlayMusicWindow::on_sldPosition_sliderReleased()
+{
+    posSliderMoving = false;
+}
+
+void PlayMusicWindow::on_sldPosition_sliderMoved(int position)
+{
+    player->setPosition(position);
 }
