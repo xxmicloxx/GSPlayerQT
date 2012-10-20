@@ -244,6 +244,9 @@ background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Search_pressed.p
     <property name="verticalScrollMode">
      <enum>QAbstractItemView::ScrollPerPixel</enum>
     </property>
+    <property name="horizontalScrollMode">
+     <enum>QAbstractItemView::ScrollPerPixel</enum>
+    </property>
    </widget>
    <widget class="QPushButton" name="btnPopular">
     <property name="geometry">

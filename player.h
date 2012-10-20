@@ -23,11 +23,18 @@ public:
     int getSongPosition();
     int getLength();
     void setPosition(int pos);
+    bool isPlaying();
+    bool isPaused();
+    bool isStopped();
+    bool isStarting();
+    void setVolume(int vol);
+    int getVolume();
     
 signals:
     void currentSongChanged();
     void playlistsChanged(std::vector<std::string> playlists);
     void songPositionChanged();
+    void stateChanged();
 
 public slots:
     void refreshPlaylists(std::vector<std::string> playlists);
@@ -36,7 +43,9 @@ public slots:
     void play();
     void next();
     void prev();
+    void pause();
     void gotStreamKey(StreamInformation* info);
+    void startedPlaying();
 
 private slots:
     void onPosChangeTimer_tick();

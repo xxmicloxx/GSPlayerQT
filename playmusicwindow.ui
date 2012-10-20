@@ -14,11 +14,83 @@
    <string>GSP - Musik abspielen</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QSlider:groove:horizontal {
+   <string notr="true">#sldVolume:groove:horizontal {
+border-image: url(:/theme/play/RES/theme/Musik_abspielen/Volume_BG.png);
+}
+
+#sldVolume::handle:horizontal {
+border-width:10px;
+border-height:10px;
+width: 10px;
+height: 10px;
+}
+
+#sldVolume::sub-page:horizontal {
+background-image: url(:/theme/play/RES/theme/Musik_abspielen/Volume_fuellung.png);
+}
+
+#btnPrev {
+border: none;
+background-image: url(:/theme/play/RES/theme/Musik_abspielen/Skip_Button_Left_normal.png);
+}
+
+#btnPrev:disabled {
+background-image: url(:/theme/play/RES/theme/Musik_abspielen/Skip_Button_Left_disabled.png);
+}
+
+#btnPrev:hover {
+background-image: url(:/theme/play/RES/theme/Musik_abspielen/Skip_Button_Left_hover.png);
+}
+
+#btnPrev:pressed {
+background-image: url(:/theme/play/RES/theme/Musik_abspielen/Skip_Button_Left_pressed.png);
+}
+
+#btnNext {
+border: none;
+background-image: url(:/theme/play/RES/theme/Musik_abspielen/Skip_Button_Right_normal.png);
+}
+
+#btnNext:disabled {
+background-image: url(:/theme/play/RES/theme/Musik_abspielen/Skip_Button_Right_disabled.png);
+}
+
+#btnNext:hover {
+background-image: url(:/theme/play/RES/theme/Musik_abspielen/Skip_Button_Right_hover.png);
+}
+
+#btnNext:pressed {
+background-image: url(:/theme/play/RES/theme/Musik_abspielen/Skip_Button_Right_pressed.png);
+}
+
+#btnStop {
+border: none;
+background-image: url(:/theme/play/RES/theme/Musik_abspielen/SongvonNeu_Button_normal.png);
+}
+
+#btnStop:disabled {
+background-image: url(:/theme/play/RES/theme/Musik_abspielen/SongvonNeu_Button_disabled.png);
+}
+
+#btnStop:hover {
+background-image: url(:/theme/play/RES/theme/Musik_abspielen/SongvonNeu_Button_hover.png);
+}
+
+#btnStop:pressed {
+background-image: url(:/theme/play/RES/theme/Musik_abspielen/SongvonNeu_Button_pressed.png);
+}
+
+#lblTime, #lblCurrentState {
+font-weight: bold;
+color: rgb(80, 80, 80);
+font-size: 15px;
+}
+
+QSlider:groove:horizontal {
 border-image: url(:/theme/play/RES/theme/Musik_abspielen/Zeitleiste_Leer.png);
 }
 
-QSlider::handle:horizontal {
+#sldPosition::handle:horizontal {
 image: url(:/theme/play/RES/theme/Musik_abspielen/Zeitleiste_Kreis.png);
 border-width: 0px;
 }
@@ -239,6 +311,152 @@ color: rgb(163, 163, 163);
     </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblTime">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>379</y>
+      <width>71</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>0:00 / 0:00</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnStop">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>92</x>
+      <y>372</y>
+      <width>31</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnPlay">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>363</y>
+      <width>48</width>
+      <height>46</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#btnPlay {
+border: none;
+background-image: url(:/theme/play/RES/theme/Musik_abspielen/Play_Button_normal.png);
+}
+
+#btnPlay:disabled {
+background-image: url(:/theme/play/RES/theme/Musik_abspielen/Play_Button_disabled.png);
+}
+
+#btnPlay:hover {
+background-image: url(:/theme/play/RES/theme/Musik_abspielen/Play_Button_hover.png);
+}
+
+#btnPlay:pressed {
+background-image: url(:/theme/play/RES/theme/Musik_abspielen/Play_Button_pressed.png);
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnPrev">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>298</x>
+      <y>371</y>
+      <width>31</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnNext">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>379</x>
+      <y>371</y>
+      <width>31</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblVolume">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>373</y>
+      <width>30</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="Design.qrc">:/theme/play/RES/theme/Musik_abspielen/Volume_Icon.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QSlider" name="sldVolume">
+    <property name="geometry">
+     <rect>
+      <x>486</x>
+      <y>381</y>
+      <width>90</width>
+      <height>10</height>
+     </rect>
+    </property>
+    <property name="maximum">
+     <number>100</number>
+    </property>
+    <property name="value">
+     <number>100</number>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblCurrentState">
+    <property name="geometry">
+     <rect>
+      <x>590</x>
+      <y>377</y>
+      <width>101</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Gestoppt</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
     </property>
    </widget>
   </widget>

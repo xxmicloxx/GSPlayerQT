@@ -110,11 +110,7 @@
         <file>RES/theme/Musik_abspielen/Schleife_Button_hover.png</file>
         <file>RES/theme/Musik_abspielen/Schleife_Button_normal.png</file>
         <file>RES/theme/Musik_abspielen/Schleife_Button_pressed.png</file>
-        <file>RES/theme/Musik_abspielen/Skip_Button_Left_hover.png</file>
-        <file>RES/theme/Musik_abspielen/Skip_Button_Left_normal.png</file>
         <file>RES/theme/Musik_abspielen/Skip_Button_Left_pressed.png</file>
-        <file>RES/theme/Musik_abspielen/Skip_Button_Right_hover.png</file>
-        <file>RES/theme/Musik_abspielen/Skip_Button_Right_normal.png</file>
         <file>RES/theme/Musik_abspielen/Skip_Button_Right_pressed.png</file>
         <file>RES/theme/Musik_abspielen/SongvonNeu_Button_hover.png</file>
         <file>RES/theme/Musik_abspielen/SongvonNeu_Button_normal.png</file>
@@ -133,5 +129,14 @@
         <file>RES/theme/Musik_abspielen/Zufllig_Button_hover.png</file>
         <file>RES/theme/Musik_abspielen/Zufllig_Button_normal.png</file>
         <file>RES/theme/Musik_abspielen/Zufllig_Button_pressed.png</file>
+        <file>RES/theme/Musik_abspielen/Play_Button_disabled.png</file>
+        <file>RES/theme/Musik_abspielen/Skip_Button_Left_disabled.png</file>
+        <file>RES/theme/Musik_abspielen/Skip_Button_Right_disabled.png</file>
+        <file>RES/theme/Musik_abspielen/SongvonNeu_Button_disabled.png</file>
+        <file>RES/theme/Musik_abspielen/Stop_Button_disabled.png</file>
+        <file>RES/theme/Musik_abspielen/Skip_Button_Left_hover.png</file>
+        <file>RES/theme/Musik_abspielen/Skip_Button_Left_normal.png</file>
+        <file>RES/theme/Musik_abspielen/Skip_Button_Right_hover.png</file>
+        <file>RES/theme/Musik_abspielen/Skip_Button_Right_normal.png</file>
     </qresource>
 </RCC>

@@ -9,7 +9,7 @@ CoverHelper::CoverHelper(QObject *parent) :
     fileIsDownloading = false;
     manager = new QNetworkAccessManager(this);
     queueMap = new QVector<std::string>();
-    connect(manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(realDownloaded(QNetworkReply*)));
+    connect(manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(realDownloaded(QNetworkReply*)), Qt::DirectConnection);
     init();
 }
 

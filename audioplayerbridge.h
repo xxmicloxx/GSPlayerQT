@@ -16,20 +16,22 @@ public:
     void togglePlayPause();
     void emit_songFinished();
     void setPosition(int pos);
-    enum Status {STOPPED, PAUSED, PLAYING};
+    enum Status {STOPPED, PAUSED, PLAYING, STARTING};
     Status getState();
     void setState(Status status);
     Status currentStatus;
     int getPosition();
+    void setVolume(int vol);
+    int getVolume();
     
 signals:
     void songFinished();
-
-public slots:
+    void startedPlaying();
 
 private:
     HSTREAM mainHandle;
     HSYNC finishedHandle;
+    int lastVol;
     
 };
 

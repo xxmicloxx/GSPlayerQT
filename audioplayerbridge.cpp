@@ -8,6 +8,7 @@ AudioPlayerBridge::AudioPlayerBridge(QObject *parent) :
 {
     BASS_Init(-1, 44100, 0, 0, NULL);
     currentStatus = STOPPED;
+    lastVol = 100;
 }
 
 AudioPlayerBridge::~AudioPlayerBridge() {
@@ -32,18 +33,34 @@ void AudioPlayerBridge::setPosition(int pos) {
 
 void AudioPlayerBridge::openAndPlay(std::string path) {
     stop();
+    currentStatus = STARTING;
     mainHandle = BASS_StreamCreateURL(path.c_str(), 0, BASS_STREAM_AUTOFREE | BASS_STREAM_PRESCAN, NULL, NULL);
     finishedHandle = BASS_ChannelSetSync(mainHandle, BASS_SYNC_END, 0, &MySyncProc, this);
-    currentStatus = PLAYING;
     BASS_ChannelPlay(mainHandle, false);
+    currentStatus = PLAYING;
+    emit startedPlaying();
 }
 
 void AudioPlayerBridge::emit_songFinished() {
     emit songFinished();
 }
 
+void AudioPlayerBridge::setVolume(int vol) {
+    BASS_ChannelSetAttribute(mainHandle, BASS_ATTRIB_VOL, vol / 100.0);
+    lastVol = vol;
+}
+
+int AudioPlayerBridge::getVolume() {
+    if (currentStatus == STOPPED || currentStatus == STARTING) {
+        return lastVol;
+    }
+    float value;
+    BASS_ChannelGetAttribute(mainHandle, BASS_ATTRIB_VOL, &value);
+    return value * 100;
+}
+
 void AudioPlayerBridge::stop() {
-    if (currentStatus != STOPPED) {
+    if (currentStatus != STOPPED && currentStatus != STARTING) {
         BASS_ChannelStop(mainHandle);
         currentStatus = STOPPED;
     }

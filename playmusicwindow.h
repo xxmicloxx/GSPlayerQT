@@ -23,8 +23,15 @@ public:
 public slots:
     void playlistsChanged(std::vector<std::string> playlists);
     void songsChanged();
+    void refreshPlayPause();
     void gotCover(std::string path);
     void onPositionChanged();
+    void makePauseButton();
+    void makePlayButton();
+    void disablePlay();
+    void enablePlay();
+    void enableAll();
+    void disableControls();
     
 private slots:
     void on_cmbPlaylists_currentIndexChanged(int index);
@@ -34,6 +41,16 @@ private slots:
     void on_sldPosition_sliderReleased();
 
     void on_sldPosition_sliderMoved(int position);
+
+    void on_btnPlay_clicked();
+
+    void on_btnStop_clicked();
+
+    void on_btnNext_clicked();
+
+    void on_btnPrev_clicked();
+
+    void on_sldVolume_sliderMoved(int position);
 
 private:
     Ui::PlayMusicWindow *ui;
