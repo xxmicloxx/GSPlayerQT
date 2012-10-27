@@ -45,7 +45,8 @@ SOURCES += main.cpp\
     songinfodialog.cpp \
     coverhelper.cpp \
     player.cpp \
-    dragdroplist.cpp
+    dragdroplist.cpp \
+    myvolumestyle.cpp
 
 HEADERS  += \
     API/util.h \
@@ -83,7 +84,8 @@ HEADERS  += \
     songinfodialog.h \
     coverhelper.h \
     player.h \
-    dragdroplist.h
+    dragdroplist.h \
+    myvolumestyle.h
 
 FORMS    += \
     mainwindow.ui \

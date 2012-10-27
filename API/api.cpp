@@ -25,6 +25,10 @@ API::API(QObject *parent) :
     connect(this, SIGNAL(methodExecuted(Value,int)), this, SLOT(gotPopularSongs(Value,int)));
 }
 
+void API::makeFail() {
+    token = "00000000000";
+}
+
 void API::getSessionID() {
     Value mainMap;
     mainMap["header"]["privacy"] = Value(0);

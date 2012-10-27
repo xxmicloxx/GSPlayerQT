@@ -3,11 +3,16 @@
 #include <QGraphicsDropShadowEffect>
 #include "boost/lexical_cast.hpp"
 #include <QDebug>
+#include <myvolumestyle.h>
 
 PlayMusicWindow::PlayMusicWindow(QWidget *parent, PlaylistHandler *plh, API *api, CoverHelper *coverHelper, QMainWindow* mainWindow, Player *player) :
     QMainWindow(parent),
     ui(new Ui::PlayMusicWindow)
 {
+    timer = new QTimer(this);
+    timer->setInterval(1000);
+    timer->setSingleShot(true);
+    connect(timer, SIGNAL(timeout()), this, SLOT(timerDone()));
     posSliderMoving = false;
     this->realMainWindow = mainWindow;
     this->plh = plh;
@@ -17,6 +22,7 @@ PlayMusicWindow::PlayMusicWindow(QWidget *parent, PlaylistHandler *plh, API *api
     this->coverHelper = coverHelper;
     int volume = player->getVolume();
     ui->setupUi(this);
+    ui->sldVolume->setStyle(new MyVolumeStyle);
     ui->sldVolume->setValue(volume);
     this->setAttribute(Qt::WA_QuitOnClose, false);
     this->setAttribute(Qt::WA_DeleteOnClose);
@@ -52,7 +58,7 @@ void PlayMusicWindow::refreshPlayPause() {
         enableAll();
         songsChanged();
         makePauseButton();
-        on_sldVolume_sliderMoved(ui->sldVolume->value());
+        on_sldVolume_valueChanged(ui->sldVolume->value());
         ui->lblCurrentState->setText("Abspielen");
     } else if (player->isPaused()) {
         enableAll();
@@ -130,6 +136,10 @@ void PlayMusicWindow::gotCover(std::string path) {
     }
 }
 
+void PlayMusicWindow::timerDone() {
+    player->play();
+}
+
 void PlayMusicWindow::playlistsChanged(std::vector<std::string> playlists) {
     playlistsRefreshing = true;
     ui->cmbPlaylists->clear();
@@ -175,16 +185,19 @@ void PlayMusicWindow::songsChanged() {
     if (currentSong != NULL) {
         ui->lblCurrentCoverBackground->setVisible(true);
         ui->lblCurrentCover->setVisible(true);
-        coverHelper->getPathForCover(currentSong->getCoverArtFilename());
+        if (currentSong->getCoverArtFilename() != currentCoverFile) {
+            ui->lblCurrentCover->setPixmap(QPixmap(":/theme/gen/RES/loader.png"));
+            coverHelper->getPathForCover(currentSong->getCoverArtFilename());
+            currentCoverFile = currentSong->getCoverArtFilename();
+        }
         if (!player->isStopped()) {
             enableAll();
-            ui->lblCurrentSong->setText(QString::fromStdString(currentSong->getArtistName() + " - " + currentSong->getSongName()));
         } else {
             makePlayButton();
             enablePlay();
             disableControls();
-            ui->lblCurrentSong->setText("Kein Song abgespielt");
         }
+        ui->lblCurrentSong->setText(QString::fromStdString(currentSong->getArtistName() + " - " + currentSong->getSongName()));
     } else {
         ui->lblCurrentCoverBackground->setVisible(false);
         ui->lblCurrentCover->setVisible(false);
@@ -197,7 +210,11 @@ void PlayMusicWindow::songsChanged() {
     if (songBefore != NULL) {
         ui->lblCoverBeforeBackground->setVisible(true);
         ui->lblBeforeCover->setVisible(true);
-        coverHelper->getPathForCover(songBefore->getCoverArtFilename());
+        if (songBefore->getCoverArtFilename() != prevCoverFile) {
+            ui->lblBeforeCover->setPixmap(QPixmap(":/theme/gen/RES/loader.png"));
+            coverHelper->getPathForCover(songBefore->getCoverArtFilename());
+            prevCoverFile = songBefore->getCoverArtFilename();
+        }
         ui->btnPrev->setEnabled(true);
     } else {
         ui->lblCoverBeforeBackground->setVisible(false);
@@ -208,7 +225,11 @@ void PlayMusicWindow::songsChanged() {
     if (songAfter != NULL) {
         ui->lblCoverAfterBackground->setVisible(true);
         ui->lblAfterCover->setVisible(true);
-        coverHelper->getPathForCover(songAfter->getCoverArtFilename());
+        if (songAfter->getCoverArtFilename() != nextCoverFile) {
+            ui->lblAfterCover->setPixmap(QPixmap(":/theme/gen/RES/loader.png"));
+            coverHelper->getPathForCover(songAfter->getCoverArtFilename());
+            nextCoverFile = songAfter->getCoverArtFilename();
+        }
         ui->btnNext->setEnabled(true);
     } else {
         ui->lblCoverAfterBackground->setVisible(false);
@@ -272,20 +293,27 @@ void PlayMusicWindow::on_btnPlay_clicked()
 
 void PlayMusicWindow::on_btnStop_clicked()
 {
-    player->stop();
+    player->stopNoReset();
 }
 
 void PlayMusicWindow::on_btnNext_clicked()
 {
-    player->next();
+    player->nextNoPlay();
+    timer->start();
 }
 
 void PlayMusicWindow::on_btnPrev_clicked()
 {
-    player->prev();
+    player->prevNoPlay();
+    timer->start();
 }
 
-void PlayMusicWindow::on_sldVolume_sliderMoved(int position)
+void PlayMusicWindow::on_sldVolume_valueChanged(int value)
 {
-    player->setVolume(position);
+    player->setVolume(value);
+}
+
+void PlayMusicWindow::on_pushButton_clicked()
+{
+    api->makeFail();
 }

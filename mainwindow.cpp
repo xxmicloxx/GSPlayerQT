@@ -40,7 +40,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->lblBtn3Caption->setAttribute(Qt::WA_TransparentForMouseEvents);
     ui->lblBtn3Message->setAttribute(Qt::WA_TransparentForMouseEvents);
     this->setFixedSize(this->size());
-    /*playButtonShortcut = new QxtGlobalShortcut(QKeySequence(Qt::Key_0),this);
+    /*playButtonShortcut = new QxtGlobalShortcut(QKeySequence(Qt::Key_MediaNext),this);
     connect(playButtonShortcut, SIGNAL(activated()), this, SLOT(onBtnPlay_pressed()));*/
 }
 
@@ -76,7 +76,7 @@ void MainWindow::onChildClosed()
 
 void MainWindow::on_btn3_clicked()
 {
-    PlaylistOptimizeWindow *pow = new PlaylistOptimizeWindow(0, coverHelper);
+    PlaylistOptimizeWindow *pow = new PlaylistOptimizeWindow(0, coverHelper, player);
     pow->setAPI(api);
     pow->setPLH(plh);
     pow->setMainWindow(this);

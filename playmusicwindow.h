@@ -7,6 +7,7 @@
 #include "audioplayerbridge.h"
 #include "coverhelper.h"
 #include "player.h"
+#include <QTimer>
 
 namespace Ui {
 class PlayMusicWindow;
@@ -34,6 +35,7 @@ public slots:
     void disableControls();
     
 private slots:
+    void timerDone();
     void on_cmbPlaylists_currentIndexChanged(int index);
 
     void on_sldPosition_sliderPressed();
@@ -50,7 +52,9 @@ private slots:
 
     void on_btnPrev_clicked();
 
-    void on_sldVolume_sliderMoved(int position);
+    void on_sldVolume_valueChanged(int value);
+
+    void on_pushButton_clicked();
 
 private:
     Ui::PlayMusicWindow *ui;
@@ -62,6 +66,10 @@ private:
     bool playlistsRefreshing;
     QMainWindow* realMainWindow;
     bool posSliderMoving;
+    QTimer* timer;
+    std::string currentCoverFile;
+    std::string prevCoverFile;
+    std::string nextCoverFile;
 };
 
 #endif // PLAYMUSICWINDOW_H

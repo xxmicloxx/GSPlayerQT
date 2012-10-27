@@ -29,6 +29,9 @@ public:
     bool isStarting();
     void setVolume(int vol);
     int getVolume();
+    void nextNoPlay();
+    void prevNoPlay();
+    void stopNoReset();
     
 signals:
     void currentSongChanged();

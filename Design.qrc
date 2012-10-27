@@ -20,6 +20,7 @@
     <qresource prefix="/theme/gen">
         <file>RES/Icon.ico</file>
         <file>RES/camera_test.png</file>
+        <file>RES/loader.png</file>
     </qresource>
     <qresource prefix="/theme/searchmusic">
         <file>RES/theme/Musik_Suche/BG_Top.png</file>

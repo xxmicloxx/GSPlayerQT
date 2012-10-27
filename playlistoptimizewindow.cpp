@@ -6,11 +6,12 @@
 #include <QMessageBox>
 #include <QInputDialog>
 
-PlaylistOptimizeWindow::PlaylistOptimizeWindow(QWidget *parent, CoverHelper *coverHelper) :
+PlaylistOptimizeWindow::PlaylistOptimizeWindow(QWidget *parent, CoverHelper *coverHelper, Player *player) :
     QMainWindow(parent),
     ui(new Ui::PlaylistOptimizeWindow)
 {
     this->coverHelper = coverHelper;
+    this->player = player;
     ui->setupUi(this);
     connect(ui->lstItems, SIGNAL(replaceSeperator()), this, SLOT(reimplementSeperator()));
     this->setAttribute(Qt::WA_QuitOnClose, false);
@@ -182,4 +183,12 @@ void PlaylistOptimizeWindow::on_btnRename_clicked()
         }
     }
     QMessageBox::information(this, "GSP - Playlist umbenennen", "Playlist erfolgreich umbenannt!");
+}
+
+void PlaylistOptimizeWindow::on_btnPlay_clicked()
+{
+    if (ui->cmbPlaylist->currentText() == "")
+        return;
+    player->setPlaylist(ui->cmbPlaylist->currentText().toStdString());
+    player->play();
 }

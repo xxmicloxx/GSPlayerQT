@@ -25,6 +25,7 @@ public:
     void getResultsFromArtistSearch(std::string query);
     void checkConnect();
     void popularGetSongs();
+    void makeFail();
     
 signals:
     void sessionInitialized();

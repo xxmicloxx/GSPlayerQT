@@ -135,6 +135,34 @@ int Player::getSongPosition() {
     return apb->getPosition();
 }
 
+void Player::nextNoPlay() {
+    Song* nextSong = getSongAfter();
+    stop();
+    if (nextSong == NULL)
+        return;
+    currentSong = nextSong;
+    emit currentSongChanged();
+    emit stateChanged();
+}
+
+void Player::prevNoPlay() {
+    Song* prevSong = getSongBefore();
+    stop();
+    if (prevSong == NULL) {
+        return;
+    }
+    currentSong = prevSong;
+    emit currentSongChanged();
+    emit stateChanged();
+}
+
+void Player::stopNoReset() {
+    apb->stop();
+    emit songPositionChanged();
+    emit currentSongChanged();
+    emit stateChanged();
+}
+
 int Player::getVolume() {
     return apb->getVolume();
 }

@@ -255,6 +255,9 @@ color: rgb(163, 163, 163);
     <property name="text">
      <string/>
     </property>
+    <property name="pixmap">
+     <pixmap resource="Design.qrc">:/theme/gen/RES/loader.png</pixmap>
+    </property>
     <property name="scaledContents">
      <bool>true</bool>
     </property>
@@ -271,6 +274,9 @@ color: rgb(163, 163, 163);
     <property name="text">
      <string/>
     </property>
+    <property name="pixmap">
+     <pixmap resource="Design.qrc">:/theme/gen/RES/loader.png</pixmap>
+    </property>
     <property name="scaledContents">
      <bool>true</bool>
     </property>
@@ -286,6 +292,9 @@ color: rgb(163, 163, 163);
     </property>
     <property name="text">
      <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="Design.qrc">:/theme/gen/RES/loader.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
@@ -457,6 +466,19 @@ background-image: url(:/theme/play/RES/theme/Musik_abspielen/Play_Button_pressed
     </property>
     <property name="alignment">
      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>40</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>PushButton</string>
     </property>
    </widget>
   </widget>
