@@ -36,6 +36,7 @@ void AudioPlayerBridge::openAndPlay(std::string path) {
     currentStatus = STARTING;
     mainHandle = BASS_StreamCreateURL(path.c_str(), 0, BASS_STREAM_AUTOFREE | BASS_STREAM_PRESCAN, NULL, NULL);
     finishedHandle = BASS_ChannelSetSync(mainHandle, BASS_SYNC_END, 0, &MySyncProc, this);
+    BASS_ChannelSetAttribute(mainHandle, BASS_ATTRIB_VOL, lastVol / 100.0);
     BASS_ChannelPlay(mainHandle, false);
     currentStatus = PLAYING;
     emit startedPlaying();

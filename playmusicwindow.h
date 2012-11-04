@@ -54,8 +54,6 @@ private slots:
 
     void on_sldVolume_valueChanged(int value);
 
-    void on_pushButton_clicked();
-
 private:
     Ui::PlayMusicWindow *ui;
     API* api;
@@ -70,6 +68,9 @@ private:
     std::string currentCoverFile;
     std::string prevCoverFile;
     std::string nextCoverFile;
+    std::string currCurrentCover;
+    std::string prevCurrentCover;
+    std::string nextCurrentCover;
 };
 
 #endif // PLAYMUSICWINDOW_H

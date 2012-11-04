@@ -32,7 +32,6 @@ SearchMusicListItem::SearchMusicListItem(QWidget *parent, Song* song, API *api, 
     this->messageHandler = messageHandler;
     onPlaylistChange(plh->getPlaylists());
     connect(plh, SIGNAL(playlistsChanged(std::vector<std::string>)), this, SLOT(onPlaylistChange(std::vector<std::string>)));
-    connect(api, SIGNAL(streamKeyReady(StreamInformation*)), this, SLOT(gotStreamKey(StreamInformation*)));
 }
 
 void SearchMusicListItem::onPlaylistChange(std::vector<std::string> vector) {

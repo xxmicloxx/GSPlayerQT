@@ -238,7 +238,9 @@ void API::gotGSMethodAnswer(int postActionId, std::string resultText) {
         connect(this, SIGNAL(tokenInitialized()), &loop, SLOT(quit()));
         getCommunicationToken();
         loop.exec();
+        disconnect(this ,SIGNAL(tokenInitialized()), &loop, SLOT(quit()));
         emit methodExecuted(NULL, postActionId);
+        return;
     }
     emit methodExecuted(resultMap["result"], postActionId);
 }

@@ -12,6 +12,9 @@ PlayMusicWindow::PlayMusicWindow(QWidget *parent, PlaylistHandler *plh, API *api
     timer = new QTimer(this);
     timer->setInterval(1000);
     timer->setSingleShot(true);
+    currCurrentCover = "";
+    nextCurrentCover = "";
+    prevCurrentCover = "";
     connect(timer, SIGNAL(timeout()), this, SLOT(timerDone()));
     posSliderMoving = false;
     this->realMainWindow = mainWindow;
@@ -24,6 +27,7 @@ PlayMusicWindow::PlayMusicWindow(QWidget *parent, PlaylistHandler *plh, API *api
     ui->setupUi(this);
     ui->sldVolume->setStyle(new MyVolumeStyle);
     ui->sldVolume->setValue(volume);
+    ui->sldPosition->setStyle(new MyVolumeStyle);
     this->setAttribute(Qt::WA_QuitOnClose, false);
     this->setAttribute(Qt::WA_DeleteOnClose);
     this->setFixedSize(this->size());
@@ -123,16 +127,22 @@ void PlayMusicWindow::enablePlay() {
 
 void PlayMusicWindow::gotCover(std::string path) {
     Song* currentSong = player->getCurrentSong();
-    if (currentSong != NULL && currentSong->getCoverArtFilename() == path) {
+    if (currentSong != NULL && currentSong->getCoverArtFilename() == path && currCurrentCover != currentSong->getCoverArtFilename()) {
         ui->lblCurrentCover->setPixmap(QPixmap(QString::fromStdString("covers/" + path)));
+        currCurrentCover = currentSong->getCoverArtFilename();
+        return;
     }
     Song* songBefore = player->getSongBefore();
-    if (songBefore != NULL && songBefore->getCoverArtFilename() == path) {
+    if (songBefore != NULL && songBefore->getCoverArtFilename() == path && prevCurrentCover != songBefore->getCoverArtFilename()) {
         ui->lblBeforeCover->setPixmap(QPixmap(QString::fromStdString("covers/" + path)));
+        prevCurrentCover = songBefore->getCoverArtFilename();
+        return;
     }
     Song* songAfter = player->getSongAfter();
-    if (songAfter != NULL && songAfter->getCoverArtFilename() == path) {
+    if (songAfter != NULL && songAfter->getCoverArtFilename() == path && nextCurrentCover != songAfter->getCoverArtFilename()) {
         ui->lblAfterCover->setPixmap(QPixmap(QString::fromStdString("covers/" + path)));
+        nextCurrentCover = songAfter->getCoverArtFilename();
+        return;
     }
 }
 
@@ -261,6 +271,7 @@ void PlayMusicWindow::on_sldPosition_sliderPressed()
 
 void PlayMusicWindow::on_sldPosition_sliderReleased()
 {
+    on_sldPosition_sliderMoved(ui->sldPosition->value());
     posSliderMoving = false;
 }
 
@@ -311,9 +322,4 @@ void PlayMusicWindow::on_btnPrev_clicked()
 void PlayMusicWindow::on_sldVolume_valueChanged(int value)
 {
     player->setVolume(value);
-}
-
-void PlayMusicWindow::on_pushButton_clicked()
-{
-    api->makeFail();
 }
