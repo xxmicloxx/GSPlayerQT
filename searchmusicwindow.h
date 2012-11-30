@@ -10,6 +10,7 @@
 #include "message.h"
 #include <QPoint>
 #include "messagehandler.h"
+#include "player.h"
 
 namespace Ui {
 class SearchMusicWindow;
@@ -25,6 +26,7 @@ public:
     void setAPB(AudioPlayerBridge *apb);
     void setPLH(PlaylistHandler *plh);
     void setMainWindow(QMainWindow* mw);
+    void setPlayer(Player *player);
     ~SearchMusicWindow();
 
 public slots:
@@ -59,6 +61,7 @@ private:
     API *api;
     AudioPlayerBridge *apb;
     PlaylistHandler *plh;
+    Player *player;
 };
 
 #endif // SEARCHMUSICWINDOW_H

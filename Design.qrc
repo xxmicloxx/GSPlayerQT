@@ -73,12 +73,12 @@
         <file>RES/theme/Playlist/Scroll_Button.png</file>
         <file>RES/theme/Playlist/Slot_hover.png</file>
         <file>RES/theme/Playlist/Slot_normal.png</file>
-        <file>RES/theme/Playlist/Zurck_hover.png</file>
-        <file>RES/theme/Playlist/Zurck_normal.png</file>
-        <file>RES/theme/Playlist/Zurck_pressed.png</file>
         <file>RES/theme/Playlist/Playlist_Rename+Export_Button_hover.png</file>
         <file>RES/theme/Playlist/Playlist_Rename+Export_Button_normal.png</file>
         <file>RES/theme/Playlist/Playlist_Rename+Export_Button_pressed.png</file>
+        <file>RES/theme/Playlist/Zurueck_hover.png</file>
+        <file>RES/theme/Playlist/Zurueck_normal.png</file>
+        <file>RES/theme/Playlist/Zurueck_pressed.png</file>
     </qresource>
     <qresource prefix="/theme/info">
         <file>RES/theme/Information/BG.png</file>
@@ -127,9 +127,6 @@
         <file>RES/theme/Musik_abspielen/Zeitleiste_Kreis.png</file>
         <file>RES/theme/Musik_abspielen/Zeitleiste_Leer.png</file>
         <file>RES/theme/Musik_abspielen/Zeitleiste_voll.png</file>
-        <file>RES/theme/Musik_abspielen/Zufllig_Button_hover.png</file>
-        <file>RES/theme/Musik_abspielen/Zufllig_Button_normal.png</file>
-        <file>RES/theme/Musik_abspielen/Zufllig_Button_pressed.png</file>
         <file>RES/theme/Musik_abspielen/Play_Button_disabled.png</file>
         <file>RES/theme/Musik_abspielen/Skip_Button_Left_disabled.png</file>
         <file>RES/theme/Musik_abspielen/Skip_Button_Right_disabled.png</file>
@@ -139,5 +136,11 @@
         <file>RES/theme/Musik_abspielen/Skip_Button_Left_normal.png</file>
         <file>RES/theme/Musik_abspielen/Skip_Button_Right_hover.png</file>
         <file>RES/theme/Musik_abspielen/Skip_Button_Right_normal.png</file>
+        <file>RES/theme/Musik_abspielen/Zufaellig_Button_hover.png</file>
+        <file>RES/theme/Musik_abspielen/Zufaellig_Button_normal.png</file>
+        <file>RES/theme/Musik_abspielen/Zufaellig_Button_pressed.png</file>
+    </qresource>
+    <qresource prefix="/theme/download">
+        <file>RES/theme/Download/BG.png</file>
     </qresource>
 </RCC>

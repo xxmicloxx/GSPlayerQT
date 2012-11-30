@@ -12,14 +12,18 @@
 #include <QTimer>
 #include "coverhelper.h"
 #include <QResizeEvent>
+#include <QDesktopWidget>
+#include <QRect>
 
 SearchMusicWindow::SearchMusicWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::SearchMusicWindow)
 {
     ui->setupUi(this);
+    QRect geometry = QApplication::desktop()->screenGeometry();
+    this->setGeometry((geometry.width() - this->width()) / 2, (geometry.height() - this->height()) / 2, this->width(), this->height());
     ui->lblBtnBack->setAttribute(Qt::WA_TransparentForMouseEvents);
-
+    this->setAttribute(Qt::WA_PaintOutsidePaintEvent);
     QGraphicsDropShadowEffect *effect = new QGraphicsDropShadowEffect(ui->lblSearchMusic);
     effect->setBlurRadius(1);
     effect->setColor(QColor("#bb6008"));
@@ -48,6 +52,10 @@ SearchMusicWindow::SearchMusicWindow(QWidget *parent) :
     handler = new MessageHandler(this);
     connect(handler, SIGNAL(addedMessage(Message*)), this, SLOT(addedMessage(Message*)));
     connect(handler, SIGNAL(removedMessage(Message*)), this, SLOT(deletedMessage(Message*)));
+}
+
+void SearchMusicWindow::setPlayer(Player *player) {
+    this->player = player;
 }
 
 void SearchMusicWindow::deletedMessage(Message *message) {
@@ -137,7 +145,7 @@ void SearchMusicWindow::gotSongSearchResult(std::vector<Song*> result) {
     overlay->setItemMax(result.size());
     for (unsigned int i = 0; i < result.size(); i++) {
         QListWidgetItem *item = new QListWidgetItem(ui->lstItems);
-        SearchMusicListItem *myItem = new SearchMusicListItem(ui->lstItems, result.at(i), api, apb, plh, handler);
+        SearchMusicListItem *myItem = new SearchMusicListItem(ui->lstItems, result.at(i), api, apb, plh, handler, player);
         item->setSizeHint(QSize(374, 101));
         ui->lstItems->addItem(item);
         ui->lstItems->setItemWidget(item, myItem);

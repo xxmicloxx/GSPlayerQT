@@ -64,6 +64,7 @@ void API::inited() {
     disconnect(SIGNAL(sessionInitialized()), this, SLOT(getCommunicationToken()));
     disconnect(SIGNAL(tokenInitialized()), this, SLOT(getCountry()));
     disconnect(SIGNAL(countryInitialized()), this, SLOT(inited()));
+    emit firstConnected();
 }
 
 void API::checkConnect() {
@@ -203,7 +204,7 @@ void API::getStreamKeyFromSongIDEx(int songID) {
 void API::gotStreamKeyFromSongIDEx(Value result, int postActionId) {
     if (postActionId != 3)
         return;
-    if (result == NULL) {
+    if (result["error"].isNull() == false) {
         getStreamKeyFromSongIDEx(lastSongId);
         return;
     }
@@ -239,7 +240,9 @@ void API::gotGSMethodAnswer(int postActionId, std::string resultText) {
         getCommunicationToken();
         loop.exec();
         disconnect(this ,SIGNAL(tokenInitialized()), &loop, SLOT(quit()));
-        emit methodExecuted(NULL, postActionId);
+        Value returnVal;
+        returnVal["error"] = true;
+        emit methodExecuted(returnVal, postActionId);
         return;
     }
     emit methodExecuted(resultMap["result"], postActionId);
@@ -262,7 +265,7 @@ void API::getResultsFromSongSearch(std::string query) {
 void API::gotResultsFromSongSearch(Value result, int postActionId) {
     if (postActionId != 4)
         return;
-    if (result == NULL) {
+    if (result["error"].isNull() == false) {
         getResultsFromSongSearch(lastSongSearch);
         return;
     }
@@ -298,7 +301,7 @@ void API::getResultsFromArtistSearch(std::string query) {
 void API::gotResultsFromArtistSearch(Value result, int postActionId) {
     if (postActionId != 5)
         return;
-    if (result == NULL) {
+    if (result["error"].isNull() == false) {
         getResultsFromArtistSearch(lastArtistSearch);
         return;
     }
@@ -324,7 +327,7 @@ void API::popularGetSongs() {
 void API::gotPopularSongs(Value result, int postActionId) {
     if (postActionId != 6)
         return;
-    if (result == NULL) {
+    if (result["error"].isNull() == false) {
         popularGetSongs();
         return;
     }

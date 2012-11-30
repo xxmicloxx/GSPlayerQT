@@ -4,8 +4,6 @@
 #
 #-------------------------------------------------
 
-CONFIG += qxt
-
 QT       += core gui network xml
 
 TARGET = GSPlayer
@@ -46,7 +44,9 @@ SOURCES += main.cpp\
     coverhelper.cpp \
     player.cpp \
     dragdroplist.cpp \
-    myvolumestyle.cpp
+    myvolumestyle.cpp \
+    titleplaydialog.cpp \
+    splashscreen.cpp
 
 HEADERS  += \
     API/util.h \
@@ -85,7 +85,9 @@ HEADERS  += \
     coverhelper.h \
     player.h \
     dragdroplist.h \
-    myvolumestyle.h
+    myvolumestyle.h \
+    titleplaydialog.h \
+    splashscreen.h
 
 FORMS    += \
     mainwindow.ui \
@@ -100,9 +102,11 @@ FORMS    += \
     searchmusiclastitemseperator.ui \
     playlistoptimizelastitemseperator.ui \
     playmusicwindow.ui \
-    songinfodialog.ui
+    songinfodialog.ui \
+    titleplaydialog.ui \
+    splashscreen.ui
 
-LIBS += C:/Users/Mic/Desktop/QtDev/Pros/GSPlayerQT/GSPlayer/bass.lib
+LIBS += /Users/ml/QtSDK/Pros/GSPlayer/libbass.dylib
 
 DEFINES += UNICODE
 
@@ -113,4 +117,4 @@ RESOURCES += \
 
 RC_FILE = myWinIcon.rc
 
-INCLUDEPATH += C:/Users/Mic/Desktop/QtDev/Libs/boost_1_51_0
+INCLUDEPATH += /Users/ml/Downloads/boost_1_50_0

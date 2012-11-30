@@ -341,8 +341,8 @@ color: rgb(163, 163, 163);
     </property>
     <property name="geometry">
      <rect>
-      <x>92</x>
-      <y>372</y>
+      <x>96</x>
+      <y>373</y>
       <width>31</width>
       <height>30</height>
      </rect>

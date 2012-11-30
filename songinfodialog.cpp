@@ -1,14 +1,19 @@
 #include "songinfodialog.h"
 #include "ui_songinfodialog.h"
 #include <QGraphicsDropShadowEffect>
+#include <QDesktopWidget>
+#include <QRect>
 
 SongInfoDialog::SongInfoDialog(QWidget *parent, Song *song) :
     QDialog(parent),
     ui(new Ui::SongInfoDialog)
 {
     ui->setupUi(this);
+    QRect geometry = QApplication::desktop()->screenGeometry();
+    this->setGeometry((geometry.width() - this->width()) / 2, (geometry.height() - this->height()) / 2, this->width(), this->height());
     this->setAttribute(Qt::WA_QuitOnClose, false);
     this->setAttribute(Qt::WA_DeleteOnClose);
+    this->setAttribute(Qt::WA_PaintOutsidePaintEvent);
     this->song = song;
     ui->lblSong->setText(QString::fromStdString(song->getSongName()));
     ui->lblArtist->setText(QString::fromStdString(song->getArtistName()));

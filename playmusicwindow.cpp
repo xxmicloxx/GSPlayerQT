@@ -4,11 +4,14 @@
 #include "boost/lexical_cast.hpp"
 #include <QDebug>
 #include <myvolumestyle.h>
+#include <QDesktopWidget>
+#include <QRect>
 
 PlayMusicWindow::PlayMusicWindow(QWidget *parent, PlaylistHandler *plh, API *api, CoverHelper *coverHelper, QMainWindow* mainWindow, Player *player) :
     QMainWindow(parent),
     ui(new Ui::PlayMusicWindow)
 {
+    this->setAttribute(Qt::WA_PaintOutsidePaintEvent);
     timer = new QTimer(this);
     timer->setInterval(1000);
     timer->setSingleShot(true);
@@ -25,6 +28,8 @@ PlayMusicWindow::PlayMusicWindow(QWidget *parent, PlaylistHandler *plh, API *api
     this->coverHelper = coverHelper;
     int volume = player->getVolume();
     ui->setupUi(this);
+    QRect geometry = QApplication::desktop()->screenGeometry();
+    this->setGeometry((geometry.width() - this->width()) / 2, (geometry.height() - this->height()) / 2, this->width(), this->height());
     ui->sldVolume->setStyle(new MyVolumeStyle);
     ui->sldVolume->setValue(volume);
     ui->sldPosition->setStyle(new MyVolumeStyle);
@@ -55,6 +60,7 @@ PlayMusicWindow::PlayMusicWindow(QWidget *parent, PlaylistHandler *plh, API *api
     playlistsChanged(plh->getPlaylists());
     songsChanged();
     refreshPlayPause();
+    wasPlaying = player->isPlaying() || player->isPaused();
 }
 
 void PlayMusicWindow::refreshPlayPause() {
@@ -310,13 +316,15 @@ void PlayMusicWindow::on_btnStop_clicked()
 void PlayMusicWindow::on_btnNext_clicked()
 {
     player->nextNoPlay();
-    timer->start();
+    if (wasPlaying)
+        timer->start();
 }
 
 void PlayMusicWindow::on_btnPrev_clicked()
 {
     player->prevNoPlay();
-    timer->start();
+    if (wasPlaying)
+        timer->start();
 }
 
 void PlayMusicWindow::on_sldVolume_valueChanged(int value)

@@ -8,6 +8,7 @@
 #include "API/streaminformation.h"
 #include "playlisthandler.h"
 #include "messagehandler.h"
+#include "player.h"
 
 namespace Ui {
 class SearchMusicListItem;
@@ -18,7 +19,7 @@ class SearchMusicListItem : public QWidget
     Q_OBJECT
     
 public:
-    explicit SearchMusicListItem(QWidget *parent = 0, Song* song = new Song(), API* api = new API(), AudioPlayerBridge* apb = new AudioPlayerBridge(), PlaylistHandler *plh = new PlaylistHandler(), MessageHandler* messageHandler = 0);
+    explicit SearchMusicListItem(QWidget *parent = 0, Song* song = new Song(), API* api = new API(), AudioPlayerBridge* apb = new AudioPlayerBridge(), PlaylistHandler *plh = new PlaylistHandler(), MessageHandler* messageHandler = 0, Player *player = 0);
     ~SearchMusicListItem();
     
 public slots:
@@ -39,6 +40,8 @@ private:
     AudioPlayerBridge* apb;
     Song* song;
     Ui::SearchMusicListItem *ui;
+    Player *player;
+    bool playerWasPlaying;
 
 };
 

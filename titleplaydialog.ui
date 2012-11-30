@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>TitlePlayDialog</class>
+ <widget class="QDialog" name="TitlePlayDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>395</width>
+    <height>140</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QSlider:groove:horizontal {
+border-image: url(:/theme/play/RES/theme/Musik_abspielen/Zeitleiste_Leer.png);
+}
+
+#sldPosition::handle:horizontal {
+image: url(:/theme/play/RES/theme/Musik_abspielen/Zeitleiste_Kreis.png);
+border-width: 0px;
+}
+
+QSlider::sub-page:horizontal {
+background-image: url(:/theme/play/RES/theme/Musik_abspielen/Zeitleiste_voll.png);
+}
+
+#sldVolume:groove:horizontal {
+border-image: url(:/theme/play/RES/theme/Musik_abspielen/Volume_BG.png);
+}
+
+#sldVolume::handle:horizontal {
+border-width:10px;
+border-height:10px;
+width: 10px;
+height: 10px;
+}
+
+#sldVolume::sub-page:horizontal {
+background-image: url(:/theme/play/RES/theme/Musik_abspielen/Volume_fuellung.png);
+}
+
+#lblSong {
+font: 16px &quot;Arial&quot;;
+color: rgb(255, 255, 255);
+font-weight: bold;
+background-color: rgb(255, 103, 31);
+padding: 5px;
+border-radius: 5px;
+}
+
+#btnStop {
+border: none;
+background-image: url(:/theme/play/RES/theme/Musik_abspielen/SongvonNeu_Button_normal.png);
+}
+
+#btnStop:disabled {
+background-image: url(:/theme/play/RES/theme/Musik_abspielen/SongvonNeu_Button_disabled.png);
+}
+
+#btnStop:hover {
+background-image: url(:/theme/play/RES/theme/Musik_abspielen/SongvonNeu_Button_hover.png);
+}
+
+#btnStop:pressed {
+background-image: url(:/theme/play/RES/theme/Musik_abspielen/SongvonNeu_Button_pressed.png);
+}</string>
+  </property>
+  <widget class="QLabel" name="lblBkg">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>395</width>
+     <height>140</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="Design.qrc">:/theme/download/RES/theme/Download/BG.png</pixmap>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblSong">
+   <property name="geometry">
+    <rect>
+     <x>15</x>
+     <y>16</y>
+     <width>368</width>
+     <height>35</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Titel - Artist - Album</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnPlay">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>174</x>
+     <y>90</y>
+     <width>48</width>
+     <height>46</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">#btnPlay {
+border: none;
+background-image: url(:/theme/play/RES/theme/Musik_abspielen/Play_Button_normal.png);
+}
+
+#btnPlay:disabled {
+background-image: url(:/theme/play/RES/theme/Musik_abspielen/Play_Button_disabled.png);
+}
+
+#btnPlay:hover {
+background-image: url(:/theme/play/RES/theme/Musik_abspielen/Play_Button_hover.png);
+}
+
+#btnPlay:pressed {
+background-image: url(:/theme/play/RES/theme/Musik_abspielen/Play_Button_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnStop">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>11</x>
+     <y>99</y>
+     <width>31</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblVolume">
+   <property name="geometry">
+    <rect>
+     <x>262</x>
+     <y>103</y>
+     <width>30</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="Design.qrc">:/theme/play/RES/theme/Musik_abspielen/Volume_Icon.png</pixmap>
+   </property>
+  </widget>
+  <widget class="QSlider" name="sldVolume">
+   <property name="geometry">
+    <rect>
+     <x>297</x>
+     <y>111</y>
+     <width>90</width>
+     <height>10</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <number>100</number>
+   </property>
+   <property name="value">
+    <number>100</number>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QSlider" name="sldPosition">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>15</x>
+     <y>66</y>
+     <width>370</width>
+     <height>15</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+ </widget>
+ <resources>
+  <include location="Design.qrc"/>
+ </resources>
+ <connections/>
+</ui>

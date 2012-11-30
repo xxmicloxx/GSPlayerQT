@@ -71,6 +71,7 @@ private:
     std::string currCurrentCover;
     std::string prevCurrentCover;
     std::string nextCurrentCover;
+    bool wasPlaying;
 };
 
 #endif // PLAYMUSICWINDOW_H

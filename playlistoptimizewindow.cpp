@@ -5,6 +5,8 @@
 #include <QGraphicsDropShadowEffect>
 #include <QMessageBox>
 #include <QInputDialog>
+#include <QDesktopWidget>
+#include <QRect>
 
 PlaylistOptimizeWindow::PlaylistOptimizeWindow(QWidget *parent, CoverHelper *coverHelper, Player *player) :
     QMainWindow(parent),
@@ -13,11 +15,13 @@ PlaylistOptimizeWindow::PlaylistOptimizeWindow(QWidget *parent, CoverHelper *cov
     this->coverHelper = coverHelper;
     this->player = player;
     ui->setupUi(this);
+    QRect geometry = QApplication::desktop()->screenGeometry();
+    this->setGeometry((geometry.width() - this->width()) / 2, (geometry.height() - this->height()) / 2, this->width(), this->height());
     connect(ui->lstItems, SIGNAL(replaceSeperator()), this, SLOT(reimplementSeperator()));
     this->setAttribute(Qt::WA_QuitOnClose, false);
     this->setAttribute(Qt::WA_DeleteOnClose);
     this->setFixedSize(this->size());
-
+    this->setAttribute(Qt::WA_PaintOutsidePaintEvent);
     QGraphicsDropShadowEffect *effect = new QGraphicsDropShadowEffect(ui->lblOrganizePlaylists);
     effect->setBlurRadius(1);
     effect->setColor(QColor("#bb6008"));

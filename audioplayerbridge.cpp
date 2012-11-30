@@ -3,16 +3,19 @@
 #include <QtConcurrentRun>
 #include <QDebug>
 
-AudioPlayerBridge::AudioPlayerBridge(QObject *parent) :
+AudioPlayerBridge::AudioPlayerBridge(QObject *parent, bool first) :
     QObject(parent)
 {
-    BASS_Init(-1, 44100, 0, 0, NULL);
+    if (first)
+        BASS_Init(-1, 44100, 0, 0, NULL);
+    this->first = first;
     currentStatus = STOPPED;
     lastVol = 100;
 }
 
 AudioPlayerBridge::~AudioPlayerBridge() {
-    BASS_Free();
+    if (first)
+        BASS_Free();
 }
 
 void CALLBACK MySyncProc(HSYNC handle, DWORD channel, DWORD data, void *user)

@@ -6,13 +6,17 @@
 #include "mousewheeldisabler.h"
 #include <QLayout>
 #include <QtConcurrentRun>
+#include "titleplaydialog.h"
 
-SearchMusicListItem::SearchMusicListItem(QWidget *parent, Song* song, API *api, AudioPlayerBridge *apb, PlaylistHandler *plh, MessageHandler* messageHandler) :
+SearchMusicListItem::SearchMusicListItem(QWidget *parent, Song* song, API *api, AudioPlayerBridge *apb, PlaylistHandler *plh, MessageHandler* messageHandler, Player *player) :
     QWidget(parent),
     ui(new Ui::SearchMusicListItem)
 {
     ui->setupUi(this);
+    playerWasPlaying = false;
     this->song = song;
+    this->player = player;
+    this->setAttribute(Qt::WA_PaintOutsidePaintEvent);
     ui->lblTitle->setText(QString::fromStdString(song->getSongName()));
     ui->lblArtist->setText(QString::fromStdString(song->getArtistName()));
     ui->lblAlbum->setText(QString::fromStdString(song->getAlbumName()));
@@ -55,7 +59,16 @@ SearchMusicListItem::~SearchMusicListItem()
 
 void SearchMusicListItem::on_btnPlay_clicked()
 {
-    api->getStreamKeyFromSongIDEx(song->getSongId());
+    TitlePlayDialog *tpd = new TitlePlayDialog(this->parentWidget(), apb, api, song);
+    if (player->isPlaying()) {
+        playerWasPlaying = true;
+        player->pause();
+    }
+    tpd->exec();
+    if (playerWasPlaying) {
+        player->play();
+        playerWasPlaying = false;
+    }
 }
 
 void SearchMusicListItem::gotStreamKey(StreamInformation *info) {

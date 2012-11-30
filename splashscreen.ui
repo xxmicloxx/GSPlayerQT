@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SplashScreen</class>
+ <widget class="QWidget" name="SplashScreen">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>395</width>
+    <height>140</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QLabel" name="lblBkg">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>395</width>
+     <height>140</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="Design.qrc">:/theme/download/RES/theme/Download/BG.png</pixmap>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblGSP">
+   <property name="geometry">
+    <rect>
+     <x>31</x>
+     <y>21</y>
+     <width>330</width>
+     <height>92</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>96</pointsize>
+     <weight>50</weight>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">#lblGSP {
+color: rgb(255, 255, 255);
+padding: 5px;
+border-radius: 20px;
+}</string>
+   </property>
+   <property name="text">
+    <string>G  S  P</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+ </widget>
+ <resources>
+  <include location="Design.qrc"/>
+ </resources>
+ <connections/>
+</ui>

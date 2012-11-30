@@ -7,6 +7,7 @@ SearchMusicLastItemSeperator::SearchMusicLastItemSeperator(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setFixedHeight(2);
+    this->setAttribute(Qt::WA_PaintOutsidePaintEvent);
 }
 
 SearchMusicLastItemSeperator::~SearchMusicLastItemSeperator()

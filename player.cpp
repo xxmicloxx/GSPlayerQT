@@ -1,6 +1,7 @@
 #include "player.h"
 #include <QtConcurrentRun>
 #include <QDebug>
+#include "boost/lexical_cast.hpp"
 
 Player::Player(QObject *parent, API *api, PlaylistHandler *plh, AudioPlayerBridge *apb) :
     QObject(parent)
@@ -243,10 +244,12 @@ std::string Player::getPlaylist() {
 }
 
 void Player::gotStreamKey(StreamInformation *info) {
-    currentLength = info->getUSecs() / 1000;
-    emit songPositionChanged();
-    QtConcurrent::run(apb, &AudioPlayerBridge::openAndPlay, info->directUrl());
-    emit stateChanged();
+    if (currentSong != NULL && info->getSongId() == currentSong->getSongId()) {
+        currentLength = info->getUSecs() / 1000;
+        emit songPositionChanged();
+        QtConcurrent::run(apb, &AudioPlayerBridge::openAndPlay, info->directUrl());
+        emit stateChanged();
+    }
 }
 
 int Player::getLength() {

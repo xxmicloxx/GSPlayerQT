@@ -6,18 +6,34 @@
 #include <searchmusicwindow.h>
 #include "playlistoptimizewindow.h"
 #include "playmusicwindow.h"
+#include <QEventLoop>
+#include "splashscreen.h"
+#include <QDesktopWidget>
+#include <QRect>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    this->setAttribute(Qt::WA_PaintOutsidePaintEvent);
     plh = new PlaylistHandler(this);
     bridge = new AudioPlayerBridge(this);
     coverHelper = new CoverHelper(this);
     api = new API(this);
-    player = new Player(this, api, plh, bridge);
+    SplashScreen *ss = new SplashScreen();
+    QRect geometry = QApplication::desktop()->screenGeometry();
+    ss->setGeometry((geometry.width() - ss->width()) / 2, (geometry.height() - ss->height()) / 2, ss->width(), ss->height());
+    ss->setFixedSize(ss->size());
+    ss->setVisible(true);
+    this->setGeometry((geometry.width() - this->width()) / 2, (geometry.height() - this->height()) / 2, this->width(), this->height());
     api->checkConnect();
+    QEventLoop loop;
+    connect(api, SIGNAL(firstConnected()), &loop, SLOT(quit()));
+    loop.exec();
+    ss->close();
+    delete ss;
+    player = new Player(this, api, plh, bridge);
     QGraphicsDropShadowEffect *effect = new QGraphicsDropShadowEffect(ui->lblBtn1Caption);
     effect->setBlurRadius(2);
     effect->setOffset(0, 1);
@@ -65,6 +81,7 @@ void MainWindow::on_btn2_clicked()
     smw->setAPB(bridge);
     smw->setPLH(plh);
     smw->setMainWindow(this);
+    smw->setPlayer(player);
     connect(smw, SIGNAL(destroyed()), this, SLOT(onChildClosed()));
     smw->show();
     this->setVisible(false);

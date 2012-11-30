@@ -9,7 +9,7 @@ class AudioPlayerBridge : public QObject
     Q_OBJECT
 
 public:
-    explicit AudioPlayerBridge(QObject *parent = 0);
+    explicit AudioPlayerBridge(QObject *parent = 0, bool first = true);
     ~AudioPlayerBridge();
     void openAndPlay(std::string path);
     void stop();
@@ -32,7 +32,8 @@ private:
     HSTREAM mainHandle;
     HSYNC finishedHandle;
     int lastVol;
-    
+    bool first;
+
 };
 
 #endif // AUDIOPLAYERBRIDGE_H
