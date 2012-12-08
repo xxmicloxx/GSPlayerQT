@@ -70,10 +70,12 @@ void PlayMusicWindow::refreshPlayPause() {
         makePauseButton();
         on_sldVolume_valueChanged(ui->sldVolume->value());
         ui->lblCurrentState->setText("Abspielen");
+        wasPlaying = true;
     } else if (player->isPaused()) {
         enableAll();
         songsChanged();
         makePlayButton();
+        wasPlaying = true;
         ui->lblCurrentState->setText("Pausiert");
     } else if (player->isStarting()) {
         disableControls();
@@ -208,6 +210,7 @@ void PlayMusicWindow::songsChanged() {
         }
         if (!player->isStopped()) {
             enableAll();
+            wasPlaying = true;
         } else {
             makePlayButton();
             enablePlay();
@@ -311,6 +314,7 @@ void PlayMusicWindow::on_btnPlay_clicked()
 void PlayMusicWindow::on_btnStop_clicked()
 {
     player->stopNoReset();
+    wasPlaying = false;
 }
 
 void PlayMusicWindow::on_btnNext_clicked()
