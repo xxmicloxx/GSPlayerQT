@@ -6,6 +6,7 @@
 #include <myvolumestyle.h>
 #include <QDesktopWidget>
 #include <QRect>
+#include <QLayout>
 
 PlayMusicWindow::PlayMusicWindow(QWidget *parent, PlaylistHandler *plh, API *api, CoverHelper *coverHelper, QMainWindow* mainWindow, Player *player) :
     QMainWindow(parent),
@@ -28,6 +29,7 @@ PlayMusicWindow::PlayMusicWindow(QWidget *parent, PlaylistHandler *plh, API *api
     this->coverHelper = coverHelper;
     int volume = player->getVolume();
     ui->setupUi(this);
+    messageHandler = new MessageHandler(this);
     QRect geometry = QApplication::desktop()->screenGeometry();
     this->setGeometry((geometry.width() - this->width()) / 2, (geometry.height() - this->height()) / 2, this->width(), this->height());
     ui->sldVolume->setStyle(new MyVolumeStyle);
@@ -57,10 +59,25 @@ PlayMusicWindow::PlayMusicWindow(QWidget *parent, PlaylistHandler *plh, API *api
     connect(player, SIGNAL(songPositionChanged()), this, SLOT(onPositionChanged()));
     connect(player, SIGNAL(stateChanged()), this, SLOT(refreshPlayPause()));
     connect(coverHelper, SIGNAL(coverGotten(std::string)), this, SLOT(gotCover(std::string)), Qt::DirectConnection);
+    connect(messageHandler, SIGNAL(addedMessage(Message*)), this, SLOT(addedMessage(Message*)));
+    connect(messageHandler, SIGNAL(removedMessage(Message*)), this, SLOT(deletedMessage(Message*)));
+    connect(player, SIGNAL(songFailed()), this, SLOT(songFailed()));
     playlistsChanged(plh->getPlaylists());
     songsChanged();
     refreshPlayPause();
     wasPlaying = player->isPlaying() || player->isPaused();
+}
+
+void PlayMusicWindow::songFailed() {
+    messageHandler->addMessage("Der Song \"" + player->getCurrentSong()->getSongName() + "\" ist fehlerhaft und wurde übersprungen!");
+}
+
+void PlayMusicWindow::deletedMessage(Message *message) {
+    this->layout()->removeWidget(message);
+}
+
+void PlayMusicWindow::addedMessage(Message *message) {
+    this->layout()->addWidget(message);
 }
 
 void PlayMusicWindow::refreshPlayPause() {
@@ -84,6 +101,7 @@ void PlayMusicWindow::refreshPlayPause() {
     } else if (player->isStopped()) {
         makePlayButton();
         ui->lblCurrentState->setText("Gestoppt");
+        wasPlaying = false;
     }
 }
 
@@ -319,15 +337,19 @@ void PlayMusicWindow::on_btnStop_clicked()
 
 void PlayMusicWindow::on_btnNext_clicked()
 {
+    bool wasPlaying = player->isPlaying() || player->isPaused();
     player->nextNoPlay();
-    if (wasPlaying)
+    this->wasPlaying = wasPlaying;
+    if (this->wasPlaying)
         timer->start();
 }
 
 void PlayMusicWindow::on_btnPrev_clicked()
 {
+    bool wasPlaying = player->isPlaying() || player->isPaused();
     player->prevNoPlay();
-    if (wasPlaying)
+    this->wasPlaying = wasPlaying;
+    if (this->wasPlaying)
         timer->start();
 }
 

@@ -37,6 +37,7 @@ signals:
     void popularSongSearchCompleted(std::vector<Song*>);
     void streamKeyReady(StreamInformation* info);
     void firstConnected();
+    void songError(int songId);
 
 private:
     void init();

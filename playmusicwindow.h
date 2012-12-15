@@ -8,6 +8,8 @@
 #include "coverhelper.h"
 #include "player.h"
 #include <QTimer>
+#include "messagehandler.h"
+#include "message.h"
 
 namespace Ui {
 class PlayMusicWindow;
@@ -33,6 +35,9 @@ public slots:
     void enablePlay();
     void enableAll();
     void disableControls();
+    void songFailed();
+    void addedMessage(Message* message);
+    void deletedMessage(Message* message);
     
 private slots:
     void timerDone();
@@ -72,6 +77,7 @@ private:
     std::string prevCurrentCover;
     std::string nextCurrentCover;
     bool wasPlaying;
+    MessageHandler* messageHandler;
 };
 
 #endif // PLAYMUSICWINDOW_H

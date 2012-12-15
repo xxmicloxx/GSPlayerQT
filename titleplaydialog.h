@@ -30,6 +30,7 @@ public slots:
     void pause();
     void resume();
     void timerTick();
+    void songFailed(int songId);
     
 private slots:
     void on_sldPosition_sliderPressed();

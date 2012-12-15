@@ -15,6 +15,7 @@ Player::Player(QObject *parent, API *api, PlaylistHandler *plh, AudioPlayerBridg
     connect(api, SIGNAL(streamKeyReady(StreamInformation*)), this, SLOT(gotStreamKey(StreamInformation*)));
     connect(plh, SIGNAL(playlistsChanged(std::vector<std::string>)), this, SLOT(refreshPlaylists(std::vector<std::string>)));
     connect(plh, SIGNAL(songsChanged(std::string,std::vector<Song*>)), this, SLOT(refreshSongs(std::string,std::vector<Song*>)));
+    connect(api, SIGNAL(songError(int)), this, SLOT(songError(int)));
     posChangeTimer = new QTimer(this);
     posChangeTimer->setInterval(200);
     connect(posChangeTimer, SIGNAL(timeout()), this, SLOT(onPosChangeTimer_tick()));
@@ -27,6 +28,13 @@ void Player::pause() {
     if (isPlaying()) {
         apb->togglePlayPause();
         emit stateChanged();
+    }
+}
+
+void Player::songError(int songId) {
+    if (songId == currentSong->getSongId()) {
+        emit songFailed();
+        this->next();
     }
 }
 
@@ -201,6 +209,7 @@ unsigned int Player::getCurrentId() {
 }
 
 void Player::stop() {
+    apb->setState(AudioPlayerBridge::PAUSED);
     apb->stop();
     currentSong = NULL;
     currentLength = 0;

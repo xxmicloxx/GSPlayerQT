@@ -4,6 +4,7 @@
 #include "myvolumestyle.h"
 #include <QDesktopWidget>
 #include <QRect>
+#include <QMessageBox>
 
 TitlePlayDialog::TitlePlayDialog(QWidget *parent, AudioPlayerBridge *apb, API *api, Song *song) :
     QDialog(parent),
@@ -33,7 +34,15 @@ TitlePlayDialog::TitlePlayDialog(QWidget *parent, AudioPlayerBridge *apb, API *a
     connect(api, SIGNAL(streamKeyReady(StreamInformation*)), this, SLOT(gotSongInformation(StreamInformation*)));
     connect(this->apb, SIGNAL(startedPlaying()), this, SLOT(songStarted()));
     connect(this->apb, SIGNAL(songFinished()), this, SLOT(songFinished()));
+    connect(api, SIGNAL(songError(int)), this, SLOT(songFailed(int)));
     play();
+}
+
+void TitlePlayDialog::songFailed(int songId) {
+    if (songId == song->getSongId()) {
+        QMessageBox::critical(this, this->windowTitle(), QString::fromStdString("Der Song \"" + song->getSongName() + "\" ist fehlerhaft! Wiedergabe wird abgebrochen!"));
+        delete this;
+    }
 }
 
 void TitlePlayDialog::timerTick() {

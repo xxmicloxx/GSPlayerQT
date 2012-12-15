@@ -53,9 +53,6 @@ border-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Dropdown_pressed.png
 #lblBackground {
 background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/slot_normal.png);
 }
-#lblBackground:hover {
-background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/slot_hover.png);
-}
 QPushButton {
 font: 14px;
 font-weight: bold;
@@ -144,6 +141,9 @@ background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Download_Button_
      <width>374</width>
      <height>101</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
    </property>
    <property name="text">
     <string/>

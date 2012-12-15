@@ -33,7 +33,7 @@ void API::getSessionID() {
     Value mainMap;
     mainMap["header"]["privacy"] = Value(0);
     mainMap["header"]["client"] = Value("htmlshark");
-    mainMap["header"]["clientRevision"] = Value("20120312");
+    mainMap["header"]["clientRevision"] = Value("20120830");
     mainMap["header"]["uuid"] = Value(boost::lexical_cast<std::string>(uuid));
     mainMap["parameters"] = Value(JsonBox::Object());
     mainMap["method"] = Value("initiateSession");
@@ -79,7 +79,7 @@ void API::getCommunicationToken() {
     Value mainMap;
     mainMap["header"]["privacy"] = Value(0);
     mainMap["header"]["client"] = Value("htmlshark");
-    mainMap["header"]["clientRevision"] = Value("20120312");
+    mainMap["header"]["clientRevision"] = Value("20120830");
     mainMap["header"]["uuid"] = Value(boost::lexical_cast<std::string>(uuid));
     mainMap["header"]["session"] = Value(sessionID);
     std::string data = util->getMd5FromString(sessionID);
@@ -107,9 +107,9 @@ void API::getCountry() {
     mainMap["header"]["uuid"] = Value(boost::lexical_cast<std::string>(uuid));
     mainMap["header"]["session"] = Value(sessionID);
     mainMap["header"]["client"] = Value("jsqueue");
-    mainMap["header"]["clientRevision"] = Value("20120312.02");
+    mainMap["header"]["clientRevision"] = Value("20120830");
     mainMap["header"]["privacy"] = Value(0);
-    std::string salt = ":closeButNoCigar:";
+    std::string salt = ":birdStone:";
     srand(QTime::currentTime().msec());
     std::string randNum = "";
     for (int i = 0; i < 6; i++) {
@@ -150,13 +150,13 @@ Value API::getHeaderMap(std::string client, std::string method) {
     headerMap["country"] = countryMap;
     headerMap["session"] = Value(sessionID);
     headerMap["client"] = Value(client);
-    headerMap["clientRevision"] = Value("20120312");
+    headerMap["clientRevision"] = Value("20120830");
     headerMap["privacy"] = Value(0);
     std::string salt = "";
     if (client == "htmlshark") {
-        salt = ":breakfastBurritos:";
+        salt = ":tastyTacos:";
     } else if (client == "jsqueue") {
-        salt = ":closeButNoCigar:";
+        salt = ":birdStone:";
     }
     srand(QTime::currentTime().msec());
     std::string randNum = "";
@@ -189,10 +189,10 @@ void API::getStreamKeyFromSongIDEx(int songID) {
         randNum.append(oss.str());
     }
 
-    std::string postString = "{\"header\":{\"clientRevision\":\"20120312.02\",\"privacy\":0,\"client\":\"jsqueue\",\"uuid\":\"" +
+    std::string postString = "{\"header\":{\"clientRevision\":\"20120830\",\"privacy\":0,\"client\":\"jsqueue\",\"uuid\":\"" +
             boost::lexical_cast<std::string>(uuid) +
             "\",\"token\":\"" +
-            randNum + util->getSha1FromString("getStreamKeyFromSongIDEx:" + token + ":closeButNoCigar:" + randNum) +
+            randNum + util->getSha1FromString("getStreamKeyFromSongIDEx:" + token + ":birdStone:" + randNum) +
             "\",\"country\":{\"CC3\":4294967296,\"DMA\":0,\"ID\":161,\"CC2\":0,\"IPR\":0,\"CC1\":0,\"CC4\":0},\"session\":\"" +
             sessionID +
             "\"},\"parameters\":{\"mobile\":false,\"country\":{\"CC3\":4294967296,\"DMA\":0,\"ID\":161,\"CC2\":0,\"CC1\":0,\"IPR\":0,\"CC4\":0},\"songID\":\"" +
@@ -206,6 +206,12 @@ void API::gotStreamKeyFromSongIDEx(Value result, int postActionId) {
         return;
     if (result["error"].isNull() == false) {
         getStreamKeyFromSongIDEx(lastSongId);
+        return;
+    }
+    std::stringstream ss;
+    ss << result;
+    if (result["streamKey"].isNull()) {
+        emit songError(lastSongId);
         return;
     }
     StreamInformation* info = new StreamInformation(this);

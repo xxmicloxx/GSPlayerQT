@@ -38,6 +38,7 @@ signals:
     void playlistsChanged(std::vector<std::string> playlists);
     void songPositionChanged();
     void stateChanged();
+    void songFailed();
 
 public slots:
     void refreshPlaylists(std::vector<std::string> playlists);
@@ -49,6 +50,7 @@ public slots:
     void pause();
     void gotStreamKey(StreamInformation* info);
     void startedPlaying();
+    void songError(int songId);
 
 private slots:
     void onPosChangeTimer_tick();
