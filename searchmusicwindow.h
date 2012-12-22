@@ -11,6 +11,7 @@
 #include <QPoint>
 #include "messagehandler.h"
 #include "player.h"
+#include <vector>
 
 namespace Ui {
 class SearchMusicWindow;
@@ -28,12 +29,14 @@ public:
     void setMainWindow(QMainWindow* mw);
     void setPlayer(Player *player);
     ~SearchMusicWindow();
+    void createNewPlaylist();
 
 public slots:
     void gotSongSearchResult(std::vector<Song*> result);
     void fullyBlendedOut();
     void addedMessage(Message* message);
     void deletedMessage(Message* message);
+    void onPlaylistChange(std::vector<std::string> vector);
 
 private slots:
     void addTestItem();
@@ -42,11 +45,11 @@ private slots:
 
     void on_btnSearchSong_clicked();
 
-    void on_btnSearchArtist_clicked();
-
     void on_txtSearchSong_returnPressed();
 
     void on_btnPopular_clicked();
+
+    void on_cmbAddAll_currentIndexChanged(int index);
 
 private:
     void addSeperator();
@@ -54,6 +57,7 @@ private:
     std::vector<SearchMusicListItem*> itemVector;
     MessageHandler *handler;
     bool working;
+    bool refreshingPlaylists;
     void searchSong(std::string text);
     void getPopularSongs();
     Ui::SearchMusicWindow *ui;

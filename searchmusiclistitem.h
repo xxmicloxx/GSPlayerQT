@@ -21,6 +21,7 @@ class SearchMusicListItem : public QWidget
 public:
     explicit SearchMusicListItem(QWidget *parent = 0, Song* song = new Song(), API* api = new API(), AudioPlayerBridge* apb = new AudioPlayerBridge(), PlaylistHandler *plh = new PlaylistHandler(), MessageHandler* messageHandler = 0, Player *player = 0);
     ~SearchMusicListItem();
+    Song* getSong();
     
 public slots:
     void createNewPlaylist();

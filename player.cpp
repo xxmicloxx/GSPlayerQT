@@ -1,5 +1,5 @@
 #include "player.h"
-#include <QtConcurrentRun>
+#include <QtConcurrent/QtConcurrentRun>
 #include <QDebug>
 #include "boost/lexical_cast.hpp"
 
@@ -64,8 +64,29 @@ void Player::refreshPlaylists(std::vector<std::string> playlists) {
         }
     }
     if (!foundMyOne) {
-        this->currentPlaylist = playlists.at(0);
-        stop();
+        for (unsigned int i = 0; i < playlists.size(); i++) {
+            std::vector<Song*> songs = plh->getSongs(playlists.at(i));
+            if (songs.size() != currentPlaylistSongs.size())
+                continue;
+            for (unsigned int j = 0; j < songs.size(); j++) {
+                Song* song = songs.at(j);
+                int id = song->getSongId();
+                Song* ownSong = currentPlaylistSongs.at(j);
+                int ownId = ownSong->getSongId();
+                if (id == ownId) {
+                    foundMyOne = true;
+                    this->currentPlaylist = playlists.at(i);
+                    break;
+                }
+            }
+            if (foundMyOne) {
+                break;
+            }
+        }
+        if (!foundMyOne) {
+            this->currentPlaylist = playlists.at(0);
+            stop();
+        }
     }
     emit playlistsChanged(playlists);
     refreshSongs(this->currentPlaylist, plh->getSongs(this->currentPlaylist));

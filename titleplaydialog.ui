@@ -14,7 +14,11 @@
    <string>Dialog</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QSlider:groove:horizontal {
+   <string notr="true">#btnClose {
+border-image: url(:/theme/gen/RES/cancel.png);
+}
+
+QSlider:groove:horizontal {
 border-image: url(:/theme/play/RES/theme/Musik_abspielen/Zeitleiste_Leer.png);
 }
 
@@ -199,6 +203,22 @@ background-image: url(:/theme/play/RES/theme/Musik_abspielen/Play_Button_pressed
    </property>
    <property name="orientation">
     <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnClose">
+   <property name="geometry">
+    <rect>
+     <x>373</x>
+     <y>5</y>
+     <width>20</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
+   <property name="text">
+    <string/>
    </property>
   </widget>
  </widget>

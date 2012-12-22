@@ -8,7 +8,6 @@ Message::Message(QWidget *parent) :
 {
     ui->setupUi(this);
     opacity = new QGraphicsOpacityEffect(this);
-    this->setAttribute(Qt::WA_PaintOutsidePaintEvent);
     opacity->setOpacity(0.0);
     this->setGraphicsEffect(opacity);
     blendIn = new QPropertyAnimation(opacity, "opacity");

@@ -5,7 +5,7 @@
 #include <QMessageBox>
 #include "mousewheeldisabler.h"
 #include <QLayout>
-#include <QtConcurrentRun>
+#include <QtConcurrent/QtConcurrentRun>
 #include "titleplaydialog.h"
 
 SearchMusicListItem::SearchMusicListItem(QWidget *parent, Song* song, API *api, AudioPlayerBridge *apb, PlaylistHandler *plh, MessageHandler* messageHandler, Player *player) :
@@ -16,7 +16,6 @@ SearchMusicListItem::SearchMusicListItem(QWidget *parent, Song* song, API *api, 
     playerWasPlaying = false;
     this->song = song;
     this->player = player;
-    this->setAttribute(Qt::WA_PaintOutsidePaintEvent);
     ui->lblTitle->setText(QString::fromStdString(song->getSongName()));
     ui->lblArtist->setText(QString::fromStdString(song->getArtistName()));
     ui->lblAlbum->setText(QString::fromStdString(song->getAlbumName()));
@@ -36,6 +35,10 @@ SearchMusicListItem::SearchMusicListItem(QWidget *parent, Song* song, API *api, 
     this->messageHandler = messageHandler;
     onPlaylistChange(plh->getPlaylists());
     connect(plh, SIGNAL(playlistsChanged(std::vector<std::string>)), this, SLOT(onPlaylistChange(std::vector<std::string>)));
+}
+
+Song* SearchMusicListItem::getSong() {
+    return song;
 }
 
 void SearchMusicListItem::onPlaylistChange(std::vector<std::string> vector) {
@@ -60,6 +63,7 @@ SearchMusicListItem::~SearchMusicListItem()
 void SearchMusicListItem::on_btnPlay_clicked()
 {
     TitlePlayDialog *tpd = new TitlePlayDialog(this->parentWidget(), apb, api, song);
+    tpd->setModal(false);
     if (player->isPlaying()) {
         playerWasPlaying = true;
         player->pause();

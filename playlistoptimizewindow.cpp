@@ -15,13 +15,13 @@ PlaylistOptimizeWindow::PlaylistOptimizeWindow(QWidget *parent, CoverHelper *cov
     this->coverHelper = coverHelper;
     this->player = player;
     ui->setupUi(this);
+    this->setWindowFlags(this->windowFlags() & ~(Qt::WindowFullscreenButtonHint));
     QRect geometry = QApplication::desktop()->screenGeometry();
     this->setGeometry((geometry.width() - this->width()) / 2, (geometry.height() - this->height()) / 2, this->width(), this->height());
     connect(ui->lstItems, SIGNAL(replaceSeperator()), this, SLOT(reimplementSeperator()));
     this->setAttribute(Qt::WA_QuitOnClose, false);
     this->setAttribute(Qt::WA_DeleteOnClose);
     this->setFixedSize(this->size());
-    this->setAttribute(Qt::WA_PaintOutsidePaintEvent);
     QGraphicsDropShadowEffect *effect = new QGraphicsDropShadowEffect(ui->lblOrganizePlaylists);
     effect->setBlurRadius(1);
     effect->setColor(QColor("#bb6008"));
@@ -169,7 +169,7 @@ void PlaylistOptimizeWindow::on_btnDeletePlaylist_clicked()
 void PlaylistOptimizeWindow::on_btnRename_clicked()
 {
     bool ok = false;
-    std::string result = QInputDialog::getText(this, "GSP - Playlist umbenennen", "Bitte geben sie den neuen Namen für '" + ui->cmbPlaylist->currentText() + "' ein:", QLineEdit::Normal, QString(), &ok).toStdString();
+    std::string result = QInputDialog::getText(this, "GSP - Playlist umbenennen", "Bitte geben sie den neuen Namen für '" + ui->cmbPlaylist->currentText() + "' ein:", QLineEdit::Normal, ui->cmbPlaylist->currentText(), &ok).toStdString();
     if (!ok)
         return;
     if (result == "") {

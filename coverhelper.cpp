@@ -1,6 +1,7 @@
 #include "coverhelper.h"
 #include <QFile>
 #include <QDir>
+#include <QDebug>
 
 CoverHelper::CoverHelper(QObject *parent) :
     QObject(parent)
@@ -57,6 +58,7 @@ void CoverHelper::continueQueue() {
     if (file.exists()) {
         queueIsRunning = false;
         gotPathForCover(queueMap->at(0));
+        queueMap->pop_front();
         continueQueue();
         return;
     }

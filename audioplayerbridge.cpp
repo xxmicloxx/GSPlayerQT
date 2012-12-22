@@ -1,6 +1,6 @@
 #include "audioplayerbridge.h"
 #include "boost/bind.hpp"
-#include <QtConcurrentRun>
+#include <QtConcurrent/QtConcurrentRun>
 #include <QDebug>
 
 AudioPlayerBridge::AudioPlayerBridge(QObject *parent, bool first) :

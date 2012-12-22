@@ -9,11 +9,11 @@ SongInfoDialog::SongInfoDialog(QWidget *parent, Song *song) :
     ui(new Ui::SongInfoDialog)
 {
     ui->setupUi(this);
+    this->setWindowFlags(this->windowFlags() & ~(Qt::WindowFullscreenButtonHint));
     QRect geometry = QApplication::desktop()->screenGeometry();
     this->setGeometry((geometry.width() - this->width()) / 2, (geometry.height() - this->height()) / 2, this->width(), this->height());
     this->setAttribute(Qt::WA_QuitOnClose, false);
     this->setAttribute(Qt::WA_DeleteOnClose);
-    this->setAttribute(Qt::WA_PaintOutsidePaintEvent);
     this->song = song;
     ui->lblSong->setText(QString::fromStdString(song->getSongName()));
     ui->lblArtist->setText(QString::fromStdString(song->getArtistName()));

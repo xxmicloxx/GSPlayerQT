@@ -23,7 +23,29 @@
    <string>GSP - Musik suchen</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">#btnBack {
+   <string notr="true">#cmbAddAll {
+border-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Dropdown_normal.png);
+padding-right: 25px;
+padding-left: 10px;
+}
+
+#cmbAddAll::drop-down {
+border-width: 0px;
+}
+
+#cmbAddAll:hover {
+border-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Dropdown_hover.png);
+}
+
+#cmbAddAll:on {
+border-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Dropdown_pressed.png);
+}
+
+#cmbAddAll:disabled {
+border-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Dropdown_disabled.png);
+}
+
+#btnBack {
 background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Zurueck_pressed.png);
 border: none;
 background-repeat: none;
@@ -66,7 +88,7 @@ border-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Input.png);
 padding: 0 6px;
 }
 
-#lblSearchSong {
+#lblSearchSong, #lblAddAll {
 font: 14px;
 font-weight: bold;
 font-family: arial, verdena, sans-serif;
@@ -90,8 +112,26 @@ font-family: arial, verdana, sans-serif;
 color: rgb(255,255,255);
 }
 
+#btnAddAll {
+background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Download_Button_normal.png);
+border: none;
+background-repeat: none;
+font: 14px;
+font-weight: bold;
+font-family: arial, verdana, sans-serif;
+color: rgb(255,255,255);
+}
+
 #btnPopular:hover, #btnSearchSong:hover, #btnSearchArtist:hover {
 background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Search_hover.png);
+}
+
+#btnAddAll:hover {
+background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Download_Button_hover.png);
+}
+
+#btnAddAll:pressed {
+background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Download_Button_pressed.png);
 }
 
 #btnPopular:pressed, #btnSearchSong:pressed, #btnSearchArtist:pressed {
@@ -151,45 +191,25 @@ background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Search_pressed.p
    <widget class="QLabel" name="lblSearchSong">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>59</y>
+      <x>46</x>
+      <y>60</y>
       <width>90</width>
       <height>16</height>
      </rect>
     </property>
     <property name="text">
-     <string>Titel suchen:</string>
+     <string>Suchen:</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
     </property>
    </widget>
    <widget class="QLineEdit" name="txtSearchSong">
     <property name="geometry">
      <rect>
-      <x>120</x>
+      <x>142</x>
       <y>50</y>
-      <width>172</width>
-      <height>35</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="lblSearchArtist">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>100</y>
-      <width>97</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Artist suchen:</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="txtSearchArtist">
-    <property name="geometry">
-     <rect>
-      <x>120</x>
-      <y>91</y>
-      <width>172</width>
+      <width>162</width>
       <height>35</height>
      </rect>
     </property>
@@ -197,27 +217,14 @@ background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Search_pressed.p
    <widget class="QPushButton" name="btnSearchSong">
     <property name="geometry">
      <rect>
-      <x>300</x>
+      <x>307</x>
       <y>50</y>
       <width>76</width>
       <height>35</height>
      </rect>
     </property>
     <property name="text">
-     <string>suche</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="btnSearchArtist">
-    <property name="geometry">
-     <rect>
-      <x>300</x>
-      <y>91</y>
-      <width>76</width>
-      <height>35</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>suche</string>
+     <string>Suche</string>
     </property>
    </widget>
    <widget class="QListWidget" name="lstItems">
@@ -251,14 +258,40 @@ background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Search_pressed.p
    <widget class="QPushButton" name="btnPopular">
     <property name="geometry">
      <rect>
-      <x>170</x>
-      <y>10</y>
+      <x>307</x>
+      <y>94</y>
       <width>76</width>
       <height>35</height>
      </rect>
     </property>
     <property name="text">
      <string>Populär</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblAddAll">
+    <property name="geometry">
+     <rect>
+      <x>9</x>
+      <y>103</y>
+      <width>135</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Alle hinzufügen zu:</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="cmbAddAll">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>141</x>
+      <y>94</y>
+      <width>163</width>
+      <height>35</height>
+     </rect>
     </property>
    </widget>
   </widget>

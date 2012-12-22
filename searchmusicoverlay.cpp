@@ -8,7 +8,6 @@ SearchMusicOverlay::SearchMusicOverlay(QWidget *parent) :
     ui(new Ui::SearchMusicOverlay)
 {
     ui->setupUi(this);
-    this->setAttribute(Qt::WA_PaintOutsidePaintEvent);
     effect = new QGraphicsOpacityEffect(this);
     effect->setOpacity(0);
     this->setGraphicsEffect(effect);

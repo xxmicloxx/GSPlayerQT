@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui network xml
+QT       += core gui network xml widgets
 
 TARGET = GSPlayer
 TEMPLATE = app
@@ -109,6 +109,8 @@ FORMS    += \
 LIBS += /Users/ml/QtSDK/Pros/GSPlayer/libbass.dylib
 
 DEFINES += UNICODE
+
+DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x000000
 
 HEADERS += bass.h
 

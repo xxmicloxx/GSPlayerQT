@@ -21,6 +21,7 @@
         <file>RES/Icon.ico</file>
         <file>RES/camera_test.png</file>
         <file>RES/loader.png</file>
+        <file>RES/cancel.png</file>
     </qresource>
     <qresource prefix="/theme/searchmusic">
         <file>RES/theme/Musik_Suche/BG_Top.png</file>
@@ -42,6 +43,7 @@
         <file>RES/theme/Musik_Suche/Zurueck_normal.png</file>
         <file>RES/theme/Musik_Suche/Zurueck_pressed.png</file>
         <file>RES/theme/Musik_Suche/Zurueck_hover.png</file>
+        <file>RES/theme/Musik_Suche/Dropdown_disabled.png</file>
     </qresource>
     <qresource prefix="/theme/optimizeplaylist">
         <file>RES/theme/Playlist/Add_Button_hover.png</file>

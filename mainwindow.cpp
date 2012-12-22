@@ -10,13 +10,14 @@
 #include "splashscreen.h"
 #include <QDesktopWidget>
 #include <QRect>
+#include <Qt>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    this->setAttribute(Qt::WA_PaintOutsidePaintEvent);
+    this->setWindowFlags(this->windowFlags() & ~(Qt::WindowFullscreenButtonHint));
     plh = new PlaylistHandler(this);
     bridge = new AudioPlayerBridge(this);
     coverHelper = new CoverHelper(this);

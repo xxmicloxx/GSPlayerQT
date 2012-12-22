@@ -11,7 +11,6 @@ PlaylistOptimizeListItem::PlaylistOptimizeListItem(QWidget *parent, Song *song, 
     this->plh = plh;
     this->playlist = playlist;
     this->coverHelper = coverHelper;
-    this->setAttribute(Qt::WA_PaintOutsidePaintEvent);
     ui->lblTitle->setText(QString::fromStdString(song->getSongName()));
     ui->lblArtist->setText(QString::fromStdString(song->getArtistName()));
     QLabel* transLabelArray[] = {ui->lblTitleCaption, ui->lblTitle, ui->lblArtistCaption, ui->lblArtist};

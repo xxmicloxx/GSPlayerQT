@@ -7,7 +7,6 @@ PlaylistOptimizeLastItemSeperator::PlaylistOptimizeLastItemSeperator(QWidget *pa
 {
     ui->setupUi(this);
     this->setFixedHeight(2);
-    this->setAttribute(Qt::WA_PaintOutsidePaintEvent);
 }
 
 PlaylistOptimizeLastItemSeperator::~PlaylistOptimizeLastItemSeperator()

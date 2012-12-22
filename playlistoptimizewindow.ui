@@ -79,8 +79,8 @@ background-image: url(:/theme/optimizeplaylist/RES/theme/Playlist/Inport_Button_
 }
 
 #lblCreatePlaylist, #lblImport {
-font: 10pt &quot;Arial&quot;;
-color: rgb(0, 0, 0);
+font: 12px &quot;Arial&quot;;
+color: rgb(120, 120, 120);
 }
 
 #btnCreatePlaylist {

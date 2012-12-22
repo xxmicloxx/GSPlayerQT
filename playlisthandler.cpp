@@ -2,6 +2,8 @@
 #include <QFile>
 #include <QTextStream>
 #include <boost/lexical_cast.hpp>
+#include <QApplication>
+#include <QDir>
 
 PlaylistHandler::PlaylistHandler(QObject *parent) : QObject(parent)
 {
@@ -11,7 +13,7 @@ PlaylistHandler::PlaylistHandler(QObject *parent) : QObject(parent)
 void PlaylistHandler::save() {
     if (!used)
         return;
-    QFile file("Playlists.xml");
+    QFile file(QApplication::applicationDirPath() + QDir::separator() + "Playlists.xml");
     file.open(QIODevice::WriteOnly);
     QTextStream ts(&file);
     ts << doc.toString();
@@ -222,7 +224,7 @@ void PlaylistHandler::checkInit() {
         return;
     used = true;
     doc = QDomDocument("GSPlayerPL");
-    if (!QFile::exists("Playlists.xml")) {
+    if (!QFile::exists(QApplication::applicationDirPath() + QDir::separator() + "Playlists.xml")) {
         init();
     } else {
         load();
@@ -236,7 +238,7 @@ void PlaylistHandler::init() {
 }
 
 void PlaylistHandler::load() {
-    QFile file("Playlists.xml");
+    QFile file(QApplication::applicationDirPath() + QDir::separator() + "Playlists.xml");
     file.open(QIODevice::ReadOnly);
     doc.setContent(file.readAll());
     file.close();

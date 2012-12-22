@@ -6,13 +6,15 @@
 #include "searchmusiclistitem.h"
 #include "API/song.h"
 #include "API/artist.h"
-#include "QtConcurrentRun"
+#include "QtConcurrent/QtConcurrentRun"
 #include "QFuture"
 #include "QLayout"
 #include <QTimer>
 #include "coverhelper.h"
 #include <QResizeEvent>
 #include <QDesktopWidget>
+#include <QMessageBox>
+#include <QInputDialog>
 #include <QRect>
 
 SearchMusicWindow::SearchMusicWindow(QWidget *parent) :
@@ -20,10 +22,11 @@ SearchMusicWindow::SearchMusicWindow(QWidget *parent) :
     ui(new Ui::SearchMusicWindow)
 {
     ui->setupUi(this);
+    this->setWindowFlags(this->windowFlags() & ~(Qt::WindowFullscreenButtonHint));
+    refreshingPlaylists = false;
     QRect geometry = QApplication::desktop()->screenGeometry();
     this->setGeometry((geometry.width() - this->width()) / 2, (geometry.height() - this->height()) / 2, this->width(), this->height());
     ui->lblBtnBack->setAttribute(Qt::WA_TransparentForMouseEvents);
-    this->setAttribute(Qt::WA_PaintOutsidePaintEvent);
     QGraphicsDropShadowEffect *effect = new QGraphicsDropShadowEffect(ui->lblSearchMusic);
     effect->setBlurRadius(1);
     effect->setColor(QColor("#bb6008"));
@@ -35,15 +38,13 @@ SearchMusicWindow::SearchMusicWindow(QWidget *parent) :
     effect->setColor(QColor("#bb6008"));
     effect->setOffset(0, 1);
     ui->lblSearchSong->setGraphicsEffect(effect);
+    ui->txtSearchSong->setAttribute(Qt::WA_MacShowFocusRect, false);
 
-    effect = new QGraphicsDropShadowEffect(ui->lblSearchArtist);
+    effect = new QGraphicsDropShadowEffect(ui->lblAddAll);
     effect->setBlurRadius(1);
     effect->setColor(QColor("#bb6008"));
     effect->setOffset(0, 1);
-    ui->lblSearchArtist->setGraphicsEffect(effect);
-
-    ui->txtSearchArtist->setAttribute(Qt::WA_MacShowFocusRect, false);
-    ui->txtSearchSong->setAttribute(Qt::WA_MacShowFocusRect, false);
+    ui->lblAddAll->setGraphicsEffect(effect);
 
     this->setAttribute(Qt::WA_QuitOnClose, false);
     this->setAttribute(Qt::WA_DeleteOnClose);
@@ -52,6 +53,18 @@ SearchMusicWindow::SearchMusicWindow(QWidget *parent) :
     handler = new MessageHandler(this);
     connect(handler, SIGNAL(addedMessage(Message*)), this, SLOT(addedMessage(Message*)));
     connect(handler, SIGNAL(removedMessage(Message*)), this, SLOT(deletedMessage(Message*)));
+}
+
+void SearchMusicWindow::onPlaylistChange(std::vector<std::string> vector) {
+    refreshingPlaylists = true;
+    ui->cmbAddAll->clear();
+    ui->cmbAddAll->addItem("Bitte wählen...");
+    for (unsigned int i = 0; i < vector.size(); i++) {
+        ui->cmbAddAll->addItem(QString::fromStdString(vector.at(i)));
+    }
+    ui->cmbAddAll->addItem("Neue Playlist erstellen");
+    ui->cmbAddAll->setCurrentIndex(0);
+    refreshingPlaylists = false;
 }
 
 void SearchMusicWindow::setPlayer(Player *player) {
@@ -99,24 +112,42 @@ void SearchMusicWindow::on_btnSearchSong_clicked()
     searchSong(ui->txtSearchSong->text().toStdString());
 }
 
-void SearchMusicWindow::on_btnSearchArtist_clicked()
-{
-//    for (int i = 0; i < 5; i++) {
-//        QTimer* timer = new QTimer(this);
-//        connect(timer, SIGNAL(timeout()), this, SLOT(addTestItem()));
-//        timer->setSingleShot(true);
-//        timer->start(i * 500);
-//    }
-    //std::vector<Artist*> resultVector = api->getResultsFromArtistSearch(ui->txtSearchArtist->text().toStdString());
-    //ui->lstItems->clear();
-}
-
 void SearchMusicWindow::addTestItem() {
     handler->addMessage("test");
 }
 
+void SearchMusicWindow::createNewPlaylist() {
+    bool ok = false;
+    //std::string name = "test";
+    std::string name = QInputDialog::getText(this->parentWidget(), "GSP - Playlist hinzufügen", "Geben sie den Namen für die Playlist ein!", QLineEdit::Normal, QString(), &ok).toStdString();
+    if (ok) {
+        if (name == "") {
+            QMessageBox::warning(this->parentWidget(), "GSP - Playlist erstellen", "Sie müssen einen Namen eingeben");
+            ui->cmbAddAll->setCurrentIndex(0);
+            return;
+        }
+        if (!plh->createPlaylist(name)) {
+            QMessageBox::warning(this->parentWidget(), "GSP - Playlist erstellen", QString::fromStdString("Die Playlist '" + name + "' existiert bereits!"));
+            ui->cmbAddAll->setCurrentIndex(0);
+            return;
+        }
+        for (int i = 0; i < ui->lstItems->count(); i++) {
+            QWidget *widget = ui->lstItems->itemWidget(ui->lstItems->item(i));
+            SearchMusicListItem *listItem = qobject_cast<SearchMusicListItem*>(widget);
+            if (listItem != NULL) {
+                //positive...
+                plh->addEntry(listItem->getSong(), name);
+            }
+        }
+        handler->addMessage("Playlist '" + name + "' erfolgreich erstellt und alle Songs erfolgreich hinzugefügt!");
+    }
+    ui->cmbAddAll->setCurrentIndex(0);
+    return;
+}
+
 void SearchMusicWindow::getPopularSongs() {
     working = true;
+    ui->cmbAddAll->setEnabled(false);
     overlay = new SearchMusicOverlay();
     connect(overlay->blendOutAnimation, SIGNAL(finished()), this, SLOT(fullyBlendedOut()));
     this->layout()->addWidget(overlay);
@@ -126,6 +157,7 @@ void SearchMusicWindow::getPopularSongs() {
 
 void SearchMusicWindow::searchSong(std::string text) {
     working = true;
+    ui->cmbAddAll->setEnabled(false);
     overlay = new SearchMusicOverlay();
     connect(overlay->blendOutAnimation, SIGNAL(finished()), this, SLOT(fullyBlendedOut()));
     this->layout()->addWidget(overlay);
@@ -158,6 +190,7 @@ void SearchMusicWindow::gotSongSearchResult(std::vector<Song*> result) {
     addSeperator();
     overlay->setItemsDone(result.size());
     overlay->blendOutAnimation->start();
+    ui->cmbAddAll->setEnabled(true);
 }
 
 void SearchMusicWindow::addSeperator() {
@@ -183,9 +216,32 @@ void SearchMusicWindow::on_txtSearchSong_returnPressed()
 
 void SearchMusicWindow::setPLH(PlaylistHandler *plh) {
     this->plh = plh;
+    onPlaylistChange(plh->getPlaylists());
+    connect(plh, SIGNAL(playlistsChanged(std::vector<std::string>)), this, SLOT(onPlaylistChange(std::vector<std::string>)));
 }
 
 void SearchMusicWindow::on_btnPopular_clicked()
 {
     getPopularSongs();
+}
+
+void SearchMusicWindow::on_cmbAddAll_currentIndexChanged(int index)
+{
+    if (index == 0 || refreshingPlaylists)
+        return;
+    if (index == ui->cmbAddAll->count() - 1) {
+        createNewPlaylist();
+        return;
+    }
+    for (int i = 0; i < ui->lstItems->count(); i++) {
+        QWidget *widget = ui->lstItems->itemWidget(ui->lstItems->item(i));
+        SearchMusicListItem *listItem = qobject_cast<SearchMusicListItem*>(widget);
+        if (listItem != NULL) {
+            //positive...
+            plh->addEntry(listItem->getSong(), ui->cmbAddAll->itemText(index).toStdString());
+        }
+    }
+    handler->addMessage("Alle Ergebnisse wurden erfolgreich zu '" + ui->cmbAddAll->itemText(index).toStdString() + "' hinzugefügt!");
+    ui->cmbAddAll->setCurrentIndex(0);
+    return;
 }

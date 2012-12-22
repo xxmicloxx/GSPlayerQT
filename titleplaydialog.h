@@ -45,6 +45,8 @@ private slots:
 
     void on_btnPlay_clicked();
 
+    void on_btnClose_clicked();
+
 private:
     Ui::TitlePlayDialog *ui;
     AudioPlayerBridge *apb;

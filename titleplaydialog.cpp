@@ -1,6 +1,6 @@
 #include "titleplaydialog.h"
 #include "ui_titleplaydialog.h"
-#include <QtConcurrentRun>
+#include <QtConcurrent/QtConcurrentRun>
 #include "myvolumestyle.h"
 #include <QDesktopWidget>
 #include <QRect>
@@ -23,6 +23,7 @@ TitlePlayDialog::TitlePlayDialog(QWidget *parent, AudioPlayerBridge *apb, API *a
     this->api = api;
     this->song = song;
     ui->setupUi(this);
+    this->setWindowFlags(this->windowFlags() & ~(Qt::WindowFullscreenButtonHint));
     QRect geometry = QApplication::desktop()->screenGeometry();
     this->setGeometry((geometry.width() - this->width()) / 2, (geometry.height() - this->height()) / 2, this->width(), this->height());
     this->setFixedSize(this->size());
@@ -192,4 +193,9 @@ void TitlePlayDialog::on_btnPlay_clicked()
     } else if (apb->getState() == AudioPlayerBridge::PAUSED) {
         resume();
     }
+}
+
+void TitlePlayDialog::on_btnClose_clicked()
+{
+    delete this;
 }
