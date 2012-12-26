@@ -155,6 +155,26 @@ void SearchMusicWindow::getPopularSongs() {
     api->popularGetSongs();
 }
 
+void SearchMusicWindow::getSongsByAlbum(int albumId) {
+    working = true;
+    ui->cmbAddAll->setEnabled(false);
+    overlay = new SearchMusicOverlay();
+    connect(overlay->blendOutAnimation, SIGNAL(finished()), this, SLOT(fullyBlendedOut()));
+    this->layout()->addWidget(overlay);
+    overlay->blendInAnimation->start();
+    api->albumGetAllSongs(albumId);
+}
+
+void SearchMusicWindow::getSongsByArtist(int artistId) {
+    working = true;
+    ui->cmbAddAll->setEnabled(false);
+    overlay = new SearchMusicOverlay();
+    connect(overlay->blendOutAnimation, SIGNAL(finished()), this, SLOT(fullyBlendedOut()));
+    this->layout()->addWidget(overlay);
+    overlay->blendInAnimation->start();
+    api->artistGetAllSongsEx(artistId);
+}
+
 void SearchMusicWindow::searchSong(std::string text) {
     working = true;
     ui->cmbAddAll->setEnabled(false);
@@ -178,6 +198,8 @@ void SearchMusicWindow::gotSongSearchResult(std::vector<Song*> result) {
     for (unsigned int i = 0; i < result.size(); i++) {
         QListWidgetItem *item = new QListWidgetItem(ui->lstItems);
         SearchMusicListItem *myItem = new SearchMusicListItem(ui->lstItems, result.at(i), api, apb, plh, handler, player);
+        connect(myItem, SIGNAL(getSongsByArtist(int)), this, SLOT(getSongsByArtist(int)));
+        connect(myItem, SIGNAL(getSongsByAlbum(int)), this, SLOT(getSongsByAlbum(int)));
         item->setSizeHint(QSize(374, 101));
         ui->lstItems->addItem(item);
         ui->lstItems->setItemWidget(item, myItem);

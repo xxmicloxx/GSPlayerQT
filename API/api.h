@@ -26,6 +26,8 @@ public:
     void checkConnect();
     void popularGetSongs();
     void makeFail();
+    void artistGetAllSongsEx(int artistId);
+    void albumGetAllSongs(int albumId);
     
 signals:
     void sessionInitialized();
@@ -45,6 +47,8 @@ private:
     std::string lastSongSearch;
     std::string lastArtistSearch;
     int lastSongId;
+    int lastSongsByArtistId;
+    int lastSongsByAlbumId;
     Util* util;
     std::string uuid;
     Value countryMap;
@@ -69,6 +73,8 @@ private slots:
     void gotResultsFromArtistSearch(Value result, int postActionId);
     void gotStreamKeyFromSongIDEx(Value result, int postActionId);
     void gotPopularSongs(Value result, int postActionId);
+    void gotAllSongsByArtist(Value result, int postActionId);
+    void gotAllSongsByAlbum(Value result, int postActionId);
 };
 
 #endif // API_H

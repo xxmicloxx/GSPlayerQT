@@ -7,6 +7,7 @@
 #include <QLayout>
 #include <QtConcurrent/QtConcurrentRun>
 #include "titleplaydialog.h"
+#include <QMenu>
 
 SearchMusicListItem::SearchMusicListItem(QWidget *parent, Song* song, API *api, AudioPlayerBridge *apb, PlaylistHandler *plh, MessageHandler* messageHandler, Player *player) :
     QWidget(parent),
@@ -35,6 +36,26 @@ SearchMusicListItem::SearchMusicListItem(QWidget *parent, Song* song, API *api, 
     this->messageHandler = messageHandler;
     onPlaylistChange(plh->getPlaylists());
     connect(plh, SIGNAL(playlistsChanged(std::vector<std::string>)), this, SLOT(onPlaylistChange(std::vector<std::string>)));
+    this->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(this, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(showContextMenu(const QPoint&)));
+}
+
+void SearchMusicListItem::showContextMenu(const QPoint &pos) {
+    QPoint globalPos = this->mapToGlobal(pos);
+    QMenu* myMenu = new QMenu(this);
+    QMenu* artistMenu = myMenu->addMenu("Artist");
+    QAction* albumsByArtist = artistMenu->addAction("Nach Alben dieses Artisten suchen");
+    QAction* songsByArtist = artistMenu->addAction("Nach Songs dieses Artisten suchen");
+    QMenu* albumMenu = myMenu->addMenu("Album");
+    QAction* songsByAlbum = albumMenu->addAction("Nach Songs dieses Albums suchen");
+    QAction* result = myMenu->exec(globalPos);
+    if (result == albumsByArtist) {
+        emit getAlbumsByArtist(song->getArtistId());
+    } else if (result == songsByArtist) {
+        emit getSongsByArtist(song->getArtistId());
+    } else if (result == songsByAlbum) {
+        emit getSongsByAlbum(song->getAlbumId());
+    }
 }
 
 Song* SearchMusicListItem::getSong() {

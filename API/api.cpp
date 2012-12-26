@@ -23,6 +23,8 @@ API::API(QObject *parent) :
     connect(this, SIGNAL(methodExecuted(Value,int)), this, SLOT(gotStreamKeyFromSongIDEx(Value,int)));
     connect(this, SIGNAL(methodExecuted(Value,int)), this, SLOT(gotResultsFromArtistSearch(Value,int)));
     connect(this, SIGNAL(methodExecuted(Value,int)), this, SLOT(gotPopularSongs(Value,int)));
+    connect(this, SIGNAL(methodExecuted(Value,int)), this, SLOT(gotAllSongsByArtist(Value,int)));
+    connect(this, SIGNAL(methodExecuted(Value,int)), this, SLOT(gotAllSongsByAlbum(Value,int)));
 }
 
 void API::makeFail() {
@@ -266,6 +268,72 @@ void API::getResultsFromSongSearch(std::string query) {
     typeArray.push_back("Songs");
     mainMap["parameters"]["type"] = Value(typeArray);
     executeGroovesharkMethod(mainMap, "getResultsFromSearch", 4);
+}
+
+void API::artistGetAllSongsEx(int artistId) {
+    lastSongsByArtistId = artistId;
+    Value mainMap;
+    mainMap["header"] = getHeaderMap("htmlshark", "artistGetAllSongsEx");
+    mainMap["method"] = Value("artistGetAllSongsEx");
+    mainMap["parameters"]["artistID"] = Value(artistId);
+    executeGroovesharkMethod(mainMap, "artistGetAllSongsEx", 7);
+}
+
+void API::gotAllSongsByArtist(Value result, int postActionId) {
+    if (postActionId != 7)
+        return;
+    if (!result.isArray() && result["error"].isNull() == false) {
+        artistGetAllSongsEx(lastSongsByArtistId);
+        return;
+    }
+    std::vector<Song*> vector;
+    int size = result.getArray().size();
+    for (int i = 0; i < size; i++) {
+        if (size > 1000 && result[i]["IsVerified"].getString() == "0")
+            continue;
+        Song* song = new Song(this);
+        song->setSongName(result[i]["Name"].getString());
+        song->setSongId(boost::lexical_cast<int>(result[i]["SongID"].getString()));
+        song->setAlbumName(result[i]["AlbumName"].getString());
+        song->setAlbumId(boost::lexical_cast<int>(result[i]["AlbumID"].getString()));
+        song->setArtistName(result[i]["ArtistName"].getString());
+        song->setArtistId(boost::lexical_cast<int>(result[i]["ArtistID"].getString()));
+        vector.push_back(song);
+    }
+    emit songSearchCompleted(vector);
+}
+
+void API::albumGetAllSongs(int albumId) {
+    lastSongsByAlbumId = albumId;
+    Value mainMap;
+    mainMap["header"] = getHeaderMap("htmlshark", "albumGetAllSongs");
+    mainMap["method"] = Value("albumGetAllSongs");
+    mainMap["parameters"]["albumID"] = Value(albumId);
+    executeGroovesharkMethod(mainMap, "albumGetAllSongs", 8);
+}
+
+void API::gotAllSongsByAlbum(Value result, int postActionId) {
+    if (postActionId != 8)
+        return;
+    if (!result.isArray() && result["error"].isNull() == false) {
+        artistGetAllSongsEx(lastSongsByAlbumId);
+        return;
+    }
+    std::vector<Song*> vector;
+    int size = result.getArray().size();
+    for (int i = 0; i < size; i++) {
+        if (size > 1000 && result[i]["IsVerified"].getString() == "0")
+            continue;
+        Song* song = new Song(this);
+        song->setSongName(result[i]["Name"].getString());
+        song->setSongId(boost::lexical_cast<int>(result[i]["SongID"].getString()));
+        song->setAlbumName(result[i]["AlbumName"].getString());
+        song->setAlbumId(boost::lexical_cast<int>(result[i]["AlbumID"].getString()));
+        song->setArtistName(result[i]["ArtistName"].getString());
+        song->setArtistId(boost::lexical_cast<int>(result[i]["ArtistID"].getString()));
+        vector.push_back(song);
+    }
+    emit songSearchCompleted(vector);
 }
 
 void API::gotResultsFromSongSearch(Value result, int postActionId) {

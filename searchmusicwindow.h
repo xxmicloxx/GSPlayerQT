@@ -50,6 +50,10 @@ private slots:
     void on_btnPopular_clicked();
 
     void on_cmbAddAll_currentIndexChanged(int index);
+    void searchSong(std::string text);
+    void getPopularSongs();
+    void getSongsByArtist(int artistId);
+    void getSongsByAlbum(int albumId);
 
 private:
     void addSeperator();
@@ -58,8 +62,6 @@ private:
     MessageHandler *handler;
     bool working;
     bool refreshingPlaylists;
-    void searchSong(std::string text);
-    void getPopularSongs();
     Ui::SearchMusicWindow *ui;
     SearchMusicOverlay *overlay;
     API *api;

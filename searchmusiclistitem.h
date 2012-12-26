@@ -29,9 +29,15 @@ public slots:
     void onPlaylistChange(std::vector<std::string> vector);
 
 private slots:
+    void showContextMenu(const QPoint& pos);
     void on_btnPlay_clicked();
 
     void on_cmbAddTo_currentIndexChanged(int index);
+
+signals:
+    void getAlbumsByArtist(int artistId);
+    void getSongsByArtist(int artistId);
+    void getSongsByAlbum(int albumId);
 
 private:
     bool working;
