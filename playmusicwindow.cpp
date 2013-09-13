@@ -338,7 +338,7 @@ void PlayMusicWindow::on_btnStop_clicked()
 
 void PlayMusicWindow::on_btnNext_clicked()
 {
-    bool wasPlaying = player->isPlaying() || player->isPaused();
+    bool wasPlaying = player->isPlaying() || player->isPaused() || wasPlaying;
     player->nextNoPlay();
     this->wasPlaying = wasPlaying;
     if (this->wasPlaying)
@@ -347,7 +347,7 @@ void PlayMusicWindow::on_btnNext_clicked()
 
 void PlayMusicWindow::on_btnPrev_clicked()
 {
-    bool wasPlaying = player->isPlaying() || player->isPaused();
+    bool wasPlaying = player->isPlaying() || player->isPaused() || wasPlaying;
     player->prevNoPlay();
     this->wasPlaying = wasPlaying;
     if (this->wasPlaying)

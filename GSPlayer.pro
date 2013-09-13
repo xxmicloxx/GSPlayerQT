@@ -106,7 +106,7 @@ FORMS    += \
     titleplaydialog.ui \
     splashscreen.ui
 
-LIBS += /Users/ml/QtSDK/Pros/GSPlayer/libbass.dylib
+LIBS += /Users/ml/GSPlayerQT/libbass.dylib
 
 DEFINES += UNICODE
 
@@ -119,4 +119,4 @@ RESOURCES += \
 
 RC_FILE = myWinIcon.rc
 
-INCLUDEPATH += /Users/ml/Downloads/boost_1_50_0
+INCLUDEPATH += /Users/ml/Downloads/boost_1_53_0
