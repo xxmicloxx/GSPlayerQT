@@ -41,7 +41,7 @@ TitlePlayDialog::TitlePlayDialog(QWidget *parent, AudioPlayerBridge *apb, API *a
 
 void TitlePlayDialog::songFailed(int songId) {
     if (songId == song->getSongId()) {
-        QMessageBox::critical(this, this->windowTitle(), QString::fromStdString("Der Song \"" + song->getSongName() + "\" ist fehlerhaft! Wiedergabe wird abgebrochen!"));
+        QMessageBox::critical(this, this->windowTitle(), QString::fromStdString("The song \"" + song->getSongName() + "\" is faulty! Playback cancelled!"));
         delete this;
     }
 }

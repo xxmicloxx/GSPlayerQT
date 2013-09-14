@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>GSP - Playlist optimieren</string>
+   <string>GSP - Edit playlist</string>
   </property>
   <property name="styleSheet">
    <string notr="true">#btnPlay {
@@ -181,7 +181,7 @@ color: rgb(255, 255, 255);
      </rect>
     </property>
     <property name="text">
-     <string>Playlists optimieren</string>
+     <string>Edit playlists</string>
     </property>
    </widget>
    <widget class="QLabel" name="lblChoosePlaylist">
@@ -194,7 +194,7 @@ color: rgb(255, 255, 255);
      </rect>
     </property>
     <property name="text">
-     <string>Wähle eine Playlist:</string>
+     <string>Choose a playlist:</string>
     </property>
    </widget>
    <widget class="QPushButton" name="btnBack">
@@ -213,20 +213,20 @@ color: rgb(255, 255, 255);
    <widget class="QLabel" name="lblBtnBack">
     <property name="geometry">
      <rect>
-      <x>480</x>
+      <x>487</x>
       <y>4</y>
-      <width>62</width>
+      <width>41</width>
       <height>16</height>
      </rect>
     </property>
     <property name="text">
-     <string>zurück</string>
+     <string>back</string>
     </property>
    </widget>
    <widget class="QComboBox" name="cmbPlaylist">
     <property name="geometry">
      <rect>
-      <x>160</x>
+      <x>146</x>
       <y>50</y>
       <width>163</width>
       <height>35</height>
@@ -249,14 +249,14 @@ color: rgb(255, 255, 255);
    <widget class="QLabel" name="lblCreatePlaylist">
     <property name="geometry">
      <rect>
-      <x>350</x>
+      <x>355</x>
       <y>59</y>
-      <width>92</width>
+      <width>81</width>
       <height>16</height>
      </rect>
     </property>
     <property name="text">
-     <string>Playlist anlegen</string>
+     <string>Create playlist</string>
     </property>
    </widget>
    <widget class="QPushButton" name="btnImport">
@@ -275,14 +275,14 @@ color: rgb(255, 255, 255);
    <widget class="QLabel" name="lblImport">
     <property name="geometry">
      <rect>
-      <x>478</x>
+      <x>489</x>
       <y>59</y>
-      <width>64</width>
+      <width>41</width>
       <height>16</height>
      </rect>
     </property>
     <property name="text">
-     <string>Importieren</string>
+     <string>Import</string>
     </property>
    </widget>
    <widget class="QPushButton" name="btnAddTitle">
@@ -301,14 +301,14 @@ color: rgb(255, 255, 255);
    <widget class="QLabel" name="lblAddTitle">
     <property name="geometry">
      <rect>
-      <x>38</x>
+      <x>47</x>
       <y>109</y>
-      <width>103</width>
+      <width>91</width>
       <height>16</height>
      </rect>
     </property>
     <property name="text">
-     <string>Titel hinzufügen</string>
+     <string>Add new Title</string>
     </property>
    </widget>
    <widget class="QPushButton" name="btnDeletePlaylist">
@@ -327,14 +327,14 @@ color: rgb(255, 255, 255);
    <widget class="QLabel" name="lblDeletePlaylist">
     <property name="geometry">
      <rect>
-      <x>188</x>
+      <x>193</x>
       <y>109</y>
-      <width>99</width>
+      <width>91</width>
       <height>16</height>
      </rect>
     </property>
     <property name="text">
-     <string>Playlist löschen</string>
+     <string>Delete Playlist</string>
     </property>
    </widget>
    <widget class="QPushButton" name="btnRename">
@@ -347,7 +347,7 @@ color: rgb(255, 255, 255);
      </rect>
     </property>
     <property name="text">
-     <string>Umbenennen</string>
+     <string>Rename</string>
     </property>
    </widget>
    <widget class="QPushButton" name="btnPlay">
@@ -373,7 +373,7 @@ color: rgb(255, 255, 255);
      </rect>
     </property>
     <property name="text">
-     <string>Exportieren</string>
+     <string>Export</string>
     </property>
    </widget>
    <widget class="DragDropList" name="lstItems">

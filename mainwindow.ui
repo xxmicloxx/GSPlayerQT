@@ -158,7 +158,7 @@ color: rgb(163, 163, 163);
      </rect>
     </property>
     <property name="text">
-     <string>Sprache ändern</string>
+     <string>Options</string>
     </property>
     <property name="flat">
      <bool>true</bool>
@@ -174,7 +174,7 @@ color: rgb(163, 163, 163);
      </rect>
     </property>
     <property name="text">
-     <string>Über uns</string>
+     <string>About us</string>
     </property>
     <property name="flat">
      <bool>true</bool>
@@ -238,7 +238,7 @@ color: rgb(163, 163, 163);
      </rect>
     </property>
     <property name="text">
-     <string>Musik abspielen</string>
+     <string>Play music</string>
     </property>
    </widget>
    <widget class="QLabel" name="lblBtn1Message">
@@ -246,13 +246,18 @@ color: rgb(163, 163, 163);
      <rect>
       <x>166</x>
       <y>50</y>
-      <width>248</width>
-      <height>33</height>
+      <width>201</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="text">
-     <string>Höre deine Lieblingsmusik oder deine
-selbsterstellten Playlists auf einen Klick!</string>
+     <string>Listen to your favorite music or to your playlists with one click</string>
+    </property>
+    <property name="textFormat">
+     <enum>Qt::PlainText</enum>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QLabel" name="lblBtn2Caption">
@@ -265,7 +270,7 @@ selbsterstellten Playlists auf einen Klick!</string>
      </rect>
     </property>
     <property name="text">
-     <string>Musik suchen</string>
+     <string>Search music</string>
     </property>
    </widget>
    <widget class="QLabel" name="lblBtn2Message">
@@ -273,13 +278,15 @@ selbsterstellten Playlists auf einen Klick!</string>
      <rect>
       <x>166</x>
       <y>165</y>
-      <width>241</width>
+      <width>171</width>
       <height>33</height>
      </rect>
     </property>
     <property name="text">
-     <string>Finde die neueste Musik und füge sie
-deinen Playlists hinzu!</string>
+     <string>Find the newest music and add it to your playlists</string>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QLabel" name="lblBtn3Caption">
@@ -292,7 +299,7 @@ deinen Playlists hinzu!</string>
      </rect>
     </property>
     <property name="text">
-     <string>Playlists optimieren</string>
+     <string>Edit playlists</string>
     </property>
    </widget>
    <widget class="QLabel" name="lblBtn3Message">
@@ -300,13 +307,15 @@ deinen Playlists hinzu!</string>
      <rect>
       <x>166</x>
       <y>280</y>
-      <width>200</width>
+      <width>151</width>
       <height>33</height>
      </rect>
     </property>
     <property name="text">
-     <string>Lass immer die Musik abspielen
-die du gerade möchtest!</string>
+     <string>Always play the music you want to hear!</string>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
     </property>
    </widget>
   </widget>

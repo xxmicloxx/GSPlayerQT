@@ -20,7 +20,7 @@
    <cursorShape>ArrowCursor</cursorShape>
   </property>
   <property name="windowTitle">
-   <string>GSP - Musik suchen</string>
+   <string>GSP - Search music</string>
   </property>
   <property name="styleSheet">
    <string notr="true">#cmbAddAll {
@@ -165,14 +165,14 @@ background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Search_pressed.p
    <widget class="QLabel" name="lblBtnBack">
     <property name="geometry">
      <rect>
-      <x>310</x>
+      <x>316</x>
       <y>4</y>
-      <width>62</width>
+      <width>41</width>
       <height>16</height>
      </rect>
     </property>
     <property name="text">
-     <string>zurück</string>
+     <string>back</string>
     </property>
    </widget>
    <widget class="QLabel" name="lblSearchMusic">
@@ -185,7 +185,7 @@ background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Search_pressed.p
      </rect>
     </property>
     <property name="text">
-     <string>Musik suchen</string>
+     <string>Search music</string>
     </property>
    </widget>
    <widget class="QLabel" name="lblSearchSong">
@@ -198,7 +198,7 @@ background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Search_pressed.p
      </rect>
     </property>
     <property name="text">
-     <string>Suchen:</string>
+     <string>Search:</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -224,7 +224,7 @@ background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Search_pressed.p
      </rect>
     </property>
     <property name="text">
-     <string>Suche</string>
+     <string>Search</string>
     </property>
    </widget>
    <widget class="QListWidget" name="lstItems">
@@ -265,20 +265,23 @@ background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Search_pressed.p
      </rect>
     </property>
     <property name="text">
-     <string>Populär</string>
+     <string>Popular</string>
     </property>
    </widget>
    <widget class="QLabel" name="lblAddAll">
     <property name="geometry">
      <rect>
-      <x>9</x>
+      <x>5</x>
       <y>103</y>
-      <width>135</width>
+      <width>131</width>
       <height>16</height>
      </rect>
     </property>
     <property name="text">
-     <string>Alle hinzufügen zu:</string>
+     <string>Add all results to:</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
     </property>
    </widget>
    <widget class="QComboBox" name="cmbAddAll">

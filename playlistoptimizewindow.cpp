@@ -140,28 +140,28 @@ void PlaylistOptimizeWindow::refreshItems(std::string playlistName, std::vector<
 void PlaylistOptimizeWindow::on_btnCreatePlaylist_clicked()
 {
     bool ok = false;
-    std::string text = QInputDialog::getText(this, "GSP - Playlist erstellen", "Bitte geben sie den Namen der neuen Playlist ein:", QLineEdit::Normal, QString(), &ok).toStdString();
+    std::string text = QInputDialog::getText(this, "GSP - Create playlist", "Please enter a name for your new playlist:", QLineEdit::Normal, QString(), &ok).toStdString();
     if (!ok)
         return;
     if (text == "") {
-        QMessageBox::warning(this, "GSP - Playlist erstellen", "Sie müssen einen Namen angeben!");
+        QMessageBox::warning(this, "GSP - Create playlist", "You must enter a name!");
         return;
     }
     if (!plh->createPlaylist(text)) {
-        QMessageBox::warning(this, "GSP - Playlist erstellen", "Diese Playlist existiert bereits!");
+        QMessageBox::warning(this, "GSP - Create playlist", "This name is already used!");
         return;
     }
-    QMessageBox::information(this, "GSP - Playlist erstellen", "Die Playlist wurde erfolgreich erstellt!");
+    QMessageBox::information(this, "GSP - Create playlist", "Playlist created successfully!");
 }
 
 void PlaylistOptimizeWindow::on_btnDeletePlaylist_clicked()
 {
     if (ui->cmbPlaylist->currentText() == "")
         return;
-    switch (QMessageBox::question(this, "GSP - Playlist löschen", "Möchten sie die Playlist '" + ui->cmbPlaylist->currentText() + "' wirklich löschen?", QMessageBox::Ok, QMessageBox::Abort)) {
+    switch (QMessageBox::question(this, "GSP - Delete playlist", "Do you really want to delete the playlist '" + ui->cmbPlaylist->currentText() + "'?", QMessageBox::Ok, QMessageBox::Abort)) {
     case QMessageBox::Ok:
         plh->removePlaylist(ui->cmbPlaylist->currentText().toStdString());
-        QMessageBox::information(this, "GSP - Playlist löschen", "Die Playlist wurde erfolgreich gelöscht!");
+        QMessageBox::information(this, "GSP - Delete playlist", "The playlist was deleted successfully");
         break;
     }
 }
@@ -169,15 +169,15 @@ void PlaylistOptimizeWindow::on_btnDeletePlaylist_clicked()
 void PlaylistOptimizeWindow::on_btnRename_clicked()
 {
     bool ok = false;
-    std::string result = QInputDialog::getText(this, "GSP - Playlist umbenennen", "Bitte geben sie den neuen Namen für '" + ui->cmbPlaylist->currentText() + "' ein:", QLineEdit::Normal, ui->cmbPlaylist->currentText(), &ok).toStdString();
+    std::string result = QInputDialog::getText(this, "GSP - Rename playlist", "Please enter a new name for the playlist '" + ui->cmbPlaylist->currentText() + "':", QLineEdit::Normal, ui->cmbPlaylist->currentText(), &ok).toStdString();
     if (!ok)
         return;
     if (result == "") {
-        QMessageBox::warning(this, "GSP - Playlist umbenennen", "Sie müssen einen neuen Namen eingeben!");
+        QMessageBox::warning(this, "GSP - Rename playlist", "You must enter a name!");
         return;
     }
     if (plh->checkIfPlaylistExists(result)) {
-        QMessageBox::warning(this, "GSP - Playlist umbenennen", "Dieser Name existiert bereits!");
+        QMessageBox::warning(this, "GSP - Rename playlist", "This name already exists!");
         return;
     }
     plh->renamePlaylist(ui->cmbPlaylist->currentText().toStdString(), result);
@@ -186,7 +186,7 @@ void PlaylistOptimizeWindow::on_btnRename_clicked()
             ui->cmbPlaylist->setCurrentIndex(i);
         }
     }
-    QMessageBox::information(this, "GSP - Playlist umbenennen", "Playlist erfolgreich umbenannt!");
+    QMessageBox::information(this, "GSP - Rename playlist", "Playlist renamed successfully!");
 }
 
 void PlaylistOptimizeWindow::on_btnPlay_clicked()

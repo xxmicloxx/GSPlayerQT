@@ -58,11 +58,11 @@ SearchMusicWindow::SearchMusicWindow(QWidget *parent) :
 void SearchMusicWindow::onPlaylistChange(std::vector<std::string> vector) {
     refreshingPlaylists = true;
     ui->cmbAddAll->clear();
-    ui->cmbAddAll->addItem("Bitte wählen...");
+    ui->cmbAddAll->addItem("Please choose...");
     for (unsigned int i = 0; i < vector.size(); i++) {
         ui->cmbAddAll->addItem(QString::fromStdString(vector.at(i)));
     }
-    ui->cmbAddAll->addItem("Neue Playlist erstellen");
+    ui->cmbAddAll->addItem("Create new playlist");
     ui->cmbAddAll->setCurrentIndex(0);
     refreshingPlaylists = false;
 }
@@ -119,15 +119,15 @@ void SearchMusicWindow::addTestItem() {
 void SearchMusicWindow::createNewPlaylist() {
     bool ok = false;
     //std::string name = "test";
-    std::string name = QInputDialog::getText(this->parentWidget(), "GSP - Playlist hinzufügen", "Geben sie den Namen für die Playlist ein!", QLineEdit::Normal, QString(), &ok).toStdString();
+    std::string name = QInputDialog::getText(this->parentWidget(), "GSP - Create playlist", "Please enter a name for the new playlist!", QLineEdit::Normal, QString(), &ok).toStdString();
     if (ok) {
         if (name == "") {
-            QMessageBox::warning(this->parentWidget(), "GSP - Playlist erstellen", "Sie müssen einen Namen eingeben");
+            QMessageBox::warning(this->parentWidget(), "GSP - Create playlist", "You have to enter a name!");
             ui->cmbAddAll->setCurrentIndex(0);
             return;
         }
         if (!plh->createPlaylist(name)) {
-            QMessageBox::warning(this->parentWidget(), "GSP - Playlist erstellen", QString::fromStdString("Die Playlist '" + name + "' existiert bereits!"));
+            QMessageBox::warning(this->parentWidget(), "GSP - Create playlist", QString::fromStdString("A playlist with the name '" + name + "' already exists!"));
             ui->cmbAddAll->setCurrentIndex(0);
             return;
         }
@@ -139,7 +139,7 @@ void SearchMusicWindow::createNewPlaylist() {
                 plh->addEntry(listItem->getSong(), name);
             }
         }
-        handler->addMessage("Playlist '" + name + "' erfolgreich erstellt und alle Songs erfolgreich hinzugefügt!");
+        handler->addMessage("The playlist '" + name + "' was created successfully and all results were added!");
     }
     ui->cmbAddAll->setCurrentIndex(0);
     return;
@@ -263,7 +263,7 @@ void SearchMusicWindow::on_cmbAddAll_currentIndexChanged(int index)
             plh->addEntry(listItem->getSong(), ui->cmbAddAll->itemText(index).toStdString());
         }
     }
-    handler->addMessage("Alle Ergebnisse wurden erfolgreich zu '" + ui->cmbAddAll->itemText(index).toStdString() + "' hinzugefügt!");
+    handler->addMessage("All results were added successfully to the playlist '" + ui->cmbAddAll->itemText(index).toStdString() + "'!");
     ui->cmbAddAll->setCurrentIndex(0);
     return;
 }

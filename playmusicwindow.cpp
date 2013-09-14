@@ -70,7 +70,7 @@ PlayMusicWindow::PlayMusicWindow(QWidget *parent, PlaylistHandler *plh, API *api
 }
 
 void PlayMusicWindow::songFailed() {
-    messageHandler->addMessage("Der Song \"" + player->getCurrentSong()->getSongName() + "\" ist fehlerhaft und wurde übersprungen!");
+    messageHandler->addMessage("The song \"" + player->getCurrentSong()->getSongName() + "\" is faulty and was skipped!");
 }
 
 void PlayMusicWindow::deletedMessage(Message *message) {
@@ -87,21 +87,21 @@ void PlayMusicWindow::refreshPlayPause() {
         songsChanged();
         makePauseButton();
         on_sldVolume_valueChanged(ui->sldVolume->value());
-        ui->lblCurrentState->setText("Abspielen");
+        ui->lblCurrentState->setText("Playing");
         wasPlaying = true;
     } else if (player->isPaused()) {
         enableAll();
         songsChanged();
         makePlayButton();
         wasPlaying = true;
-        ui->lblCurrentState->setText("Pausiert");
+        ui->lblCurrentState->setText("Paused");
     } else if (player->isStarting()) {
         disableControls();
         disablePlay();
-        ui->lblCurrentState->setText("Startet...");
+        ui->lblCurrentState->setText("Starting...");
     } else if (player->isStopped()) {
         makePlayButton();
-        ui->lblCurrentState->setText("Gestoppt");
+        ui->lblCurrentState->setText("Stopped");
         wasPlaying = false;
     }
 }
@@ -239,7 +239,7 @@ void PlayMusicWindow::songsChanged() {
     } else {
         ui->lblCurrentCoverBackground->setVisible(false);
         ui->lblCurrentCover->setVisible(false);
-        ui->lblCurrentSong->setText("Kein Song abgespielt");
+        ui->lblCurrentSong->setText("No song playing");
         makePlayButton();
         enablePlay();
         disableControls();

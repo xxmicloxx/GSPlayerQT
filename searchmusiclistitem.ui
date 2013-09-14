@@ -86,7 +86,7 @@ background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Download_Button_
     </rect>
    </property>
    <property name="text">
-    <string>Titel:</string>
+    <string>Title:</string>
    </property>
   </widget>
   <widget class="QLabel" name="lblTitle">
@@ -164,7 +164,7 @@ background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Download_Button_
     </rect>
    </property>
    <property name="text">
-    <string>Play</string>
+    <string>Preview</string>
    </property>
   </widget>
   <widget class="QLabel" name="lblAlbumCaption">
@@ -172,7 +172,7 @@ background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Download_Button_
     <rect>
      <x>10</x>
      <y>67</y>
-     <width>41</width>
+     <width>51</width>
      <height>16</height>
     </rect>
    </property>
@@ -186,7 +186,7 @@ background-image: url(:/theme/searchmusic/RES/theme/Musik_Suche/Download_Button_
      <x>60</x>
      <y>67</y>
      <width>141</width>
-     <height>19</height>
+     <height>16</height>
     </rect>
    </property>
    <property name="text">

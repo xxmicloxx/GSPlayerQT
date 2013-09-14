@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>GSP - Informationen</string>
+   <string>GSP - Information</string>
   </property>
   <property name="styleSheet">
    <string notr="true">#lblCaption {
@@ -75,7 +75,7 @@ color: rgb(255, 137, 53);
     </rect>
    </property>
    <property name="text">
-    <string>Titel:</string>
+    <string>Title:</string>
    </property>
   </widget>
   <widget class="QLabel" name="lblCaption">
@@ -88,7 +88,7 @@ color: rgb(255, 137, 53);
     </rect>
    </property>
    <property name="text">
-    <string>Informationen</string>
+    <string>Information</string>
    </property>
   </widget>
   <widget class="QLabel" name="lblArtistCaption">

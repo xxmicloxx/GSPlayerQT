@@ -44,10 +44,10 @@ void SearchMusicListItem::showContextMenu(const QPoint &pos) {
     QPoint globalPos = this->mapToGlobal(pos);
     QMenu* myMenu = new QMenu(this);
     QMenu* artistMenu = myMenu->addMenu("Artist");
-    QAction* albumsByArtist = artistMenu->addAction("Nach Alben dieses Artisten suchen");
-    QAction* songsByArtist = artistMenu->addAction("Nach Songs dieses Artisten suchen");
+    QAction* albumsByArtist = artistMenu->addAction("Search for albums by this artist");
+    QAction* songsByArtist = artistMenu->addAction("Search for songs by this artist");
     QMenu* albumMenu = myMenu->addMenu("Album");
-    QAction* songsByAlbum = albumMenu->addAction("Nach Songs dieses Albums suchen");
+    QAction* songsByAlbum = albumMenu->addAction("Search for songs inside this album");
     QAction* result = myMenu->exec(globalPos);
     if (result == albumsByArtist) {
         emit getAlbumsByArtist(song->getArtistId());
@@ -65,11 +65,11 @@ Song* SearchMusicListItem::getSong() {
 void SearchMusicListItem::onPlaylistChange(std::vector<std::string> vector) {
     working = true;
     ui->cmbAddTo->clear();
-    ui->cmbAddTo->addItem("Hinzufügen zu...");
+    ui->cmbAddTo->addItem("Add to...");
     for (unsigned int i = 0; i < vector.size(); i++) {
         ui->cmbAddTo->addItem(QString::fromStdString(vector.at(i)));
     }
-    ui->cmbAddTo->addItem("Neue Playlist erstellen");
+    ui->cmbAddTo->addItem("Create new playlist");
     ui->cmbAddTo->setCurrentIndex(0);
     working = false;
 }
@@ -111,31 +111,31 @@ void SearchMusicListItem::on_cmbAddTo_currentIndexChanged(int index)
         return;
     }
     if (!plh->addEntry(song, ui->cmbAddTo->itemText(index).toStdString())) {
-        QMessageBox::warning(this->parentWidget(), "GSP - Song hinzufügen", QString::fromStdString("'" + song->getSongName() + "' existiert bereits in '" + ui->cmbAddTo->itemText(index).toStdString() + "'!"));
+        QMessageBox::warning(this->parentWidget(), "GSP - Add song", QString::fromStdString("The song '" + song->getSongName() + "' is already inside the playlist '" + ui->cmbAddTo->itemText(index).toStdString() + "'!"));
         ui->cmbAddTo->setCurrentIndex(0);
         return;
     }
-    messageHandler->addMessage("'" + song->getSongName() + "' wurde erfolgreich zu '" + ui->cmbAddTo->itemText(index).toStdString() + "' hinzugefügt!");
+    messageHandler->addMessage("'" + song->getSongName() + "' was successfully added to '" + ui->cmbAddTo->itemText(index).toStdString() + "'!");
     ui->cmbAddTo->setCurrentIndex(0);
     return;
 }
 
 void SearchMusicListItem::createNewPlaylist() {
     bool ok;
-    std::string name = QInputDialog::getText(this->parentWidget(), "GSP - Playlist hinzufügen", "Geben sie den Namen für die Playlist ein!", QLineEdit::Normal, QString(), &ok).toStdString();
+    std::string name = QInputDialog::getText(this->parentWidget(), "GSP - Create playlist", "Please enter a name for the playlist!", QLineEdit::Normal, QString(), &ok).toStdString();
     if (ok) {
         if (name == "") {
-            QMessageBox::warning(this->parentWidget(), "GSP - Playlist erstellen", "Sie müssen einen Namen eingeben");
+            QMessageBox::warning(this->parentWidget(), "GSP - Create playlist", "You have to enter a name!");
             ui->cmbAddTo->setCurrentIndex(0);
             return;
         }
         if (!plh->createPlaylist(name)) {
-            QMessageBox::warning(this->parentWidget(), "GSP - Playlist erstellen", QString::fromStdString("Die Playlist '" + name + "' existiert bereits!"));
+            QMessageBox::warning(this->parentWidget(), "GSP - Create playlist", QString::fromStdString("A playlist with the name '" + name + "' already exists!"));
             ui->cmbAddTo->setCurrentIndex(0);
             return;
         }
         plh->addEntry(song, name);
-        messageHandler->addMessage("Playlist '" + name + "' erfolgreich erstellt und '" + song->getSongName() + "' erfolgreich hinzugefügt!");
+        messageHandler->addMessage("The playlist '" + name + "' was created successfully and the song '" + song->getSongName() + "' was added!");
     }
     ui->cmbAddTo->setCurrentIndex(0);
 }

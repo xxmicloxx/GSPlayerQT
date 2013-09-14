@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>GSP - Musik abspielen</string>
+   <string>GSP - Play music</string>
   </property>
   <property name="styleSheet">
    <string notr="true">#sldVolume:groove:horizontal {
@@ -155,20 +155,20 @@ color: rgb(163, 163, 163);
      </rect>
     </property>
     <property name="text">
-     <string>Musik abspielen</string>
+     <string>Play music</string>
     </property>
    </widget>
    <widget class="QLabel" name="lblPlayedPlaylist">
     <property name="geometry">
      <rect>
-      <x>30</x>
+      <x>20</x>
       <y>55</y>
-      <width>121</width>
+      <width>131</width>
       <height>16</height>
      </rect>
     </property>
     <property name="text">
-     <string>Abgespielte Playlist:</string>
+     <string>Playlist being played:</string>
     </property>
    </widget>
    <widget class="QComboBox" name="cmbPlaylists">
@@ -191,7 +191,7 @@ color: rgb(163, 163, 163);
      </rect>
     </property>
     <property name="text">
-     <string>Kein Song abgespielt</string>
+     <string>No song playing</string>
     </property>
    </widget>
    <widget class="QLabel" name="lblCoverBeforeBackground">
@@ -461,7 +461,7 @@ background-image: url(:/theme/play/RES/theme/Musik_abspielen/Play_Button_pressed
      </rect>
     </property>
     <property name="text">
-     <string>Gestoppt</string>
+     <string>Stopped</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>

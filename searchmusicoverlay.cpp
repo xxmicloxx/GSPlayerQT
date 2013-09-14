@@ -29,7 +29,7 @@ void SearchMusicOverlay::setItemMax(int count) {
 }
 
 void SearchMusicOverlay::updateText(int remaining) {
-    ui->lblLeft->setText(QString::fromStdString(boost::lexical_cast<std::string>(remaining) + " verbleibend"));
+    ui->lblLeft->setText(QString::fromStdString(boost::lexical_cast<std::string>(remaining) + " remaining"));
 }
 
 void SearchMusicOverlay::setItemsDone(int count) {
