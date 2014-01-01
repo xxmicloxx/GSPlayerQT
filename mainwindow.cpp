@@ -11,30 +11,31 @@
 #include <QDesktopWidget>
 #include <QRect>
 #include <Qt>
+#include "upnpdialog.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    ui->setupUi(this);
-    this->setWindowFlags(this->windowFlags() & ~(Qt::WindowFullscreenButtonHint));
-    plh = new PlaylistHandler(this);
-    bridge = new AudioPlayerBridge(this);
-    coverHelper = new CoverHelper(this);
-    api = new API(this);
     SplashScreen *ss = new SplashScreen();
     QRect geometry = QApplication::desktop()->screenGeometry();
     ss->setGeometry((geometry.width() - ss->width()) / 2, (geometry.height() - ss->height()) / 2, ss->width(), ss->height());
     ss->setFixedSize(ss->size());
     ss->setVisible(true);
+    plh = new PlaylistHandler(this);
+    bridge = new AudioPlayerBridge(this);
+    coverHelper = new CoverHelper(this);
+    api = new API(this);
+    player = new Player(this, api, plh, bridge);
+    setupUpnp();
+    ui->setupUi(this);
+    this->setWindowFlags(this->windowFlags() & ~(Qt::WindowFullscreenButtonHint));
     this->setGeometry((geometry.width() - this->width()) / 2, (geometry.height() - this->height()) / 2, this->width(), this->height());
     api->checkConnect();
     QEventLoop loop;
     connect(api, SIGNAL(firstConnected()), &loop, SLOT(quit()));
     loop.exec();
     ss->close();
-    delete ss;
-    player = new Player(this, api, plh, bridge);
     QGraphicsDropShadowEffect *effect = new QGraphicsDropShadowEffect(ui->lblBtn1Caption);
     effect->setBlurRadius(2);
     effect->setOffset(0, 1);
@@ -57,6 +58,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->lblBtn3Caption->setAttribute(Qt::WA_TransparentForMouseEvents);
     ui->lblBtn3Message->setAttribute(Qt::WA_TransparentForMouseEvents);
     this->setFixedSize(this->size());
+    delete ss;
     /*playButtonShortcut = new QxtGlobalShortcut(QKeySequence(Qt::Key_MediaNext),this);
     connect(playButtonShortcut, SIGNAL(activated()), this, SLOT(onBtnPlay_pressed()));*/
 }
@@ -72,7 +74,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_btnSide2_clicked()
 {
-
+    UpnpDialog *dialog = new UpnpDialog(this, upnpController, bridge, player);
+    dialog->setModal(true);
+    dialog->show();
 }
 
 void MainWindow::on_btn2_clicked()
@@ -109,4 +113,21 @@ void MainWindow::on_btn1_clicked()
     connect(pmw, SIGNAL(destroyed()), this, SLOT(onChildClosed()));
     pmw->show();
     this->setVisible(false);
+}
+
+void MainWindow::setupUpnp() {
+    NPT_LogManager::GetDefault().Configure("plist:.level=WARNING;.handlers=ConsoleHandler;.ConsoleHandler.colors=off;.ConsoleHandler.filter=24");
+    upnp = new PLT_UPnP();
+    PLT_CtrlPointReference ctrlPoint(new PLT_CtrlPoint());
+    upnpController = new UpnpController(this, ctrlPoint, player, bridge);
+    upnp->AddCtrlPoint(ctrlPoint);
+    /*upnpServer = new UpnpServer(this, ctrlPoint);
+    PLT_DeviceHostReference device(upnpServer);
+    upnp->AddDevice(device);
+    // ignore ourselves
+    ctrlPoint->IgnoreUUID(device->GetUUID());*/
+    upnp->Start();
+
+    // extra discover for stupid renderers (like windows)
+    ctrlPoint->Discover(NPT_HttpUrl("255.255.255.255", 1900, "*"), "upnp:rootdevice", 1);
 }

@@ -12,15 +12,16 @@
 QTextStream stream(fopen("log", "w"));
 
 void myMessageOutput(QtMsgType type, const char *msg)
- {
+{
      //in this function, you can write the message to any stream!
     stream << QString(msg);
     stream << QString("\n");
- }
+    stream.flush();
+}
 
 int main(int argc, char *argv[])
 {
-    qInstallMsgHandler(myMessageOutput);
+    //qInstallMsgHandler(myMessageOutput);
     QApplication a(argc, argv);
 //    QFile playlists("Playlists.xml");
 //    if (playlists.exists()) {
@@ -31,7 +32,5 @@ int main(int argc, char *argv[])
     //QTextCodec::setCodecForTr( QTextCodec::codecForName("UTF-8") );
     MainWindow w;
     w.show();
-    int i = a.exec();
-    stream.flush();
-    return i;
+    return a.exec();
 }

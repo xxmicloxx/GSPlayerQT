@@ -8,9 +8,25 @@ AudioPlayerBridge::AudioPlayerBridge(QObject *parent, bool first) :
 {
     if (first)
         BASS_Init(-1, 44100, 0, 0, NULL);
+    useUpnp = false;
     this->first = first;
     currentStatus = STOPPED;
     lastVol = 100;
+}
+
+void AudioPlayerBridge::setUseUpnp(bool upnp) {
+    if (upnp != useUpnp) {
+        stop();
+    }
+    this->useUpnp = upnp;
+}
+
+bool AudioPlayerBridge::getUseUpnp() {
+    return useUpnp;
+}
+
+void AudioPlayerBridge::emitStartedPlaying() {
+    emit startedPlaying();
 }
 
 AudioPlayerBridge::~AudioPlayerBridge() {
@@ -26,23 +42,35 @@ void CALLBACK MySyncProc(HSYNC handle, DWORD channel, DWORD data, void *user)
 }
 
 int AudioPlayerBridge::getPosition() {
-    return BASS_ChannelBytes2Seconds(mainHandle, BASS_ChannelGetPosition(mainHandle, BASS_POS_BYTE)) * 1000;
+    if (!useUpnp) {
+        return BASS_ChannelBytes2Seconds(mainHandle, BASS_ChannelGetPosition(mainHandle, BASS_POS_BYTE)) * 1000;
+    } else {
+        return emit positionUpnpRequest();
+    }
 }
 
 void AudioPlayerBridge::setPosition(int pos) {
-    double timeInSecs = pos / 1000.0;
-    BASS_ChannelSetPosition(mainHandle, BASS_ChannelSeconds2Bytes(mainHandle, timeInSecs), BASS_POS_BYTE);
+    if (!useUpnp) {
+        double timeInSecs = pos / 1000.0;
+        BASS_ChannelSetPosition(mainHandle, BASS_ChannelSeconds2Bytes(mainHandle, timeInSecs), BASS_POS_BYTE);
+    } else {
+        emit setPositionOnUpnp(pos);
+    }
 }
 
-void AudioPlayerBridge::openAndPlay(std::string path) {
+void AudioPlayerBridge::openAndPlay(StreamInformation *si, Song *song) {
     stop();
     currentStatus = STARTING;
-    mainHandle = BASS_StreamCreateURL(path.c_str(), 0, BASS_STREAM_AUTOFREE | BASS_STREAM_PRESCAN, NULL, NULL);
-    finishedHandle = BASS_ChannelSetSync(mainHandle, BASS_SYNC_END, 0, &MySyncProc, this);
-    BASS_ChannelSetAttribute(mainHandle, BASS_ATTRIB_VOL, lastVol / 100.0);
-    BASS_ChannelPlay(mainHandle, false);
-    currentStatus = PLAYING;
-    emit startedPlaying();
+    if (!useUpnp) {
+        mainHandle = BASS_StreamCreateURL(si->directUrl().c_str(), 0, BASS_STREAM_AUTOFREE | BASS_STREAM_PRESCAN, NULL, NULL);
+        finishedHandle = BASS_ChannelSetSync(mainHandle, BASS_SYNC_END, 0, &MySyncProc, this);
+        BASS_ChannelSetAttribute(mainHandle, BASS_ATTRIB_VOL, lastVol / 100.0);
+        BASS_ChannelPlay(mainHandle, false);
+        currentStatus = PLAYING;
+        emit startedPlaying();
+    } else {
+        emit playOnUpnp(si, song);
+    }
 }
 
 void AudioPlayerBridge::emit_songFinished() {
@@ -50,23 +78,37 @@ void AudioPlayerBridge::emit_songFinished() {
 }
 
 void AudioPlayerBridge::setVolume(int vol) {
-    BASS_ChannelSetAttribute(mainHandle, BASS_ATTRIB_VOL, vol / 100.0);
+    if (!useUpnp) {
+        BASS_ChannelSetAttribute(mainHandle, BASS_ATTRIB_VOL, vol / 100.0);
+    } else {
+        emit setVolumeOnUpnp(vol);
+    }
     lastVol = vol;
 }
 
 int AudioPlayerBridge::getVolume() {
-    if (currentStatus == STOPPED || currentStatus == STARTING) {
-        return lastVol;
+    if (!useUpnp) {
+        if (currentStatus == STOPPED || currentStatus == STARTING) {
+            return lastVol;
+        }
+        float value;
+        BASS_ChannelGetAttribute(mainHandle, BASS_ATTRIB_VOL, &value);
+        return value * 100;
+    } else {
+        // this works, it's a Qt Creator bug
+        int v = emit volumeUpnpRequest();
+        return v;
     }
-    float value;
-    BASS_ChannelGetAttribute(mainHandle, BASS_ATTRIB_VOL, &value);
-    return value * 100;
 }
 
 void AudioPlayerBridge::stop() {
     if (currentStatus != STOPPED && currentStatus != STARTING) {
-        BASS_ChannelStop(mainHandle);
-        currentStatus = STOPPED;
+        if (!useUpnp) {
+            BASS_ChannelStop(mainHandle);
+            currentStatus = STOPPED;
+        } else {
+            emit stopOnUpnp();
+        }
     }
 }
 
@@ -76,11 +118,19 @@ void AudioPlayerBridge::setState(Status status) {
 
 void AudioPlayerBridge::togglePlayPause() {
     if (currentStatus == PAUSED) {
-        BASS_ChannelPlay(mainHandle, false);
-        currentStatus = PLAYING;
+        if (!useUpnp) {
+            BASS_ChannelPlay(mainHandle, false);
+            currentStatus = PLAYING;
+        } else {
+            emit resumeOnUpnp();
+        }
     } else if (currentStatus == PLAYING) {
-        BASS_ChannelPause(mainHandle);
-        currentStatus = PAUSED;
+        if (!useUpnp) {
+            BASS_ChannelPause(mainHandle);
+            currentStatus = PAUSED;
+        } else {
+            emit pauseOnUpnp();
+        }
     }
 }
 

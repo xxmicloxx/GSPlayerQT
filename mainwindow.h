@@ -7,6 +7,9 @@
 #include "playlisthandler.h"
 #include "coverhelper.h"
 #include "player.h"
+#include <Platinum.h>
+#include "Upnp/upnpcontroller.h"
+#include "Upnp/upnpserver.h"
 
 namespace Ui {
 class MainWindow;
@@ -40,6 +43,10 @@ private:
     Player *player;
     AudioPlayerBridge *bridge;
     Ui::MainWindow *ui;
+    PLT_UPnP *upnp;
+    UpnpController *upnpController;
+    UpnpServer *upnpServer;
+    void setupUpnp();
     //QxtGlobalShortcut* playButtonShortcut;
 };
 

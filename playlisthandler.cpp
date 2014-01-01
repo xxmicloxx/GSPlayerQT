@@ -4,6 +4,8 @@
 #include <boost/lexical_cast.hpp>
 #include <QApplication>
 #include <QDir>
+#include <boost/uuid/uuid_io.hpp>
+#include <boost/uuid/random_generator.hpp>
 
 PlaylistHandler::PlaylistHandler(QObject *parent) : QObject(parent)
 {
@@ -35,7 +37,6 @@ void PlaylistHandler::redefinePlaylist(std::string playlistName, std::vector<Son
     for (unsigned int i = 0; i < removeVector.size(); i++) {
         playlist.removeChild(removeVector.at(i));
     }
-    save();
     for (unsigned int i = 0; i < songs.size(); i++) {
         Song* song = songs.at(i);
         QDomElement songElement = doc.createElement("Song");
@@ -101,6 +102,11 @@ bool PlaylistHandler::createPlaylist(std::string name) {
     }
     QDomElement thisPlaylist = doc.createElement("Playlist");
     thisPlaylist.setAttribute("name", QString::fromStdString(name));
+    boost::uuids::uuid uuidobj = boost::uuids::random_generator()();
+    std::stringstream ss;
+    ss << uuidobj;
+    QString uuid = QString::fromStdString(ss.str());
+    thisPlaylist.setAttribute("id", uuid);
     root.appendChild(thisPlaylist);
     save();
     emit playlistsChanged(getPlaylists());
@@ -217,6 +223,34 @@ bool PlaylistHandler::addEntry(Song *song, std::string playlistName) {
     save();
     emit songsChanged(playlistName, getSongs(playlistName));
     return true;
+}
+
+std::string PlaylistHandler::getPlaylistId(std::string name) {
+    checkInit();
+    QDomElement playlist = getPlaylistFromName(name);
+    if (!playlist.hasAttribute("id")) {
+        boost::uuids::uuid uuidobj = boost::uuids::random_generator()();
+        std::stringstream ss;
+        ss << uuidobj;
+        QString uuid = QString::fromStdString(ss.str());
+        playlist.setAttribute("id", uuid);
+        save();
+    }
+    return playlist.attribute("id").toStdString();
+}
+
+std::string PlaylistHandler::getPlaylistById(std::string id) {
+    checkInit();
+    QDomElement playlist;
+    QDomNode node = root.firstChild();
+    while (!node.isNull()) {
+        QDomElement element = node.toElement();
+        if (!element.isNull() && element.tagName() == "Playlist" && element.attribute("id").toStdString() == id) {
+            playlist = element;
+        }
+        node = node.nextSibling();
+    }
+    return playlist.attribute("name").toStdString();
 }
 
 void PlaylistHandler::checkInit() {

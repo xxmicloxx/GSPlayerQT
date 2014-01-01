@@ -99,7 +99,7 @@ void TitlePlayDialog::resume() {
 void TitlePlayDialog::gotSongInformation(StreamInformation *info) {
     if (info->getSongId() == song->getSongId()) {
         ui->sldPosition->setMaximum(info->getUSecs() / 1000);
-        QtConcurrent::run(apb, &AudioPlayerBridge::openAndPlay, info->directUrl());
+        QtConcurrent::run(apb, &AudioPlayerBridge::openAndPlay, info, song);
     }
 }
 

@@ -174,7 +174,7 @@ color: rgb(163, 163, 163);
      </rect>
     </property>
     <property name="text">
-     <string>About us</string>
+     <string>UPnP</string>
     </property>
     <property name="flat">
      <bool>true</bool>

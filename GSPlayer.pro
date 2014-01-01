@@ -46,7 +46,10 @@ SOURCES += main.cpp\
     dragdroplist.cpp \
     myvolumestyle.cpp \
     titleplaydialog.cpp \
-    splashscreen.cpp
+    splashscreen.cpp \
+    upnpdialog.cpp \
+    Upnp/upnpcontroller.cpp \
+    Upnp/upnpserver.cpp
 
 HEADERS  += \
     API/util.h \
@@ -87,7 +90,10 @@ HEADERS  += \
     dragdroplist.h \
     myvolumestyle.h \
     titleplaydialog.h \
-    splashscreen.h
+    splashscreen.h \
+    upnpdialog.h \
+    Upnp/upnpcontroller.h \
+    Upnp/upnpserver.h
 
 FORMS    += \
     mainwindow.ui \
@@ -104,9 +110,21 @@ FORMS    += \
     playmusicwindow.ui \
     songinfodialog.ui \
     titleplaydialog.ui \
-    splashscreen.ui
+    splashscreen.ui \
+    upnpdialog.ui
 
 LIBS += /Users/ml/GSPlayerQT/libbass.dylib
+
+INCLUDEPATH += /System/Library/Frameworks
+LIBS += -F/System/Library/Frameworks -framework Foundation
+
+LIBS += /usr/lib/libPlatinum.a
+LIBS += /usr/lib/libNeptune.a
+LIBS += /usr/lib/libaxTLS.a
+LIBS += /usr/lib/libobjc.dylib
+LIBS += /usr/lib/libPltMediaConnect.a
+LIBS += /usr/lib/libPltMediaRenderer.a
+LIBS += /usr/lib/libPltMediaServer.a
 
 DEFINES += UNICODE
 
@@ -120,3 +138,4 @@ RESOURCES += \
 RC_FILE = myWinIcon.rc
 
 INCLUDEPATH += /Users/ml/Downloads/boost_1_53_0
+INCLUDEPATH += /Users/ml/platbuild/PlatinumKit-1-0-4-11_6d419f/Platinum/Targets/universal-apple-macosx/Release/Platinum.framework/Versions/A/Headers

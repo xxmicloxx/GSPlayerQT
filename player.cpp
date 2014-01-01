@@ -230,7 +230,6 @@ unsigned int Player::getCurrentId() {
 }
 
 void Player::stop() {
-    apb->setState(AudioPlayerBridge::PAUSED);
     apb->stop();
     currentSong = NULL;
     currentLength = 0;
@@ -277,7 +276,7 @@ void Player::gotStreamKey(StreamInformation *info) {
     if (currentSong != NULL && info->getSongId() == currentSong->getSongId()) {
         currentLength = info->getUSecs() / 1000;
         emit songPositionChanged();
-        QtConcurrent::run(apb, &AudioPlayerBridge::openAndPlay, info->directUrl());
+        QtConcurrent::run(apb, &AudioPlayerBridge::openAndPlay, info, currentSong);
         emit stateChanged();
     }
 }

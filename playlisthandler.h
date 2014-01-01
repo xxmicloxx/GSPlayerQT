@@ -21,6 +21,8 @@ public:
     void removeSong(Song* song, std::string playlistName);
     void save();
     void load();
+    std::string getPlaylistId(std::string name);
+    std::string getPlaylistById(std::string id);
 
 signals:
     void playlistsChanged(std::vector<std::string> playlists);
