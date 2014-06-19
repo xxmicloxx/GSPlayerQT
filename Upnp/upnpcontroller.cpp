@@ -71,11 +71,18 @@ void UpnpController::OnMRStateVariablesChanged(PLT_Service *service, NPT_List<PL
     while (var) {
         qDebug() << "Received state changes: " << (*var)->GetName().GetChars() << " : " << (*var)->GetValue().GetChars();
         if ((*var)->GetName() == "TransportState") {
+            qDebug() << "APB state: " << apb->getState();
+            qDebug() << "Stopping in order to play: " << stoppingInOrderToPlay;
             QString state = QString::fromStdString((*var)->GetValue().GetChars());
             // TODO FIX THIS SHIT
             if (state == "STOPPED" && !(apb->getState() == AudioPlayerBridge::STARTING && stoppingInOrderToPlay) && !(apb->getState() == AudioPlayerBridge::PLAYING && (songLength - lastPosition) < 3000)) {
                 player->stopNoReset();
                 apb->setState(AudioPlayerBridge::STOPPED);
+            } else if (state == "STOPPED" && stoppingInOrderToPlay) {
+                songLength = nextStreamInformation->getUSecs()/1000;
+                QString didl = generateDidl(nextSong, nextStreamInformation);
+                SetAVTransportURI(currentRenderer, 0, nextStreamInformation->directUrl().c_str(), didl.toStdString().c_str(), NULL);
+                qDebug() << "Setting transport method...";
             } else if (state == "STOPPED" && apb->getState() == AudioPlayerBridge::PLAYING && (songLength - lastPosition) < 3000) {
                 // this is the end of a song
                 qDebug() << "This is the next song VIA UPNP";
@@ -225,16 +232,19 @@ void UpnpController::playFromAPB(StreamInformation *si, Song *song) {
     if (state != "STOPPED") {
         // stop
         stoppingInOrderToPlay = true;
+        nextSong = song;
+        nextStreamInformation = si;
         Stop(currentRenderer, 0, NULL);
+    } else {
+        songLength = si->getUSecs()/1000;
+        QString didl = generateDidl(song, si);
+        SetAVTransportURI(currentRenderer, 0, si->directUrl().c_str(), didl.toStdString().c_str(), NULL);
+        qDebug() << "Setting transport method...";
     }
-    QString didl = generateDidl(song, si);
-    SetAVTransportURI(currentRenderer, 0, si->directUrl().c_str(), didl.toStdString().c_str(), NULL);
-    qDebug() << "Setting transport method...";
 }
 
 void UpnpController::OnGetPositionInfoResult(NPT_Result res, PLT_DeviceDataReference &device, PLT_PositionInfo *info, void *userdata) {
     lastPosition = info->rel_time.ToMillis();
-    songLength = info->track_duration.ToMillis();
 }
 
 void UpnpController::setRenderer(QString uuid) {
@@ -254,7 +264,9 @@ void UpnpController::setRenderer(QString uuid) {
 }
 
 void UpnpController::requestData() {
-    GetPositionInfo(currentRenderer, 0, NULL);
+    if (!currentRenderer.IsNull()) {
+        GetPositionInfo(currentRenderer, 0, NULL);
+    }
 }
 
 QString UpnpController::getRenderer() {

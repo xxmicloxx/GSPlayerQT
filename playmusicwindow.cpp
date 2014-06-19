@@ -3,7 +3,7 @@
 #include <QGraphicsDropShadowEffect>
 #include "boost/lexical_cast.hpp"
 #include <QDebug>
-#include <myvolumestyle.h>
+#include "myvolumestyle.h"
 #include <QDesktopWidget>
 #include <QRect>
 #include <QLayout>
@@ -50,11 +50,11 @@ PlayMusicWindow::PlayMusicWindow(QWidget *parent, PlaylistHandler *plh, API *api
         shadowArray[i]->setGraphicsEffect(effect);
     }
 
-    QWidget* clickthruArray[] = {};
+    /*QWidget* clickthruArray[] = {};
     count = sizeof(clickthruArray) / sizeof(QWidget*);
     for (int i = 0; i < count; i++) {
         clickthruArray[i]->setAttribute(Qt::WA_TransparentForMouseEvents);
-    }
+    }*/
     connect(player, SIGNAL(playlistsChanged(std::vector<std::string>)), this, SLOT(playlistsChanged(std::vector<std::string>)));
     connect(player, SIGNAL(currentSongChanged()), this, SLOT(songsChanged()));
     connect(player, SIGNAL(songPositionChanged()), this, SLOT(onPositionChanged()));

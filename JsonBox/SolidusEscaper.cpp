@@ -1,6 +1,6 @@
-#include <JsonBox/SolidusEscaper.h>
+#include "SolidusEscaper.h"
 
-#include <JsonBox/Grammar.h>
+#include "Grammar.h"
 
 namespace JsonBox {
 	SolidusEscaper::SolidusEscaper() : afterBackSlash(false), inString(false) {

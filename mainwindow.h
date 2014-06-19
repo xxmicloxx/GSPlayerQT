@@ -2,8 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <API/api.h>
-#include <audioplayerbridge.h>
+#include "API/api.h"
+#include "audioplayerbridge.h"
 #include "playlisthandler.h"
 #include "coverhelper.h"
 #include "player.h"

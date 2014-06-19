@@ -5,8 +5,8 @@
 #include "Platinum.h"
 #include <QMutex>
 #include <QMap>
-#include "player.h"
-#include "audioplayerbridge.h"
+#include "../player.h"
+#include "../audioplayerbridge.h"
 #include <QTimer>
 
 class UpnpController : public QObject, public PLT_MediaController, public PLT_MediaControllerDelegate
@@ -57,6 +57,8 @@ private:
     QTimer *timer;
     void setXMLVal(QDomDocument doc, QDomElement element, QString string);
     bool stoppingInOrderToPlay;
+    Song *nextSong;
+    StreamInformation *nextStreamInformation;
 };
 
 #endif // UPNPCONTROLLER_H

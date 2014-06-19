@@ -1,4 +1,4 @@
-#include <JsonBox/Value.h>
+#include "Value.h"
 
 #include <cassert>
 #include <stack>
@@ -7,13 +7,13 @@
 #include <iomanip>
 #include <fstream>
 
-#include <JsonBox/Grammar.h>
-#include <JsonBox/Convert.h>
-#include <JsonBox/OutputFilter.h>
-#include <JsonBox/IndentCanceller.h>
-#include <JsonBox/SolidusEscaper.h>
-#include <JsonBox/Array.h>
-#include <JsonBox/Object.h>
+#include "Grammar.h"
+#include "Convert.h"
+#include "OutputFilter.h"
+#include "IndentCanceller.h"
+#include "SolidusEscaper.h"
+#include "Array.h"
+#include "Object.h"
 
 namespace JsonBox {
 

@@ -1,7 +1,7 @@
-#include <JsonBox/Escaper.h>
+#include "Escaper.h"
 
-#include <JsonBox/Grammar.h>
-#include <JsonBox/Value.h>
+#include "Grammar.h"
+#include "Value.h"
 
 namespace JsonBox {
 	Escaper::Escaper() : afterBackSlash(false), inString(false) {

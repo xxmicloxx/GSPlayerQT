@@ -2,8 +2,8 @@
 #include "ui_mainwindow.h"
 #include <QDebug>
 #include <QGraphicsDropShadowEffect>
-#include <API/streaminformation.h>
-#include <searchmusicwindow.h>
+#include "API/streaminformation.h"
+#include "searchmusicwindow.h"
 #include "playlistoptimizewindow.h"
 #include "playmusicwindow.h"
 #include <QEventLoop>

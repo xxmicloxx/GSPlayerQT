@@ -1,7 +1,7 @@
 #ifndef PLAYLISTHANDLER_H
 #define PLAYLISTHANDLER_H
 #include <QtXml/qdom.h>
-#include <API/song.h>
+#include "API/song.h"
 #include <vector>
 #include <QObject>
 

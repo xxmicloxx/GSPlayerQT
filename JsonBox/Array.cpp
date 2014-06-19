@@ -1,9 +1,9 @@
-#include <JsonBox/Array.h>
+#include "Array.h"
 
-#include <JsonBox/Value.h>
-#include <JsonBox/Grammar.h>
-#include <JsonBox/OutputFilter.h>
-#include <JsonBox/Indenter.h>
+#include "Value.h"
+#include "Grammar.h"
+#include "OutputFilter.h"
+#include "Indenter.h"
 
 namespace JsonBox {
 	Array::Array(const allocator_type &alloc) : data(alloc) {

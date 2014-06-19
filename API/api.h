@@ -6,7 +6,7 @@
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/random_generator.hpp>
 #include "streaminformation.h"
-#include <JsonBox.h>
+#include "../JsonBox.h"
 #include "song.h"
 #include "artist.h"
 

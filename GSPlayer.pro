@@ -113,18 +113,10 @@ FORMS    += \
     splashscreen.ui \
     upnpdialog.ui
 
-LIBS += /Users/ml/GSPlayerQT/libbass.dylib
+LIBS += C:\Users\ML\Documents\GitHub\GSPlayerQT\bass.lib
 
-INCLUDEPATH += /System/Library/Frameworks
-LIBS += -F/System/Library/Frameworks -framework Foundation
-
-LIBS += /usr/lib/libPlatinum.a
-LIBS += /usr/lib/libNeptune.a
-LIBS += /usr/lib/libaxTLS.a
-LIBS += /usr/lib/libobjc.dylib
-LIBS += /usr/lib/libPltMediaConnect.a
-LIBS += /usr/lib/libPltMediaRenderer.a
-LIBS += /usr/lib/libPltMediaServer.a
+LIBS += C:\Users\ML\Documents\GitHub\GSPlayerQT\Platinum.lib
+LIBS += C:\Users\ML\Documents\GitHub\GSPlayerQT\Neptune.lib
 
 DEFINES += UNICODE
 
@@ -137,5 +129,13 @@ RESOURCES += \
 
 RC_FILE = myWinIcon.rc
 
-INCLUDEPATH += /Users/ml/Downloads/boost_1_53_0
-INCLUDEPATH += /Users/ml/platbuild/PlatinumKit-1-0-4-11_6d419f/Platinum/Targets/universal-apple-macosx/Release/Platinum.framework/Versions/A/Headers
+INCLUDEPATH += C:\Users\ML\boost_1_55_0
+INCLUDEPATH += C:\Users\ML\Downloads\PlatinumKit-1-0-5-13_0ab854\PlatinumKit-1-0-5-13_0ab854\Platinum\Source\Platinum
+INCLUDEPATH += C:\Users\ML\Downloads\PlatinumKit-1-0-5-13_0ab854\PlatinumKit-1-0-5-13_0ab854\Platinum\Source\Core
+INCLUDEPATH += C:\Users\ML\Downloads\PlatinumKit-1-0-5-13_0ab854\PlatinumKit-1-0-5-13_0ab854\Platinum\Source\Devices\MediaConnect
+INCLUDEPATH += C:\Users\ML\Downloads\PlatinumKit-1-0-5-13_0ab854\PlatinumKit-1-0-5-13_0ab854\Platinum\Source\Devices\MediaRenderer
+INCLUDEPATH += C:\Users\ML\Downloads\PlatinumKit-1-0-5-13_0ab854\PlatinumKit-1-0-5-13_0ab854\Platinum\Source\Devices\MediaServer
+INCLUDEPATH += C:\Users\ML\Downloads\PlatinumKit-1-0-5-13_0ab854\PlatinumKit-1-0-5-13_0ab854\Platinum\Source\Extras
+INCLUDEPATH += C:\Users\ML\Downloads\PlatinumKit-1-0-5-13_0ab854\PlatinumKit-1-0-5-13_0ab854\Neptune\Source\Core
+
+QMAKE_CXXFLAGS += /DNOMINMAX
